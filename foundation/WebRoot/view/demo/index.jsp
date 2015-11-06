@@ -136,8 +136,8 @@
 	<input type="date" class="form-control" placeholder="Text input">
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/resourse/js/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="../resourse/js/bootstrap.min.js"></script>
+	<script src="/resourse/js/bootstrap.min.js"></script>
 </body>
 </html>

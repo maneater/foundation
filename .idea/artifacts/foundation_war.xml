@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="foundation:war">
+    <output-path>$PROJECT_DIR$/foundation/target</output-path>
+    <root id="archive" name="foundation.web-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="foundation:war exploded" />
+    </root>
+  </artifact>
+</component>

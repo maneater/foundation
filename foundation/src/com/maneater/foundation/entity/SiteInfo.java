@@ -9,8 +9,6 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class SiteInfo {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+public class SiteInfo extends BaseEntity {
+
 }
