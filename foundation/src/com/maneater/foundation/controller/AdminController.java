@@ -21,7 +21,7 @@ public class AdminController {
     @RequestMapping("adminLogin")
     @ResponseBody
     public Result adminLogin(@RequestParam String name, @RequestParam String password) {
-        Admin admin = null;//adminService.login(name, password);
+        Admin admin = adminService.login(name, password);
         if (admin != null) {
             return Result.result(1, "", null);
         } else {
