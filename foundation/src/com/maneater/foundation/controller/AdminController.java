@@ -2,27 +2,32 @@ package com.maneater.foundation.controller;
 
 import com.maneater.foundation.entity.Admin;
 import com.maneater.foundation.service.IAdminService;
+import com.maneater.foundation.uitl.SysUtil;
 import com.maneater.foundation.vo.Result;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "admin")
 public class AdminController {
-
+    private final static Logger logger = Logger.getLogger(AdminController.class);
 
     @Resource
     private IAdminService adminService;
 
     @RequestMapping("adminLogin")
     @ResponseBody
-    public Result adminLogin(@RequestParam String name, @RequestParam String password) {
-        Admin admin = adminService.login(name, password);
+    public Result adminLogin(HttpServletRequest req, @RequestParam String name, @RequestParam String password) {
+        logger.info("requestLogin:" + name + password);
+        Admin admin = adminService.findByNameAndPass(name, password);
         if (admin != null) {
+            SysUtil.login(req, admin);
             return Result.result(1, "", null);
         } else {
             return Result.result(0, "用户名或密码错误", null);

@@ -16,7 +16,7 @@ public class AdminService implements IAdminService {
     private AdminRepository adminDao;
 
     @Override
-    public Admin login(String name, String password) {
+    public Admin findByNameAndPass(String name, String password) {
         return adminDao.findByNameAndPassword(name, password);
     }
 }

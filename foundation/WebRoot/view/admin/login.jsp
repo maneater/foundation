@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
+<%@include file="common.jsp" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -9,7 +10,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>登录</title>
     <!-- Bootstrap -->
-    <link href="../resourse/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${appPath}/view/resourse/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body {
             padding-top: 40px;
@@ -57,16 +58,20 @@
             border-top-right-radius: 0;
         }
     </style>
-    <script src="../resourse/js/jquery.min.js"></script>
+    <script src="${appPath}/view/resourse/js/jquery.min.js"></script>
     <script>
         $().ready(function () {
             $("#btnLogin").bind("click", function () {
                 $.ajax({
                     url: "./adminLogin",
                     dataType: "json",
-                    data: {'name': 'xx', 'password': 'xx'},
+                    data: {'name': $("#inputEmail").val(), 'password': $("#inputPassword").val()},
                     success: function (result) {
-                        alert(result.msg);
+                        if (result.code == 1) {
+                            window.location.href = "${appPath}/admin/index";
+                        } else {
+                            alert(result.msg);
+                        }
                     }
                 });
             });
@@ -77,9 +82,9 @@
 
 <div class="container">
     <div class="form-signin">
-        <h2 class="form-signin-heading">${isOpen?"欢迎登陆":"暂时无法服务"}</h2>
+        <h2 class="form-signin-heading">${pageContext.request.contextPath}${isOpen?"欢迎登陆":"暂时无法服务"}</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="用户名" required>
+        <input type="text" id="inputEmail" class="form-control" placeholder="用户名" required>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="密   码" required>
 
