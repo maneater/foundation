@@ -41,7 +41,7 @@ public class AdminFilter implements Filter {
             if (urlSet.contains(reqPath)) {
                 chain.doFilter(request, response);
             } else {
-                rp.sendRedirect("login");
+                rp.sendRedirect(rq.getContextPath() + "/admin/login");
             }
         }
     }

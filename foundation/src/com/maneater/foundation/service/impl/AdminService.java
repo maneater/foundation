@@ -6,6 +6,7 @@ import com.maneater.foundation.service.IAdminService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/6 0006.
@@ -18,5 +19,10 @@ public class AdminService implements IAdminService {
     @Override
     public Admin findByNameAndPass(String name, String password) {
         return adminDao.findByNameAndPassword(name, password);
+    }
+
+    @Override
+    public List<Admin> listUsers(int targetPage, int pageSize) {
+        return null;
     }
 }

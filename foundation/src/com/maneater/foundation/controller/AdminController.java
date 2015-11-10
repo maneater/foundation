@@ -1,11 +1,13 @@
 package com.maneater.foundation.controller;
 
+import com.maneater.foundation.Config;
 import com.maneater.foundation.entity.Admin;
 import com.maneater.foundation.service.IAdminService;
 import com.maneater.foundation.uitl.SysUtil;
 import com.maneater.foundation.vo.Result;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,7 +42,8 @@ public class AdminController {
     }
 
     @RequestMapping("index")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute(Config.ADMIN_ACT_NAME, "index");
         return "/admin/index";
     }
 }
