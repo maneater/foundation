@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/9 0009.
@@ -21,6 +20,7 @@ import java.util.List;
 public class UserController {
     @Resource
     private IUserService userService = null;
+
 
     @RequestMapping("index")
     public String index(Model model, @RequestParam(defaultValue = "1") int tagetPage, @RequestParam(defaultValue = Config.PAGE_SIZE) int pageSize) {
@@ -37,6 +37,14 @@ public class UserController {
         model.addAttribute("pagePagination", pageUtil.getHtml());
 
         return "/admin/users";
+    }
+
+    @RequestMapping("show")
+    public String show(Model model, @RequestParam(required = true) int id) {
+        model.addAttribute(Config.ADMIN_ACT_NAME, "users");
+        User user = userService.findUser(id);
+        model.addAttribute("item", user);
+        return "/admin/users_show";
     }
 
 }

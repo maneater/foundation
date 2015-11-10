@@ -11,4 +11,6 @@ public interface IUserService {
     public User findByLoginAndPassword(String name, String password);
 
     public Page<User> list(int targetPage, int pagetSize);
+
+    User findUser(long userId);
 }

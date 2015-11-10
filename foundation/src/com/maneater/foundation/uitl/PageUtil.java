@@ -38,8 +38,8 @@ public class PageUtil {
         </li>
         </ul>
         </nav>*/
-    private String preTagFormat  = "<li><a href=\"{url}\" aria-label=\"Previous\"><span aria-hidden=\"true\">Previous</span></a></li>";
-    private String nextTagFormat = "<li><a href=\"{url}\" aria-label=\"Next\"><span aria-hidden=\"true\">Next</span></a></li>";
+    private String preTagFormat  = "<li><a href=\"{url}\">上一页</a></li>";
+    private String nextTagFormat = "<li><a href=\"{url}\">下一页</a></li>";
     private String numTagFormat  = "<li><a href=\"{url}\">{number}</a></li>";
     private String curTagFormat  = "<li class=\"active\"><a href=\"#\" >{number}</a></li>";
     private String expandTagFormat = "<li class=\"disabled\"><a href=\"#\">......</a></li>";

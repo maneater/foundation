@@ -84,9 +84,9 @@
     <div class="form-signin">
         <h2 class="form-signin-heading">${pageContext.request.contextPath}${isOpen?"欢迎登陆":"暂时无法服务"}</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="text" id="inputEmail" class="form-control" placeholder="用户名" required>
+        <input type="text" id="inputEmail" class="form-control" placeholder="用户名" value="admin" required>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="密   码" required>
+        <input type="password" id="inputPassword" class="form-control" placeholder="密   码" value="admin" required>
 
         <div class="checkbox">
             <label> <input type="checkbox" id="ckRemember" value="remember-me">记住我

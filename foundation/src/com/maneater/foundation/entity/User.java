@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-@Table(name = "t_users")
+@Table(name = "t_user")
 public class User extends BaseEntity {
 
 
@@ -16,7 +16,7 @@ public class User extends BaseEntity {
     private String nick;
     private String email;
     private String phone;
-    private String from;
+    private String source;
 
     public String getLogin() {
         return login;
@@ -58,11 +58,11 @@ public class User extends BaseEntity {
         this.phone = phone;
     }
 
-    public String getFrom() {
-        return from;
+    public String getSource() {
+        return source;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setSource(String source) {
+        this.source = source;
     }
 }

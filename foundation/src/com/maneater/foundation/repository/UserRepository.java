@@ -1,6 +1,5 @@
 package com.maneater.foundation.repository;
 
-import com.maneater.foundation.entity.Admin;
 import com.maneater.foundation.entity.User;
 
 /**
