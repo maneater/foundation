@@ -58,25 +58,6 @@
             border-top-right-radius: 0;
         }
     </style>
-    <script src="${appPath}/view/resourse/js/jquery.min.js"></script>
-    <script>
-        $().ready(function () {
-            $("#btnLogin").bind("click", function () {
-                $.ajax({
-                    url: "./adminLogin",
-                    dataType: "json",
-                    data: {'name': $("#inputEmail").val(), 'password': $("#inputPassword").val()},
-                    success: function (result) {
-                        if (result.code == 1) {
-                            window.location.href = "${appPath}/admin/index";
-                        } else {
-                            alert(result.msg);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
 </head>
 <body>
 
@@ -98,6 +79,25 @@
     </div>
 
 </div>
+<script src="${appPath}/view/resourse/js/jquery.min.js"></script>
+<script>
+    $().ready(function () {
+        $("#btnLogin").bind("click", function () {
+            $.ajax({
+                url: "./adminLogin",
+                dataType: "json",
+                data: {'name': $("#inputEmail").val(), 'password': $("#inputPassword").val()},
+                success: function (result) {
+                    if (result.code == 1) {
+                        window.location.href = "${appPath}/admin/index";
+                    } else {
+                        alert(result.msg);
+                    }
+                }
+            });
+        });
+    });
+</script>
 <!-- /container -->
 </body>
 </html>
