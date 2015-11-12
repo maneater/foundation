@@ -27,14 +27,17 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">User Information</h1>
+            <h1 class="page-header">User Information-${item.id}</h1>
 
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="itemForm">
+
+                <input type="hidden" name="id" value="${item.id}">
+
                 <div class="form-group col-sm-12 col-md-4">
                     <label for="nick" class="control-label col-sm-2">nick</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control disabled " id="nick"
+                        <input type="text" name="nick" class="form-control disabled" id="nick"
                                value="${item.nick}">
                     </div>
                 </div>
@@ -42,7 +45,7 @@
                     <label for="login" class="control-label col-sm-2">login</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control disabled " id="login"
+                        <input type="text" name="login" class="form-control disabled " id="login"
                                value="${item.login}" disabled>
                     </div>
                 </div>
@@ -83,7 +86,9 @@
 
                 <div class="col-sm-12 ">
                     <div class="col-sm-12 col-md-4 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary form-control">Submit</button>
+                        <button type="button" data-toggle="modal" data-target="#confirmModal"
+                                class="btn btn-primary form-control">Submit
+                        </button>
                     </div>
                 </div>
 
@@ -95,26 +100,61 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" style="top:20%;" id="confirmModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Notification</h4>
+            </div>
+            <div class="modal-body" id="#confirmModalContent">
+                Are your confirm ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnConfirm">Confirm</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal" style="top:40%;" id="progressModal" tabindex="-1" role="dialog" aria-hidden="true"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                submitting...
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="${appPath}/view/resourse/js/jquery.min.js"></script>
 <script src="${appPath}/view/resourse/js/bootstrap.min.js"></script>
+<script src="${appPath}/view/admin/js/submit.js"></script>
 
 <script>
+
     $().ready(function () {
-        $("#btnLogin").bind("click", function () {
-            $.ajax({
-                url: "./adminLogin",
-                dataType: "json",
-                data: {'name': $("#inputEmail").val(), 'password': $("#inputPassword").val()},
-                success: function (result) {
-                    if (result.code == 1) {
-                        window.location.href = "${appPath}/admin/index";
-                    } else {
-                        alert(result.msg);
-                    }
-                }
+        $("#btnConfirm").bind("click", function () {
+            $("#confirmModal").modal('hide');
+            $("#progressModal").modal('show');
+            submitJson("itemForm", "./update", function (result) {
+                $("#progressModal").modal('hide');
+                alert(result.msg);
             });
         });
     });

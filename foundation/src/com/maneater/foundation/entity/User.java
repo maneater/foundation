@@ -65,4 +65,16 @@ public class User extends BaseEntity {
     public void setSource(String source) {
         this.source = source;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", nick='" + nick + '\'' +
+                ", phone='" + phone + '\'' +
+                ", source='" + source + '\'' +
+                "} " + super.toString();
+    }
 }

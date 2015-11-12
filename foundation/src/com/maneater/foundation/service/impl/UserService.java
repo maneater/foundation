@@ -32,5 +32,10 @@ public class UserService implements IUserService {
         return userDao.findOne(userId);
     }
 
+    @Override
+    public boolean save(User user) {
+        return userDao.save(user) != null;
+    }
+
 
 }

@@ -4,11 +4,16 @@ import com.maneater.foundation.Config;
 import com.maneater.foundation.entity.User;
 import com.maneater.foundation.service.IUserService;
 import com.maneater.foundation.uitl.PageUtil;
+import com.maneater.foundation.vo.Result;
+import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
@@ -18,6 +23,8 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("admin/users")
 public class UserController {
+    private final static Logger logger = Logger.getLogger(UserController.class);
+
     @Resource
     private IUserService userService = null;
 
@@ -45,6 +52,25 @@ public class UserController {
         User user = userService.findUser(id);
         model.addAttribute("item", user);
         return "/admin/users_show";
+    }
+
+    @RequestMapping("update")
+    @ResponseBody
+    public Result update(@RequestBody User user) {
+        logger.info("update->" + user.toString());
+        if (StringUtils.isEmpty(user.getId())) {
+            return Result.result(0, "user id:" + user.getId() + " can not found!", null);
+        }
+        User localUser = userService.findUser(user.getId());
+        if (localUser == null) {
+            return Result.result(0, "user id:" + user.getId() + " can not found!", null);
+        }
+
+        //copy readOnly
+        user.setLogin(localUser.getLogin());
+
+        boolean success = userService.save(user);
+        return Result.result(1, "success", null);
     }
 
 }

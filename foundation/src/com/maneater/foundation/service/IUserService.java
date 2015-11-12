@@ -13,4 +13,6 @@ public interface IUserService {
     public Page<User> list(int targetPage, int pagetSize);
 
     User findUser(long userId);
+
+    boolean save(User user);
 }
