@@ -102,11 +102,11 @@
 
 
 <!-- Modal -->
-<div class="modal fade" style="top:20%;" id="confirmModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" style="top:20%;" id="confirmModal" tabindex="-1" role="dialog" aria-hidden="true"
+     data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Notification</h4>
             </div>
             <div class="modal-body" id="#confirmModalContent">
@@ -123,22 +123,6 @@
 </div>
 <!-- /.modal -->
 
-<!-- Modal -->
-<div class="modal" style="top:40%;" id="progressModal" tabindex="-1" role="dialog" aria-hidden="true"
-     data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                submitting...
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -150,10 +134,14 @@
 
     $().ready(function () {
         $("#btnConfirm").bind("click", function () {
-            $("#confirmModal").modal('hide');
-            $("#progressModal").modal('show');
+            var btnConfirm = $(this).button('loading');
+            var btnCancel = $("#btnCancel").button('loading');
             submitJson("itemForm", "./update", function (result) {
-                $("#progressModal").modal('hide');
+                if (result && result.code == 1) {
+                    $("#confirmModal").modal('hide');
+                }
+                btnCancel.button('reset')
+                btnConfirm.button('reset');
                 alert(result.msg);
             });
         });
