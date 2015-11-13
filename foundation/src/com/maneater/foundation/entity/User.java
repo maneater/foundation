@@ -17,6 +17,7 @@ public class User extends BaseEntity {
     private String email;
     private String phone;
     private String source;
+    private String headPicUrl;
 
     public String getLogin() {
         return login;
@@ -66,6 +67,14 @@ public class User extends BaseEntity {
         this.source = source;
     }
 
+    public String getHeadPicUrl() {
+        return headPicUrl;
+    }
+
+    public void setHeadPicUrl(String headPicUrl) {
+        this.headPicUrl = headPicUrl;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -75,6 +84,7 @@ public class User extends BaseEntity {
                 ", nick='" + nick + '\'' +
                 ", phone='" + phone + '\'' +
                 ", source='" + source + '\'' +
+                ", headPicUrl='" + headPicUrl + '\'' +
                 "} " + super.toString();
     }
 }
