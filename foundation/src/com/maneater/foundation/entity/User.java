@@ -17,10 +17,24 @@ public class User extends BaseEntity {
     private String email;
     private String phone;
     private String source;
-    private String headPicUrl;
+    private String headPicUrl="http://chuantupian.com/8/uploads/2015/11/180824_8.jpg";
+
+    /**
+     * *
+     */
 
     public String getLogin() {
         return login;
+    }
+
+    private String info;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public void setLogin(String login) {
