@@ -1,4 +1,4 @@
-package com.maneater.foundation.controller;
+package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
 import com.maneater.foundation.entity.Admin;
@@ -29,7 +29,7 @@ public class AdminController {
         logger.info("requestLogin:" + name + password);
         Admin admin = adminService.findByNameAndPass(name, password);
         if (admin != null) {
-            SysUtil.login(req, admin);
+            SysUtil.adminLogin(req, admin);
             return Result.result(1, "", null);
         } else {
             return Result.result(0, "用户名或密码错误", null);

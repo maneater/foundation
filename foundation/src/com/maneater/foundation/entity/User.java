@@ -2,6 +2,7 @@ package com.maneater.foundation.entity;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,13 +12,15 @@ import javax.persistence.Table;
 public class User extends BaseEntity {
 
 
+    @Column(unique = true, nullable = false)
     private String login;
+    @Column(nullable = false)
     private String password;
     private String nick;
     private String email;
     private String phone;
     private String source;
-    private String headPicUrl="http://chuantupian.com/8/uploads/2015/11/180824_8.jpg";
+    private String headPicUrl = "http://chuantupian.com/8/uploads/2015/11/180824_8.jpg";
 
     /**
      * *

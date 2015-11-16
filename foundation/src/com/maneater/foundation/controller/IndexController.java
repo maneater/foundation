@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.maneater.foundation.service.IIndexService;
 
 @Controller
-@RequestMapping(value = "index")
 public class IndexController {
     @Resource
     private IIndexService indexService;
 
+    @RequestMapping(value = "index")
     public String index(ModelMap modelMap) {
         modelMap.put("isOpen", indexService.isSiteOpen());
         return "/index";

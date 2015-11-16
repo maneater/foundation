@@ -13,17 +13,18 @@ import java.util.Set;
 /**
  * Created by Administrator on 2015/11/6 0006.
  */
-public class AdminFilter implements Filter {
-    private final static Logger logger = Logger.getLogger(AdminFilter.class);
+public class UserFilter implements Filter {
+    private final static Logger logger = Logger.getLogger(UserFilter.class);
     private final static Set<String> urlSet = new HashSet<String>();
 
     static {
-        urlSet.add("/view/admin/login.jsp");
-        urlSet.add("/admin/adminLogin");
-        urlSet.add("/admin/login");
+        urlSet.add("/view/login.jsp");
+        urlSet.add("/user/login");
+        urlSet.add("/user/doLogin");
+        urlSet.add("/user/logout");
     }
 
-    public AdminFilter() {
+    public UserFilter() {
     }
 
     public void destroy() {
@@ -33,15 +34,15 @@ public class AdminFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest rq = (HttpServletRequest) request;
         HttpServletResponse rp = (HttpServletResponse) response;
-        logger.info("AdminFilter-" + rq.getServletPath());
+        logger.info("UserFilter-" + rq.getServletPath());
         String reqPath = rq.getServletPath();
-        if (SysUtil.checkAdminLogin(rq)) {
+        if (SysUtil.checkUserLogin(rq)) {
             chain.doFilter(request, response);
         } else {
             if (urlSet.contains(reqPath)) {
                 chain.doFilter(request, response);
             } else {
-                rp.sendRedirect(rq.getContextPath() + "/admin/login");
+                rp.sendRedirect(rq.getContextPath() + "/user/login");
             }
         }
     }
