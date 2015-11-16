@@ -22,6 +22,8 @@ public class UserFilter implements Filter {
         urlSet.add("/user/login");
         urlSet.add("/user/doLogin");
         urlSet.add("/user/logout");
+        urlSet.add("/user/register");
+        urlSet.add("/user/register.jsp");
     }
 
     public UserFilter() {

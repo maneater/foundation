@@ -42,6 +42,31 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "register", method = RequestMethod.GET)
+    public String register() {
+        return "/register";
+    }
+
+
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public String register(Model model, @RequestParam(required = false) String userName, @RequestParam(required = false) String password) {
+        if (userService.checkReigser(userName)) {
+            model.addAttribute("result", Result.result(0, "the name have be registed", null));
+            return "/register";
+        } else {
+            User user = new User();
+            user.setLogin(userName);
+            user.setPassword(password);
+            if (userService.save(user)) {
+                model.addAttribute("result", Result.result(0, "success,please login", null));
+                return "/login";
+            } else {
+                model.addAttribute("result", Result.result(1, "failed,try again later", null));
+                return "/register";
+            }
+        }
+    }
+
 
     @RequestMapping("logout")
     public String logout(HttpServletRequest req) {

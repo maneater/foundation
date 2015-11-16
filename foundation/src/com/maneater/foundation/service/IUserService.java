@@ -15,4 +15,6 @@ public interface IUserService {
     User findUser(long userId);
 
     boolean save(User user);
+
+    boolean checkReigser(String userName);
 }

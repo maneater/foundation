@@ -9,4 +9,5 @@ public interface UserRepository extends BaseRepository<User> {
 
     public User findByLoginAndPassword(String name, String password);
 
+    User findByLogin(String userName);
 }

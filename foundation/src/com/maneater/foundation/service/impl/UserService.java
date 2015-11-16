@@ -37,5 +37,10 @@ public class UserService implements IUserService {
         return userDao.save(user) != null;
     }
 
+    @Override
+    public boolean checkReigser(String userName) {
+        return (userDao.findByLogin(userName) != null);
+    }
+
 
 }

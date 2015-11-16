@@ -15,6 +15,11 @@
     <link href="${appPath}/view/resourse/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="${appPath}/view/admin/css/index.css" rel="stylesheet">
+    <style type="text/css">
+        td {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,6 +43,7 @@
                         <th>#</th>
                         <th>Nick</th>
                         <th>Login</th>
+                        <th>Head</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>From</th>
@@ -48,6 +54,8 @@
                     <c:forEach var="user" items="${userList}">
                         <tr>
                             <td>${user.id}</td>
+                            <td><img src="${user.headPicUrl}" alt="" style="width: 60px;height:60px;"
+                                     class="img-rounded"/></td>
                             <td>${user.nick}</td>
                             <td>${user.login}</td>
                             <td>${user.email}</td>
