@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<table>
-    <tr>
+<table style="border: solid red 1px;">
+    <tr >
         <th>#id</th>
         <th>name</th>
         <th>info</th>

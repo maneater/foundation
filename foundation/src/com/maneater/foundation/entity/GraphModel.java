@@ -1,8 +1,16 @@
 package com.maneater.foundation.entity;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Created by Administrator on 2015/11/18 0018.
  */
+@Entity
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Table(name = "t_graph_model")
 public class GraphModel extends BaseEntity {
 /*
     id#466=Kator Legaz#concept-sedan-01v1#CarNew

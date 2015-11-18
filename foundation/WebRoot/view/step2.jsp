@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action="${appPath}/step/step3" METHOD="post">
+<form action="${appPath}/step/step3" method="post">
     <table>
         <tr>
             <th>#id</th>
@@ -22,10 +22,11 @@
                 <th>${item.name}</th>
                 <th><img src="${item.icon}"/></th>
                 <th>${item.category}</th>
-                <th>${item.category}</th>
+                <th><input type="checkbox" name="modelIds" value="${item.id}"/></th>
             </tr>
         </c:forEach>
     </table>
+    <input type="submit" value="next"/>
 </form>
 
 

@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2015/11/18 0018.
@@ -31,8 +36,11 @@ public class AssembleController {
     }
 
     @RequestMapping(value = "step3", method = RequestMethod.POST)
-    public String prepareAppletZipProperties(Model model, @RequestParam long supplierId) {
-        model.addAttribute("itemList", supplierService.listGraphModelBySupplier(supplierId));
+    public String prepareAppletZipProperties(HttpSession session, Model model, @RequestParam Long[] modelIds) {
+        String realPath = session.getServletContext().getRealPath("/");
+        System.out.println(Arrays.toString(modelIds));
+        String zipProPath = supplierService.createAppletZip(realPath, modelIds);
+        model.addAttribute("propertiesPath", zipProPath);
         return "/step3";
     }
 }
