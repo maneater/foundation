@@ -41,6 +41,6 @@ public class AssembleController {
         System.out.println(Arrays.toString(modelIds));
         String zipProPath = supplierService.createAppletZip(realPath, modelIds);
         model.addAttribute("propertiesPath", zipProPath);
-        return "/step3";
+        return "/3d/step3";
     }
 }

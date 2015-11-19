@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("admin/users")
 public class UserController {
-    private final static Logger logger = Logger.getLogger(UserController.class);
+    private final static Logger logger = Logger.getLogger(UserController.class.getName());
 
     @Resource
     private IUserService userService = null;

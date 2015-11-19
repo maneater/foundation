@@ -14,6 +14,15 @@ public class ZipPropertiesUtil {
     private final static Logger logger = Logger.getLogger(ZipPropertiesUtil.class);
     static String PROPERTIES_TPL;
 
+    public static String getPathLocation(String appPath, String path) {
+        if (!StringUtils.isEmpty(path)) {
+            if (!path.toUpperCase().startsWith("HTTP://")) {
+                return appPath + "/" + path;
+            }
+        }
+        return path;
+    }
+
     private static String loadTpl() {
         if (!StringUtils.isEmpty(PROPERTIES_TPL)) {
             return PROPERTIES_TPL;
@@ -40,7 +49,24 @@ public class ZipPropertiesUtil {
     }
 
     public static String createZipProper(GraphModel graphModel) {
-        return loadTpl().replace("{numId}", forString(graphModel.getId())).replace("{name}", forString(graphModel.getName()));
+        return loadTpl().replace("{numId}", forString(graphModel.getId()))
+                .replace("{name}", forString(graphModel.getName()))
+                .replace("{sequenceName}", forString(graphModel.getSequenceName()))
+                .replace("{tags}", forString(graphModel.getTags()))
+                .replace("{creationDate}", forString(""))
+                .replace("{category}", forString(graphModel.getCategory()))
+                .replace("{icon}", forString(graphModel.getIcon()))
+                .replace("{iconDigest}", forString(graphModel.getIconDigest()))
+                .replace("{model}", forString(graphModel.getModel()))
+                .replace("{modelDigest}", forString(graphModel.getModelDigest()))
+                .replace("{multiPartModel}", forString(graphModel.isMultiPartModel()))
+                .replace("{width}", forString(graphModel.getWidth()))
+                .replace("{depth}", forString(graphModel.getDepth()))
+                .replace("{height}", forString(graphModel.getHeight()))
+                .replace("{movable}", forString(graphModel.isMovable()))
+                .replace("{doorOrWindow}", forString(graphModel.isDoorOrWindow()))
+                .replace("{creator}", forString(""));
+
     }
 
     public static String forString(Object object) {

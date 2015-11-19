@@ -14,7 +14,8 @@ import java.util.Set;
  * Created by Administrator on 2015/11/6 0006.
  */
 public class AdminFilter implements Filter {
-    private final static Logger logger = Logger.getLogger(AdminFilter.class);
+
+    private final static Logger logger = Logger.getLogger(AdminFilter.class.getName());
     private final static Set<String> urlSet = new HashSet<String>();
 
     static {

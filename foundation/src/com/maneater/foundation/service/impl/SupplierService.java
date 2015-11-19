@@ -1,7 +1,7 @@
 package com.maneater.foundation.service.impl;
 
 import com.maneater.foundation.entity.GraphModel;
-import com.maneater.foundation.entity.Supplier;
+import com.maneater.foundation.entity.GraphSupplier;
 import com.maneater.foundation.repository.GraphModelRepository;
 import com.maneater.foundation.repository.SupplierRepository;
 import com.maneater.foundation.uitl.FileUtil;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,13 +23,33 @@ public class SupplierService {
     @Resource
     private GraphModelRepository graphModelRepository;
 
+
+    public List<GraphSupplier> listAllSupplier() {
+        return supplierRepository.findAll();
+    }
+
+    public GraphSupplier findSupplierById(Long id) {
+        return supplierRepository.findOne(id);
+    }
+
+    public GraphSupplier createSupplier(GraphSupplier graphSupplier) {
+        return supplierRepository.saveAndFlush(graphSupplier);
+    }
+
+    public GraphSupplier updateSupplier(GraphSupplier graphSupplier) {
+        return supplierRepository.saveAndFlush(graphSupplier);
+    }
+
+    public boolean changeEnableStatus(Long supplierId, boolean value) {
+        return supplierRepository.setEnableStatus(supplierId, value) != null;
+    }
+
+    /***************/
+
     public List<GraphModel> listGraphModelBySupplier(long supplierId) {
         return graphModelRepository.findBySupplierId(supplierId);
     }
 
-    public List<Supplier> listAllSupplier() {
-        return supplierRepository.findAll();
-    }
 
     public String createAppletZip(String baseDirPath, Long[] modelIds) {
 

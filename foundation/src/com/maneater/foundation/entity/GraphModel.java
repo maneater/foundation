@@ -1,7 +1,9 @@
 package com.maneater.foundation.entity;
 
+import com.maneater.foundation.uitl.ZipPropertiesUtil;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -30,24 +32,75 @@ public class GraphModel extends BaseEntity {
     doorOrWindow#466=false
     creator#466=Kator Legaz*/
 
+    @Column(unique = true, nullable = false)
+    private String sequenceName;
+    @Column(nullable = false)
     private String name;
     private String tags;
+    @Column(nullable = false)
     private String category;
+    @Column(nullable = false)
     private String icon;
+    @Column(nullable = false)
     private String iconDigest;
     private String model;
     private String modelDigest;
+    @Column(nullable = true, columnDefinition = "int default 0")
     private boolean multiPartModel;
     private Double width;
     private Double depth;
     private Double height;
+    @Column(nullable = true, columnDefinition = "int default 1")
     private boolean movable;
+    @Column(nullable = true, columnDefinition = "int default 0")
     private boolean doorOrWindow;
+    private Double dropOnTopElevation;
+
+    /*@Transient表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性*/
 
     private long supplierId;
-    private String supplierName;
+    private long categoryId;
+    private boolean enable;
 
+    public boolean isEnable() {
+        return enable;
+    }
 
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getSequenceName() {
+        return sequenceName;
+    }
+
+    public Double getDropOnTopElevation() {
+        return dropOnTopElevation;
+    }
+
+    public void setDropOnTopElevation(Double dropOnTopElevation) {
+        this.dropOnTopElevation = dropOnTopElevation;
+    }
+
+    public void setSequenceName(String sequenceName) {
+        this.sequenceName = sequenceName;
+    }
+
+    public long getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(long supplierId) {
+        this.supplierId = supplierId;
+    }
 
     public String getCategory() {
         return category;
@@ -83,6 +136,10 @@ public class GraphModel extends BaseEntity {
 
     public String getIcon() {
         return icon;
+    }
+
+    public String getIconPath(String appPath) {
+        return ZipPropertiesUtil.getPathLocation(appPath, this.getIcon());
     }
 
     public void setIcon(String icon) {

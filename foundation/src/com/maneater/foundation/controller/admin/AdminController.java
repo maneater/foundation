@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(value = "admin")
 public class AdminController {
-    private final static Logger logger = Logger.getLogger(AdminController.class);
+    private final static Logger logger = Logger.getLogger(AdminController.class.getName());
 
     @Resource
     private IAdminService adminService;

@@ -1,69 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-	<context:component-scan base-package="com.maneater.foundation.controller" />
+    <context:component-scan base-package="com.maneater.foundation.controller"/>
 
-	<!-- 用于将对象转换为 JSON -->
-	<bean id="jsonConverter"
-		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
-	<bean id="stringConverter"
-		class="org.springframework.http.converter.StringHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/plain;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
+    <!-- 用于将对象转换为 JSON -->
+    <bean id="jsonConverter"
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+    <bean id="stringConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- one of the properties available; the maximum file size in bytes -->
-		<property name="maxUploadSize" value="10240000" />
-	</bean>
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize" value="10240000"/>
+    </bean>
 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="stringConverter" />
-				<ref bean="jsonConverter" />
-			</list>
-		</property>
-	</bean>
-	<mvc:annotation-driven></mvc:annotation-driven>
-	<!-- <mvc:annotation-driven> <mvc:message-converters register-defaults="true"> 
-		<bean class="org.springframework.http.converter.StringHttpMessageConverter"> 
-		<constructor-arg value="UTF-8" /> </bean> <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
-		<property name="prettyPrint" value="true" /> </bean> </mvc:message-converters> 
-		</mvc:annotation-driven> -->
-	<!-- 定义JSP文件的位置 -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/view" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+    <bean
+            class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="stringConverter"/>
+                <ref bean="jsonConverter"/>
+            </list>
+        </property>
+    </bean>
+    <mvc:annotation-driven></mvc:annotation-driven>
+    <!-- <mvc:annotation-driven> <mvc:message-converters register-defaults="true">
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+        <constructor-arg value="UTF-8" /> </bean> <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="prettyPrint" value="true" /> </bean> </mvc:message-converters>
+        </mvc:annotation-driven> -->
+    <!-- 定义JSP文件的位置 -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/view"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 
 
-	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->
-	<mvc:default-servlet-handler />
+    <!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->
+    <mvc:default-servlet-handler/>
 
-	<!-- 定义无需Controller的url<->view直接映射 -->
-	<mvc:view-controller path="/" view-name="redirect:/index" />
+    <!-- 定义无需Controller的url<->view直接映射 -->
+    <mvc:view-controller path="/" view-name="redirect:/index"/>
 
-	<!-- <mvc:interceptors> <bean class="com.yue.interceptor.RequestInterceptor1"></bean> 
-		<bean class="com.yue.interceptor.RequestInterceptor"></bean> </mvc:interceptors> -->
-	<!-- 将Controller抛出的异常转到特定View 打开注释后会跳转到500.jsp中 -->
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="java.lang.Throwable">/error/500</prop>
-			</props>
-		</property>
-	</bean>
+    <!-- <mvc:interceptors> <bean class="com.yue.interceptor.RequestInterceptor1"></bean>
+        <bean class="com.yue.interceptor.RequestInterceptor"></bean> </mvc:interceptors> -->
+    <!-- 将Controller抛出的异常转到特定View 打开注释后会跳转到500.jsp中 -->
+
+    <!-- 全局异常配置 start -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">/error/500</prop>
+                <prop key="java.lang.Throwable">/error/500</prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="errors/error">500</prop>
+                <prop key="errors/404">404</prop>
+            </props>
+        </property>
+        <property name="warnLogCategory" value="info"></property>
+        <property name="defaultErrorView" value="/error/500"></property>
+    </bean>
+
 </beans>
