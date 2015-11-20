@@ -5,6 +5,8 @@ import com.maneater.foundation.entity.GraphModel;
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -74,6 +76,22 @@ public class FileUtil {
         } finally {
             close(inputStream);
             close(outPutStream);
+        }
+        return true;
+    }
+
+    public static boolean copy(InputStream inputStream, FileChannel outChannel) throws IOException {
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        byte[] data = new byte[1024];
+        int dataSize;
+        try {
+            while ((dataSize = inputStream.read(data)) != -1) {
+                byteBuffer.clear();
+                byteBuffer.put(data, 0, dataSize);
+                outChannel.write(byteBuffer);
+            }
+        } finally {
+            close(inputStream);
         }
         return true;
     }
