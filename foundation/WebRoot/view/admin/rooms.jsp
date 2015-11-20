@@ -32,50 +32,52 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">User List</h1>
+            <h1 class="page-header">Room List</h1>
 
-            ${pagePagination}
+
+            <a href="${appPath}/admin/room/add">Add</a>
 
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Head</th>
-                        <th>Email</th>
-                        <th>From</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Picture</th>
+                        <th>Model</th>
                         <th>Act</th>
-                        <th>CreateDate</th>
+                        <th>LastUpdate</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="user" items="${userList}">
+                    <c:forEach var="item" items="${itemList}">
                         <tr>
-                            <td>${user.id}</td>
-                            <td><img src="${user.headPicUrl}" alt="" style="width: 60px;height:60px;"
+                            <td>${item.id}</td>
+                            <td><img src="${item.name}" alt="" style="width: 60px;height:60px;"
                                      class="img-rounded"/></td>
-                            <td>${user.email}</td>
-                            <td>${user.source}</td>
+                            <td>${item.categoryName}</td>
+                            <td>${item.picUrl}</td>
+                            <td>${item.modelPath}</td>
                             <td>
-                                <a href="${appPath}/admin/users/show?id=${user.id}"
+                                <a href="${appPath}/admin/room/show?id=${user.id}"
                                    class="btn btn-default btn-xs" target="_self">查看</a>
-                                <button app-data="${user.id}|${user.source}" type="button"
+                                <button app-data="${item.id}|${item.enable}" type="button"
                                         class="btn btn-warning btn-xs" title="当前停用">已禁用
                                 </button>
                             </td>
                             <td>
-                                ${user.createTime}
+                                    ${item.lastUpdateTime}
                             </td>
                         </tr>
                     </c:forEach>
 
                     </tbody>
                 </table>
-                <c:if test="${empty userList}">
-                    <p>No User</p>
+                <c:if test="${empty itemList}">
+                    <p>No Rooms</p>
                 </c:if>
             </div>
-            ${pagePagination}
         </div>
     </div>
 </div>

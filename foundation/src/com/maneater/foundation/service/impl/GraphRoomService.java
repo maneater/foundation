@@ -22,8 +22,15 @@ public class GraphRoomService {
         return graphRoomRepository.findByCategoryId(categoryId);
     }
 
+    public GraphRoom findById(Long id) {
+        return graphRoomRepository.findOne(id);
+    }
+
     public List<GraphRoom> lisAll() {
         return graphRoomRepository.findAll();
     }
 
+    public GraphRoom save(GraphRoom graphRoom) {
+        return graphRoomRepository.saveAndFlush(graphRoom);
+    }
 }

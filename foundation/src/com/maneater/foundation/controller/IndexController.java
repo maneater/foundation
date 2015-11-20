@@ -16,6 +16,6 @@ public class IndexController {
     @RequestMapping(value = "index")
     public String index(ModelMap modelMap) {
         modelMap.put("isOpen", indexService.isSiteOpen());
-        return "/index";
+        return "/front/index";
     }
 }

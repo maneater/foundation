@@ -7,7 +7,7 @@ import com.maneater.foundation.entity.User;
  */
 public interface UserRepository extends BaseRepository<User> {
 
-    public User findByLoginAndPassword(String name, String password);
+    public User findByEmailAndPassword(String email, String password);
 
-    User findByLogin(String userName);
+    User findByEmail(String userName);
 }

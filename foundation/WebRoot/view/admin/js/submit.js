@@ -29,3 +29,16 @@ var submitJson = function (formId, url, callback) {
         }
     });
 }
+
+var submitParams = function (url, data, callback) {
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success: function (result) {
+            callback(result);
+        }
+    });
+}
+

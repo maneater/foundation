@@ -18,8 +18,8 @@ public class UserService implements IUserService {
     private UserRepository userDao;
 
     @Override
-    public User findByLoginAndPassword(String name, String password) {
-        return userDao.findByLoginAndPassword(name, password);
+    public User findByEmailAndPassword(String email, String password) {
+        return userDao.findByEmailAndPassword(email, password);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean checkReigser(String userName) {
-        return (userDao.findByLogin(userName) != null);
+    public boolean checkReigser(String email) {
+        return (userDao.findByEmail(email) != null);
     }
 
 

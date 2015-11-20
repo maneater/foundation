@@ -4,6 +4,7 @@ import com.maneater.foundation.entity.GraphModel;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,9 +18,11 @@ public interface GraphModelRepository extends BaseRepository<GraphModel> {
     public List<GraphModel> findByCategoryId(Long categoryId);
 
     @Modifying(clearAutomatically = true)
-    @Query(value = "update GraphModel model set room.enable=:enable where room.id=:id")
+    @Transactional
+    @Query(value = "update GraphModel model set model.enable=:enable where model.id=:id")
     public Long setEnableStatus(@Param("id") Long id, @Param("enable") boolean enable);
 
+    @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "update GraphModel model set model.category=:name where model.categoryId=:id")
     public Long syncCategoryName(@Param("id") Long categoryId, @Param("name") String categoryName);

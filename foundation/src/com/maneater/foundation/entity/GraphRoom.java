@@ -13,19 +13,25 @@ import javax.persistence.Table;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Table(name = "t_graph_room")
 public class GraphRoom extends BaseEntity {
-    @Column(nullable = false)
-    private String name;
-    private String info;
     private String picUrl;
     private Long categoryId;
-    private boolean enable;
+    private String categoryName;
+    private String modelPath;
 
-    public boolean isEnable() {
-        return enable;
+    public String getModelPath() {
+        return modelPath;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setModelPath(String modelPath) {
+        this.modelPath = modelPath;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public Long getCategoryId() {
@@ -44,19 +50,4 @@ public class GraphRoom extends BaseEntity {
         this.picUrl = picUrl;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -4,6 +4,7 @@ import com.maneater.foundation.entity.GraphModelCategory;
 import com.maneater.foundation.repository.GraphModelCategoryRepository;
 import com.maneater.foundation.repository.GraphModelRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;

@@ -27,7 +27,7 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">User Information-${item.id}</h1>
+            <h1 class="page-header">${isAdd?"Room Information":"Add Room"}</h1>
 
             <form class="form-horizontal" id="itemForm">
 
@@ -39,17 +39,20 @@
 
                     <div class="col-sm-4">
                         <input type="email" class="form-control" id="email" value="${item.email}"
-                               name="email" disabled>
+                               name="email" ${isAdd?"":"disabled"} >
                     </div>
                 </div>
 
-                <div class="form-group col-sm-12 ">
-                    <label for="createTime" class="control-label  col-sm-2">createTime</label>
+                <c:if test="${!isAdd}">
+                    <div class="form-group col-sm-12 ">
+                        <label for="createTime" class="control-label  col-sm-2">createTime</label>
 
-                    <div class="col-sm-4">
-                        <input type="email" class="form-control" id="createTime" value="${item.createTime}"  disabled>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" id="createTime" value="${item.createTime}"
+                                   disabled>
+                        </div>
                     </div>
-                </div>
+                </c:if>
 
                 <div class="form-group col-sm-12 ">
                     <label for="headPicUrl" class="control-label  col-sm-2">headPicUrl</label>
@@ -94,8 +97,8 @@
                 </div>
 
             </form>
-            <c:if test="${empty item}">
-                <p>Not find target User</p>
+            <c:if test="${(!isAdd) && (empty item) }">
+                <p>Not find</p>
             </c:if>
         </div>
     </div>

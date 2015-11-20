@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
@@ -26,13 +23,13 @@ public class AssembleController {
     @RequestMapping(value = "step1", method = RequestMethod.GET)
     public String listSupplier(Model model) {
         model.addAttribute("itemList", supplierService.listAllSupplier());
-        return "/step1";
+        return "/front/step1";
     }
 
     @RequestMapping(value = "step2", method = RequestMethod.GET)
     public String listModelBySupplier(Model model, @RequestParam long supplierId) {
         model.addAttribute("itemList", supplierService.listGraphModelBySupplier(supplierId));
-        return "/step2";
+        return "/front/step2";
     }
 
     @RequestMapping(value = "step3", method = RequestMethod.POST)

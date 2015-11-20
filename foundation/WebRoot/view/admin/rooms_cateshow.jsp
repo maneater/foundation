@@ -27,7 +27,7 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">User Information-${item.id}</h1>
+            <h3 class="page-header">${isAdd?"Add Room Category":"Room Category Informatio"}</h3>
 
             <form class="form-horizontal" id="itemForm">
 
@@ -35,34 +35,37 @@
 
 
                 <div class="form-group col-sm-12 ">
-                    <label for="email" class="control-label  col-sm-2">email</label>
+                    <label for="name" class="control-label  col-sm-2">Name</label>
 
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="email" value="${item.email}"
-                               name="email" disabled>
+                        <input type="text" class="form-control" id="name" value="${item.name}"
+                               name="name">
                     </div>
                 </div>
 
-                <div class="form-group col-sm-12 ">
-                    <label for="createTime" class="control-label  col-sm-2">createTime</label>
+                <c:if test="${!isAdd}">
+                    <div class="form-group col-sm-12 ">
+                        <label for="createTime" class="control-label  col-sm-2">CreateTime</label>
 
-                    <div class="col-sm-4">
-                        <input type="email" class="form-control" id="createTime" value="${item.createTime}"  disabled>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" id="createTime" value="${item.createTime}"
+                                   disabled>
+                        </div>
                     </div>
-                </div>
+                </c:if>
 
                 <div class="form-group col-sm-12 ">
-                    <label for="headPicUrl" class="control-label  col-sm-2">headPicUrl</label>
+                    <label for="picUrl" class="control-label  col-sm-2">Picture</label>
 
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="headPicUrl" value="${item.headPicUrl}"
-                               name="headPicUrl">
+                        <input type="text" class="form-control" id="picUrl" value="${item.picUrl}"
+                               name="picUrl">
                     </div>
                 </div>
 
 
                 <div class="form-group col-sm-12 ">
-                    <label for="info" class="control-label  col-sm-2">info</label>
+                    <label for="info" class="control-label  col-sm-2">Info</label>
 
                     <div class="col-sm-9">
                         <input type="text" class="form-control" id="info" value="${item.info}"
@@ -72,7 +75,7 @@
 
 
                 <div class="form-group col-sm-12 ">
-                    <label for="enable" class="control-label  col-sm-2">enable</label>
+                    <label for="enable" class="control-label  col-sm-2">Enable</label>
 
                     <div class="col-sm-9">
                         <label class="radio-inline">
@@ -94,8 +97,8 @@
                 </div>
 
             </form>
-            <c:if test="${empty item}">
-                <p>Not find target User</p>
+            <c:if test="${(!isAdd) && (empty item) }">
+                <p>Not find</p>
             </c:if>
         </div>
     </div>
@@ -137,7 +140,7 @@
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
             var btnCancel = $("#btnCancel").button('loading');
-            submitJson("itemForm", "./update", function (result) {
+            submitJson("itemForm", "./catesave", function (result) {
                 if (result && result.code == 1) {
                     $("#confirmModal").modal('hide');
                 }

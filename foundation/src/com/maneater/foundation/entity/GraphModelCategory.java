@@ -13,32 +13,13 @@ import javax.persistence.Table;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Table(name = "t_graph_model_category")
 public class GraphModelCategory extends BaseEntity {
-    @Column(unique = true, nullable = false)
-    private String name;
-    private String info;
-    private boolean enable;
+    private String picUrl;
 
-    public boolean isEnable() {
-        return enable;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 }

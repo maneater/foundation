@@ -35,7 +35,6 @@ public class GraphModel extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String sequenceName;
     @Column(nullable = false)
-    private String name;
     private String tags;
     @Column(nullable = false)
     private String category;
@@ -60,14 +59,23 @@ public class GraphModel extends BaseEntity {
 
     private long supplierId;
     private long categoryId;
-    private boolean enable;
+    private String qyt;
+    private String code;
 
-    public boolean isEnable() {
-        return enable;
+    public String getCode() {
+        return code;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getQyt() {
+        return qyt;
+    }
+
+    public void setQyt(String qyt) {
+        this.qyt = qyt;
     }
 
     public long getCategoryId() {
@@ -186,13 +194,6 @@ public class GraphModel extends BaseEntity {
         this.multiPartModel = multiPartModel;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getTags() {
         return tags;

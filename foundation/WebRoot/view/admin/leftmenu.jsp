@@ -9,12 +9,21 @@
     <ul class="nav nav-sidebar">
         <li class="${act eq 'index' ? "active":""}"><a href="${appPath}/admin/index">Overview</a></li>
         <li class="${act eq 'users' ? "active":""}"><a href="${appPath}/admin/users/index">Users</a></li>
-        <li class="${act eq 'product' ? "active":""}"><a href="#">Products</a></li>
-        <li class="${act eq 'category' ? "active":""}"><a href="#">Categories</a></li>
-        <li class="${act eq 'ad' ? "active":""}"><a href="#">Ads</a></li>
     </ul>
+
     <ul class="nav nav-sidebar">
-        <li class="${act eq 'setting' ? "active":""}"><a href="#">Settings</a></li>
+        <li class="${act eq 'room' ? "active":""}"><a href="${appPath}/admin/room/index">Room</a></li>
+        <li class="${act eq 'roomCate' ? "active":""}"><a href="${appPath}/admin/room/cate">Room Category</a></li>
+    </ul>
+
+    <ul class="nav nav-sidebar">
+        <li class="${act eq 'supplier' ? "active":""}"><a href="${appPath}/admin/supplier/index">Supplier</a></li>
+        <li class="${act eq 'furniture' ? "active":""}"><a href="${appPath}/admin/furniture/index">Furniture</a></li>
+        <li class="${act eq 'furnitureCate' ? "active":""}"><a href="${appPath}/admin/furniture/cate">Furniture Category</a></li>
+    </ul>
+
+
+    <ul class="nav nav-sidebar">
         <li><a href="">Exit</a></li>
     </ul>
 </div>

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
  * Created by Administrator on 2015/11/6 0006.
  */
 public interface IUserService {
-    public User findByLoginAndPassword(String name, String password);
+    public User findByEmailAndPassword(String name, String password);
 
     public Page<User> list(int targetPage, int pagetSize);
 
@@ -16,5 +16,5 @@ public interface IUserService {
 
     boolean save(User user);
 
-    boolean checkReigser(String userName);
+    boolean checkReigser(String email);
 }

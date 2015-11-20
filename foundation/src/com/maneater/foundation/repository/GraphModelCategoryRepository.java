@@ -16,8 +16,8 @@ import java.util.List;
 public interface GraphModelCategoryRepository extends BaseRepository<GraphModelCategory> {
 
 
-
     @Modifying(clearAutomatically = true)
+    @Transactional
     @Query(value = "update GraphModelCategory category set category.enable=:enable where category.id=:id")
     public Long setEnableStatus(@Param("id") Long id, @Param("enable") boolean enable);
 }

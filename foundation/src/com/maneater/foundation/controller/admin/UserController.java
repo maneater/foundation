@@ -66,10 +66,12 @@ public class UserController {
             return Result.result(0, "user id:" + user.getId() + " can not found!", null);
         }
 
-        //copy readOnly
-        user.setLogin(localUser.getLogin());
+        //copy
+        localUser.setInfo(user.getInfo());
+        localUser.setHeadPicUrl(user.getHeadPicUrl());
+        localUser.setEnable(user.isEnable());
 
-        boolean success = userService.save(user);
+        boolean success = userService.save(localUser);
         return Result.result(1, "success", null);
     }
 
