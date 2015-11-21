@@ -35,7 +35,7 @@ public class UploadController {
     }
 
 
-    @RequestMapping(value = "img", method = RequestMethod.POST)
+    @RequestMapping(value = "image", method = RequestMethod.POST)
     @ResponseBody
     public Result uploadPicture(@ModelAttribute FileInfo parentInfo, @RequestParam("file") MultipartFile file) {
         uploadServices.uploadFile(parentInfo, file);
