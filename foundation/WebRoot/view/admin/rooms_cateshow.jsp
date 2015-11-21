@@ -27,7 +27,7 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h3 class="page-header">${isAdd?"Add Room Category":"Room Category Informatio"}</h3>
+            <h3 class="page-header">${isAdd?"Add Room Category":"Room Category Information"}</h3>
 
             <form class="form-horizontal" id="itemForm">
 
@@ -48,7 +48,15 @@
                         <label for="createTime" class="control-label  col-sm-2">CreateTime</label>
 
                         <div class="col-sm-4">
-                            <input type="email" class="form-control" id="createTime" value="${item.createTime}"
+                            <input type="text" class="form-control" id="createTime" value="${item.createTime}"
+                                   disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 ">
+                        <label for="lastUpdate" class="control-label  col-sm-2">LastUpdate</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="lastUpdate" value="${item.lastUpdateTime}"
                                    disabled>
                         </div>
                     </div>
@@ -58,11 +66,12 @@
                     <label for="picUrl" class="control-label  col-sm-2">Picture</label>
 
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="picUrl" value="${item.picUrl}"
-                               name="picUrl">
+                        <img src="${item.picUrl}" alt="" style="width: 150px;height:150px;"
+                             class="img-rounded"/>
+                        <input id="btnChoosePicture" type="button" id="picUrl"
+                               class="btn btn-sm btn-primary form-inline" value="change picture"></button>
                     </div>
                 </div>
-
 
                 <div class="form-group col-sm-12 ">
                     <label for="info" class="control-label  col-sm-2">Info</label>
@@ -127,6 +136,15 @@
 </div>
 <!-- /.modal -->
 
+<div class="modal fade" style="" id="choosePictureModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" id="chooseContent">
+            loading...
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -137,6 +155,14 @@
 <script>
 
     $().ready(function () {
+
+        $("#btnChoosePicture").bind("click", function () {
+            $("#choosePictureModal").modal('show');
+            $("#chooseContent").load("${appPath}/admin/index", function () {
+
+            });
+        });
+
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
             var btnCancel = $("#btnCancel").button('loading');
