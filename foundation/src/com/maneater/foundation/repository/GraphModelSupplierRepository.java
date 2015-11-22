@@ -13,5 +13,5 @@ public interface GraphModelSupplierRepository extends BaseRepository<GraphSuppli
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "update GraphSupplier supplier set supplier.enable=:enable where supplier.id=:id")
-    public Long setEnableStatus(@Param("id") Long id, @Param("enable") boolean enable);
+    public Integer setEnableStatus(@Param("id") Long id, @Param("enable") boolean enable);
 }

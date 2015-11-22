@@ -44,7 +44,7 @@ public class UploadServices {
                 resultFiles = targetFile.listFiles(new FileFilter() {
                     @Override
                     public boolean accept(File pathname) {
-                        return pathname.getName().endsWith("." + filterType.name());
+                        return FileInfo.FileType.convert(pathname) == filterType;
                     }
                 });
             }
@@ -62,42 +62,25 @@ public class UploadServices {
 
 
     public FileInfo uploadFile(FileInfo parentInfo, MultipartFile file) {
-        FileLock fileLock = null;
-        FileChannel fileChannel = null;
         File targetFile = null;
+        FileOutputStream fileOutputStream = null;
         try {
-            String fileName = file.getName();
-            if (parentInfo != null) {
+            String fileName = file.getOriginalFilename();
+            if (parentInfo != null && !StringUtils.isEmpty(parentInfo)) {
                 targetFile = new File(Config.FILE_UPLOAD_REAL_DIR_PATH + "/" + parentInfo.getFilePath(), fileName);
             } else {
                 targetFile = new File(Config.FILE_UPLOAD_REAL_DIR_PATH, fileName);
             }
             targetFile.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(targetFile);
-            fileChannel = fileOutputStream.getChannel();
-            fileLock = fileChannel.lock();
-            if (FileUtil.copy(file.getInputStream(), fileChannel)) {
+            fileOutputStream = new FileOutputStream(targetFile);
+            if (FileUtil.copy(file.getInputStream(), fileOutputStream)) {
                 return FileInfo.convert(parentInfo != null ? parentInfo.getFilePath() : null, targetFile);
             }
         } catch (IOException e) {
             e.printStackTrace();
             targetFile.delete();
         } finally {
-            if (fileLock != null) {
-                try {
-                    fileLock.release();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (fileChannel != null) {
-                try {
-                    fileChannel.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
+            FileUtil.closeSliently(fileOutputStream);
         }
         return null;
     }

@@ -15,6 +15,17 @@ public class StartUpListener implements ServletContextListener {
         Config.REAL_PATH = servletContextEvent.getServletContext().getRealPath("/");
         FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME);
         Config.FILE_UPLOAD_REAL_DIR_PATH = Config.REAL_PATH + Config.FILE_UPLOAD_DIR_NAME;
+
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_MODEL);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_CATE_PIC);
+
+
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_MODEL);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_CATE_PIC);
+
+
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.maneater.foundation.entity.GraphRoomCategory;
 import com.maneater.foundation.repository.GraphModelCategoryRepository;
 import com.maneater.foundation.repository.GraphModelRepository;
 import com.maneater.foundation.repository.GraphRoomCategoryRepository;
+import com.maneater.foundation.repository.GraphRoomRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,6 +19,9 @@ public class GraphRoomCategoryService {
     @Resource
     private GraphRoomCategoryRepository graphRoomCategoryRepository;
 
+    @Resource
+    GraphRoomRepository graphRoomRepository;
+
     public List<GraphRoomCategory> listAll() {
         return graphRoomCategoryRepository.findAll();
     }
@@ -27,7 +31,19 @@ public class GraphRoomCategoryService {
     }
 
     public GraphRoomCategory save(GraphRoomCategory category) {
-        return graphRoomCategoryRepository.saveAndFlush(category);
+        if (category.getId() != null) {//update
+            GraphRoomCategory dbCategory = graphRoomCategoryRepository.findOne(category.getId());
+            boolean needSync = dbCategory != null && !dbCategory.getName().equals(category.getName());
+            category = graphRoomCategoryRepository.saveAndFlush(category);
+            if (category != null && needSync) {
+                //categoryName change
+                graphRoomRepository.syncCategoryName(category.getId(), category.getName());
+
+            }
+        } else {//create
+            category = graphRoomCategoryRepository.saveAndFlush(category);
+        }
+        return category;
     }
 
     public boolean changeEnable(Long id, boolean value) {

@@ -13,7 +13,7 @@
 
     <ul class="nav nav-sidebar">
         <li class="${act eq 'room' ? "active":""}"><a href="${appPath}/admin/room/index">Room</a></li>
-        <li class="${act eq 'roomCate' ? "active":""}"><a href="${appPath}/admin/room/cate">Room Category</a></li>
+        <li class="${act eq 'roomcate' ? "active":""}"><a href="${appPath}/admin/room/cate">Room Category</a></li>
     </ul>
 
     <ul class="nav nav-sidebar">

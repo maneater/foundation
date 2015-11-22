@@ -6,6 +6,7 @@ import com.maneater.foundation.uitl.SysUtil;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +38,7 @@ public class UserController {
             model.addAttribute("result", Result.result(1, "", null));
             return "redirect:/index";
         } else {
-            model.addAttribute("result", Result.result(0, "用户名或密码错误", null));
+            model.addAttribute("result", Result.result(0, "login or password error!", null));
             return "/front/login";
         }
     }
@@ -49,15 +50,14 @@ public class UserController {
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(Model model, @RequestParam(required = false) String email, @RequestParam(required = false) String password) {
-        if (userService.checkReigser(email)) {
+    public String register(Model model, @ModelAttribute User userInfo) {
+        //TODO check input;
+
+        if (userService.checkReigser(userInfo.getEmail())) {
             model.addAttribute("result", Result.result(0, "the name have be registed", null));
             return "/front/register";
         } else {
-            User user = new User();
-            user.setEmail(email);
-            user.setPassword(password);
-            if (userService.save(user)) {
+            if (userService.save(userInfo)) {
                 model.addAttribute("result", Result.result(0, "success,please login", null));
                 return "/front/login";
             } else {

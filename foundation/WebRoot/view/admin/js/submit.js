@@ -38,6 +38,11 @@ var submitParams = function (url, data, callback) {
         data: data,
         success: function (result) {
             callback(result);
+        },
+        complete: function (xhr, status) {
+            if (xhr.status != 200) {
+                callback({code: 0, msg: "response code:" + status, data: null});
+            }
         }
     });
 }

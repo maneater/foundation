@@ -64,14 +64,14 @@
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
-                <prop key="java.lang.Exception">/error/500</prop>
-                <prop key="java.lang.Throwable">/error/500</prop>
+                <!--<prop key="java.lang.Exception">/error/500</prop>-->
+                <!--<prop key="java.lang.Throwable">/error/500</prop>-->
             </props>
         </property>
         <property name="statusCodes">
             <props>
-                <prop key="errors/error">500</prop>
-                <prop key="errors/404">404</prop>
+                <!--<prop key="errors/error">500</prop>-->
+                <!--<prop key="errors/404">404</prop>-->
             </props>
         </property>
         <property name="warnLogCategory" value="info"></property>

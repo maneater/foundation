@@ -17,7 +17,12 @@ public interface GraphRoomRepository extends BaseRepository<GraphRoom> {
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "update GraphRoom room set room.enable=:enable where room.id=:id")
-    public Long setEnableStatus(@Param("id") Long id, @Param("enable") boolean enable);
+    public Integer setEnableStatus(@Param("id") Long id, @Param("enable") boolean enable);
 
     public List<GraphRoom> findByCategoryId(Long categoryId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update GraphRoom room set room.categoryName=:name where room.categoryId=:id")
+    public Integer syncCategoryName(@Param("id") Long categoryId, @Param("name") String categoryName);
 }

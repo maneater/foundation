@@ -57,22 +57,41 @@ public class RoomController {
         return "/admin/rooms_show";
     }
 
+    @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
+    @ResponseBody
+    public Result enableRoom(@RequestParam Long id, @RequestParam boolean enable) {
+        boolean result = graphRoomService.changeEnabel(id, enable);
+        if (result) {
+            return Result.result(1, "success", null);
+        } else {
+            return Result.result(0, "failed", null);
+        }
+    }
+
     @RequestMapping(value = {"save"}, method = RequestMethod.POST)
     @ResponseBody
     public Result saveRoom(@RequestBody GraphRoom graphRoom) {
         logger.info("saveRoom->" + graphRoom.toString());
         GraphRoom localItem = null;
-        boolean success = false;
+
+        GraphRoomCategory graphRoomCategory = graphRoomCategoryService.findById(graphRoom.getCategoryId());
+        if (graphRoomCategory == null) {
+            return Result.result(0, "error category", null);
+        }
+        graphRoom.setCategoryId(graphRoomCategory.getId());
+        graphRoom.setCategoryName(graphRoomCategory.getName());
+
+
         if (!StringUtils.isEmpty(graphRoom.getId())) {//update
             localItem = graphRoomService.findById(graphRoom.getId());
             if (localItem == null) {
                 return Result.result(0, "id:" + graphRoom.getId() + " can not found!", null);
             }
-            //TODO model path
-            //copy field
-            localItem.setInfo(graphRoom.getInfo());
+
+
             localItem.setCategoryId(graphRoom.getCategoryId());
             localItem.setCategoryName(graphRoom.getCategoryName());
+            localItem.setInfo(graphRoom.getInfo());
             localItem.setModelPath(graphRoom.getModelPath());
             localItem.setPicUrl(graphRoom.getPicUrl());
             localItem.setEnable(graphRoom.isEnable());
@@ -89,9 +108,11 @@ public class RoomController {
         }
     }
 
-    /***********
+    /**
+     * ********
      * room category
-     **************/
+     * ************
+     */
 
 
     @RequestMapping(value = {"cate"}, method = RequestMethod.GET)

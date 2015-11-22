@@ -33,4 +33,8 @@ public class GraphRoomService {
     public GraphRoom save(GraphRoom graphRoom) {
         return graphRoomRepository.saveAndFlush(graphRoom);
     }
+
+    public boolean changeEnabel(Long id, boolean enable) {
+        return graphRoomRepository.setEnableStatus(id, enable) != null;
+    }
 }

@@ -54,16 +54,18 @@
                     <c:forEach var="item" items="${itemList}">
                         <tr>
                             <td>${item.id}</td>
-                            <td><img src="${item.name}" alt="" style="width: 60px;height:60px;"
-                                     class="img-rounded"/></td>
+                            <td>${item.name}</td>
                             <td>${item.categoryName}</td>
-                            <td>${item.picUrl}</td>
+                            <td><img src="${appPath}/${dirUpload}/${item.picUrl}" alt="" style="width: 60px;height:60px;"
+                                     class="img-rounded"/></td>
                             <td>${item.modelPath}</td>
                             <td>
-                                <a href="${appPath}/admin/room/show?id=${user.id}"
+                                <a href="${appPath}/admin/room/show?id=${item.id}"
                                    class="btn btn-default btn-xs" target="_self">查看</a>
-                                <button app-data="${item.id}|${item.enable}" type="button"
-                                        class="btn btn-warning btn-xs" title="当前停用">已禁用
+                                <button onclick="changeEnable(this);" value="${item.enable}"
+                                        data-id="${item.id}"
+                                        class="btn ${item.enable?"btn-info":"btn-warning"} btn-xs "
+                                        title="click for change">${item.enable?"enabled":"disabled"}
                                 </button>
                             </td>
                             <td>
@@ -87,5 +89,33 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="${appPath}/view/resourse/js/jquery.min.js"></script>
 <script src="${appPath}/view/resourse/js/bootstrap.min.js"></script>
+<script src="${appPath}/view/admin/js/submit.js"></script>
+<script>
+    function changeEnable(ele) {
+        var invokeBtn = $(ele);
+        var id = invokeBtn.attr("data-id");
+        var value = !("true" == invokeBtn.val());
+        invokeBtn.attr("disabled", true);
+        invokeBtn.text("loading...");
+        submitParams("./enable", "id=" + id + "&enable=" + value, function (result) {
+            if (result && result.code == 1) {
+                invokeBtn.val(value);
+                invokeBtn.button("complete");
+                if (value) {
+                    invokeBtn.text('enabled');
+                    invokeBtn.removeClass("btn-warning");
+                    invokeBtn.addClass("btn-info")
+                } else {
+                    invokeBtn.removeClass("btn-info");
+                    invokeBtn.addClass("btn-warning")
+                    invokeBtn.text('disabled');
+                }
+            } else {
+                alert(result.msg);
+            }
+            invokeBtn.attr("disabled", false);
+        });
+    }
+</script>
 </body>
 </html>

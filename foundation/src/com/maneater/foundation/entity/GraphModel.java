@@ -44,23 +44,32 @@ public class GraphModel extends BaseEntity {
     private String iconDigest;
     private String model;
     private String modelDigest;
-    @Column(nullable = true, columnDefinition = "int default 0")
-    private boolean multiPartModel;
     private Double width;
     private Double depth;
     private Double height;
+    private Double dropOnTopElevation;
+    @Column(nullable = true, columnDefinition = "int default 0")
+    private boolean multiPartModel;
     @Column(nullable = true, columnDefinition = "int default 1")
     private boolean movable;
     @Column(nullable = true, columnDefinition = "int default 0")
     private boolean doorOrWindow;
-    private Double dropOnTopElevation;
 
     /*@Transient表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性*/
 
     private long supplierId;
     private long categoryId;
+    private String categoryName;
     private String qyt;
     private String code;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public String getCode() {
         return code;

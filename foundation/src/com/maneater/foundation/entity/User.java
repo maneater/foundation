@@ -14,6 +14,24 @@ public class User extends BaseEntity {
     private String email;
     @Column(nullable = false)
     private String password;
+    private String phone;
+    private String address;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     private String source;
     private String headPicUrl = "http://chuantupian.com/8/uploads/2015/11/180824_8.jpg";
 

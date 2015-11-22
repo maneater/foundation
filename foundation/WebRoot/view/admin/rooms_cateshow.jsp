@@ -66,10 +66,12 @@
                     <label for="picUrl" class="control-label  col-sm-2">Picture</label>
 
                     <div class="col-sm-9">
-                        <img src="${item.picUrl}" alt="" style="width: 150px;height:150px;"
+                        <img id="itemImg" src="${appPath}/${dirUpload}/${item.picUrl}" alt=""
+                             style="width: 150px;height:150px;"
                              class="img-rounded"/>
                         <input id="btnChoosePicture" type="button" id="picUrl"
                                class="btn btn-sm btn-primary form-inline" value="change picture"></button>
+                        <input id="itemPicUrl" type="hidden" name="picUrl" value="${item.picUrl}">
                     </div>
                 </div>
 
@@ -137,9 +139,12 @@
 <!-- /.modal -->
 
 <div class="modal fade" style="" id="choosePictureModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" style="width: 80%;">
-        <div class="modal-content" id="chooseContent">
-            loading...
+    <div class="modal-dialog" style="width: 80%;height: 80%;">
+        <div class="modal-content" id="chooseContent" style="height: 100%;">
+            <div class="modal-body" style="height: 90%;">
+                <h3>Choose Category Picture</h3>
+                <iframe id="iframe" width="100%" height=100%" frameborder="0"></iframe>
+            </div>
         </div>
     </div>
 </div>
@@ -154,13 +159,16 @@
 
 <script>
 
+    var appPath = '${appPath}';
+
     $().ready(function () {
 
         $("#btnChoosePicture").bind("click", function () {
             $("#choosePictureModal").modal('show');
-            $("#chooseContent").load("${appPath}/admin/index", function () {
+            $("#iframe").attr("src", '${appPath}/admin/upload?filePath=${dirRoomCatePic}');
+            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
 
-            });
+            <%--});--%>
         });
 
         $("#btnConfirm").bind("click", function () {
@@ -176,6 +184,13 @@
             });
         });
     });
+
+    function useUpload(filePath) {
+        $("#itemImg").attr("src", appPath + "/upload/" + filePath);
+        $("#itemPicUrl").val(filePath);
+        $("#choosePictureModal").modal('hide');
+    }
+
 </script>
 
 </body>

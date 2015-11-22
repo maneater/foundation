@@ -24,4 +24,19 @@ public class GraphModelService {
         return graphModelRepository.findByCategoryId(categoryId);
     }
 
+    public List<GraphModel> listAll() {
+        return graphModelRepository.findAll();
+    }
+
+    public GraphModel findById(Long id) {
+        return graphModelRepository.findOne(id);
+    }
+
+    public boolean changeEnabel(Long id, boolean enable) {
+        return graphModelRepository.setEnableStatus(id, enable) != null;
+    }
+
+    public GraphModel save(GraphModel graphModel) {
+        return graphModelRepository.saveAndFlush(graphModel);
+    }
 }
