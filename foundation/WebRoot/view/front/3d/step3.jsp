@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@include file="/view/front/common.jsp" %>
+<c:set var="appletPath" value="${appPath}/view/front/3d"></c:set>
 <html>
 <head>
     <title></title>
@@ -17,30 +18,30 @@
 
     <script>
         var javaMinimumVersion = "1.6.0_10"; // The first version with Java Plugin 2
-        var jars = "${appPath}/view/3d/lib/SweetHome3DApplet.jar,${appPath}/view/3d/lib/batik-svgpathparser-1.7.jar,${appPath}/view/3d/lib/jnlp.jar";
+        var jars = "${appletPath}/lib/SweetHome3DApplet.jar,${appletPath}/lib/batik-svgpathparser-1.7.jar,${appletPath}/lib/jnlp.jar";
         // Append Jars depending on the platform
         if (navigator.platform.match("Win.*")) {
             if (navigator.platform.match(".*64")) {
-                jars += ",${appPath}/view/3d/lib/windows/x64/java3d.jar";
+                jars += ",${appletPath}/lib/windows/x64/java3d.jar";
             } else {
-                jars += ",${appPath}/view/3d/lib/windows/i386/java3d.jar";
+                jars += ",${appletPath}/lib/windows/i386/java3d.jar";
             }
         } else if (navigator.platform.match("Mac.*")) {
             javaMinimumVersion = "1.5";
-            jars += ",${appPath}/view/3d/lib/macosx/java3d.jar";
+            jars += ",${appletPath}/lib/macosx/java3d.jar";
         } else if (navigator.platform.match("Linux.*")) {
             javaMinimumVersion = "1.6"; // OpenJDK doesn't give its subversion
             if (navigator.platform.match(".*64")) {
-                jars += ",${appPath}/view/3d/lib/linux/x64/java3d.jar";
+                jars += ",${appletPath}/lib/linux/x64/java3d.jar";
             } else {
-                jars += ",${appPath}/view/3d/lib/linux/i386/java3d.jar";
+                jars += ",${appletPath}/lib/linux/i386/java3d.jar";
             }
         } else {
-            jars += ",${appPath}/view/3d/lib/java3d.jar";
+            jars += ",${appletPath}/lib/java3d.jar";
         }
 
         var attributes = {
-            codebase: "${appPath}/view/3d",
+            codebase: "${appletPath}",
             code: "com.eteks.sweethome3d.applet.SweetHome3DApplet",
             archive: jars,
             width: "100%", height: "95%",
@@ -48,11 +49,13 @@
         };
         // Complete list of available parameters described in the javadoc
         // of com.eteks.sweethome3d.applet.SweetHome3DApplet class
-        //
+        // sh3dFilePath
+
+
         var parameters = {
             java_arguments: "-Xmx640m",
             furnitureCatalogURLs: "${appPath}/${propertiesPath}",
-            furnitureResourcesURLBase: "http://www.sweethome3d.com/models/",
+            furnitureResourcesURLBase: "${appPath}/${dirUpload}/${dirFurniture}",
             texturesCatalogURLs: "http://www.sweethome3d.com/online/texturesCatalog.zip",
             texturesResourcesURLBase: "http://www.sweethome3d.com/textures/",
             // JNLP file converted to Base 64 encoding with "base64 -i SweetHome3DApplet.jnlp" command

@@ -26,6 +26,12 @@ var submitJson = function (formId, url, callback) {
         data: JSON.stringify($("#" + formId).serializeJson()),
         success: function (result) {
             callback(result);
+        },
+        error: function (xhr, err) {
+            console.info(xhr);
+            callback({code: 0, msg: "err:" + err, data: null});
+            //alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+            //alert("responseText: " + xhr.responseText);
         }
     });
 }
@@ -39,10 +45,11 @@ var submitParams = function (url, data, callback) {
         success: function (result) {
             callback(result);
         },
-        complete: function (xhr, status) {
-            if (xhr.status != 200) {
-                callback({code: 0, msg: "response code:" + status, data: null});
-            }
+        error: function (xhr, err) {
+            console.info(xhr);
+            callback({code: 0, msg: "err:" + err, data: null});
+            //alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+            //alert("responseText: " + xhr.responseText);
         }
     });
 }

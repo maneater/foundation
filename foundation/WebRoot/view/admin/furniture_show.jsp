@@ -34,9 +34,7 @@
                 <c:set var="item" value="${graphModel}"></c:set>
                 <input type="hidden" name="id" value="${item.id}">
 
-
                 <!--use for 3d properties-->
-
                 <div class="form-group col-sm-6 ">
                     <label for="name" class="control-label  col-sm-4">Name</label>
 
@@ -139,7 +137,8 @@
 
                     <div class="col-sm-8">
                         <label class="radio">
-                            <input type="radio" name="multiPartModel" id="multiPartModel" value="false" ${item.multiPartModel?"":"checked"}>false
+                            <input type="radio" name="multiPartModel" id="multiPartModel"
+                                   value="false" ${item.multiPartModel?"":"checked"}>false
                         </label>
                         <label class="radio">
                             <input type="radio" name="multiPartModel"
@@ -230,7 +229,7 @@
                     <label for="itemImg" class="control-label  col-sm-2">Icon ReV</label>
 
                     <div class="col-sm-9">
-                        <img id="itemImg" src="${appPath}/upload/${item.picUrl}" alt=""
+                        <img id="itemImg" src="${appPath}/${dirUpload}/${item.icon}" alt=""
                              style="width: 150px;height:150px;"
                              class="img-rounded"/>
                     </div>
@@ -240,8 +239,11 @@
                     <label for="supplierId" class="control-label  col-sm-2">Supplier</label>
 
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="supplierId" value="${item.supplierId}"
-                               name="supplierId">
+                        <select class="form-control" name="supplierId" id="supplierId">
+                            <c:forEach var="supplier" items="${supplierList}">
+                                <option value="${supplier.id}" ${item.supplierId == supplier.id?"selected":""} >${supplier.name}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
 

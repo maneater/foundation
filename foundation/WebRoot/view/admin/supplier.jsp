@@ -32,10 +32,9 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Furniture List</h1>
+            <h1 class="page-header">Supplier List</h1>
 
-
-            <a href="${appPath}/admin/furniture/add">Add</a>
+            <a href="${appPath}/admin/supplier/add">Add</a>
 
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
@@ -43,9 +42,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Category</th>
-                        <th>Picture</th>
-                        <th>Model</th>
+                        <th>Info</th>
                         <th>Act</th>
                         <th>LastUpdate</th>
                     </tr>
@@ -55,12 +52,9 @@
                         <tr>
                             <td>${item.id}</td>
                             <td>${item.name}</td>
-                            <td>${item.categoryName}</td>
-                            <td><img src="${appPath}/${dirUpload}/${item.icon}" alt="" style="width: 60px;height:60px;"
-                                     class="img-rounded"/></td>
-                            <td>${item.model}</td>
+                            <td>${item.info}</td>
                             <td>
-                                <a href="${appPath}/admin/furniture/show?id=${item.id}"
+                                <a href="${appPath}/admin/supplier/show?id=${item.id}"
                                    class="btn btn-default btn-xs" target="_self">查看</a>
                                 <button onclick="changeEnable(this);" value="${item.enable}"
                                         data-id="${item.id}"
@@ -77,12 +71,13 @@
                     </tbody>
                 </table>
                 <c:if test="${empty itemList}">
-                    <p>No Rooms</p>
+                    <p>No Category</p>
                 </c:if>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -91,10 +86,13 @@
 <script src="${appPath}/view/resourse/js/bootstrap.min.js"></script>
 <script src="${appPath}/view/admin/js/submit.js"></script>
 <script>
+
+
     function changeEnable(ele) {
         var invokeBtn = $(ele);
         var id = invokeBtn.attr("data-id");
         var value = !("true" == invokeBtn.val());
+        console.info(value);
         invokeBtn.attr("disabled", true);
         invokeBtn.text("loading...");
         submitParams("./enable", "id=" + id + "&enable=" + value, function (result) {

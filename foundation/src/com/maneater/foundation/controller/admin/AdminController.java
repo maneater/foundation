@@ -41,7 +41,7 @@ public class AdminController {
         return "/admin/login";
     }
 
-    @RequestMapping("index")
+    @RequestMapping({"index", ""})
     public String index(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "index");
         return "/admin/index";

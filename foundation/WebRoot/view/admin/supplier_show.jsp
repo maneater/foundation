@@ -27,11 +27,10 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h3 class="page-header">${isAdd?"Add Room":"Room Information"}</h3>
+            <h3 class="page-header">${isAdd?"Add Supplier":"Supplier Information"}</h3>
 
             <form class="form-horizontal" id="itemForm">
 
-                <c:set var="item" value="${graphRoom}"></c:set>
                 <input type="hidden" name="id" value="${item.id}">
 
 
@@ -62,46 +61,6 @@
                         </div>
                     </div>
                 </c:if>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="picUrl" class="control-label  col-sm-2">Picture</label>
-
-                    <div class="col-sm-9">
-                        <img id="itemImg" src="${appPath}/upload/${item.picUrl}" alt=""
-                             style="width: 150px;height:150px;"
-                             class="img-rounded"/>
-                        <input id="btnChoosePicture" type="button" id="picUrl"
-                               class="btn btn-sm btn-primary form-inline" value="select picture"></button>
-                        <input id="itemPicUrl" type="hidden" name="picUrl" value="${item.picUrl}">
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="itemModelPath" class="control-label  col-sm-2">Model</label>
-
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <input id="itemModelPath" type="text" class="form-control" name="modelPath"
-                                   value="${item.modelPath}">
-                        <span class="input-group-btn">
-                            <input id="btnChooseModel" type="button" id="modelPath"
-                                   class="btn btn-primary " value="select model"></button>
-                        </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12">
-                    <label for="categoryId" class="control-label  col-sm-2">Category</label>
-
-                    <div class="col-sm-9">
-                        <select class="form-control" name="categoryId" id="categoryId">
-                            <c:forEach var="category" items="${categoryList}">
-                                <option value="${category.id}" ${item.categoryId == category.id?"selected":""} >${category.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
 
                 <div class="form-group col-sm-12 ">
                     <label for="info" class="control-label  col-sm-2">Info</label>
@@ -166,11 +125,11 @@
 </div>
 <!-- /.modal -->
 
-<div class="modal fade" style="" id="chooseModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" style="" id="choosePictureModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" style="width: 80%;height: 80%;">
         <div class="modal-content" id="chooseContent" style="height: 100%;">
             <div class="modal-body" style="height: 90%;">
-                <h3 id="chooseTitle">Choose Model Picture</h3>
+                <h3>Choose Category Picture</h3>
                 <iframe id="iframe" width="100%" height=100%" frameborder="0"></iframe>
             </div>
         </div>
@@ -188,24 +147,14 @@
 <script>
 
     var appPath = '${appPath}';
-    var choosePicUrl = false;
 
     $().ready(function () {
 
-        $("#btnChooseModel").bind("click", function () {
-            choosePicUrl = false;
-            $("#chooseTitle").html("Choose Model File");
-            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=sh3d&filePath=${dirRoomModel}');
-            $("#chooseModal").modal('show');
-            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
-            <%--});--%>
-        });
         $("#btnChoosePicture").bind("click", function () {
-            $("#chooseTitle").html("Choose Model Picture");
-            choosePicUrl = true;
-            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=${dirRoom}');
-            $("#chooseModal").modal('show');
+            $("#choosePictureModal").modal('show');
+            $("#iframe").attr("src", '${appPath}/admin/upload?filePath=${dirRoomCatePic}');
             <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
+
             <%--});--%>
         });
 
@@ -224,14 +173,9 @@
     });
 
     function useUpload(filePath) {
-        $("#chooseModal").modal('hide');
-        if (choosePicUrl) {
-            $("#itemImg").attr("src", appPath + "/upload/" + filePath);
-            $("#itemPicUrl").val(filePath);
-            $("#choosePictureModal").modal('hide');
-        } else {
-            $("#itemModelPath").val(filePath);
-        }
+        $("#itemImg").attr("src", appPath + "/upload/" + filePath);
+        $("#itemPicUrl").val(filePath);
+        $("#choosePictureModal").modal('hide');
     }
 
 </script>

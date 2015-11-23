@@ -30,6 +30,10 @@ public class GraphRoomService {
         return graphRoomRepository.findAll();
     }
 
+    public List<GraphRoom> listAllByEnable(boolean enable) {
+        return graphRoomRepository.findByEnable(enable);
+    }
+
     public GraphRoom save(GraphRoom graphRoom) {
         return graphRoomRepository.saveAndFlush(graphRoom);
     }

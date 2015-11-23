@@ -1,14 +1,8 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.GraphModel;
-import com.maneater.foundation.entity.GraphModelCategory;
-import com.maneater.foundation.entity.GraphRoom;
-import com.maneater.foundation.entity.GraphRoomCategory;
-import com.maneater.foundation.service.impl.GraphModelCategoryService;
-import com.maneater.foundation.service.impl.GraphModelService;
-import com.maneater.foundation.service.impl.GraphRoomCategoryService;
-import com.maneater.foundation.service.impl.GraphRoomService;
+import com.maneater.foundation.entity.*;
+import com.maneater.foundation.service.impl.*;
 import com.maneater.foundation.vo.Result;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -30,6 +24,9 @@ public class GraphModelController {
     @Resource
     private GraphModelCategoryService graphModelCategoryService;
 
+    @Resource
+    private GraphSupplierService graphSupplierService;
+
     @RequestMapping({"", "index"})
     public String listFurnitures(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
@@ -39,9 +36,11 @@ public class GraphModelController {
     }
 
     @RequestMapping(value = {"show"}, method = RequestMethod.GET)
-    public String showRoom(Model model, @RequestParam(required = false) Long id) {
+    public String show(Model model, @RequestParam(required = false) Long id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
         List<GraphModelCategory> categoryList = graphModelCategoryService.listAll();
+        List<GraphSupplier> supplierList = graphSupplierService.listAll();
+
         GraphModel graphModel = graphModelService.findById(id);
         if (graphModel == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
@@ -49,11 +48,12 @@ public class GraphModelController {
         model.addAttribute("isAdd", false);
         model.addAttribute("graphModel", graphModel);
         model.addAttribute("categoryList", categoryList);
+        model.addAttribute("supplierList", supplierList);
         return "/admin/furniture_show";
     }
 
     @RequestMapping(value = {"add"}, method = RequestMethod.GET)
-    public String addRoom(Model model) {
+    public String add(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
         model.addAttribute("isAdd", true);
         model.addAttribute("categoryList", graphModelCategoryService.listAll());
@@ -62,7 +62,7 @@ public class GraphModelController {
 
     @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result enableRoom(@RequestParam Long id, @RequestParam boolean enable) {
+    public Result enable(@RequestParam Long id, @RequestParam boolean enable) {
         boolean result = graphModelService.changeEnabel(id, enable);
         if (result) {
             return Result.result(1, "success", null);
@@ -73,15 +73,24 @@ public class GraphModelController {
 
     @RequestMapping(value = {"save"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result saveRoom(@RequestBody GraphModel graphModel) {
+    public Result save(@RequestBody GraphModel graphModel) {
         GraphModel localItem = null;
 
         GraphModelCategory category = graphModelCategoryService.findById(graphModel.getCategoryId());
         if (category == null) {
             return Result.result(0, "error category", null);
         }
+
+        GraphSupplier supplier = graphSupplierService.findById(graphModel.getSupplierId());
+        if (supplier == null) {
+            return Result.result(0, "error supplier", null);
+        }
+
+
         graphModel.setCategoryId(category.getId());
         graphModel.setCategoryName(category.getName());
+        graphModel.setSupplierId(supplier.getId());
+        graphModel.setSupplierName(supplier.getName());
 
 
         if (!StringUtils.isEmpty(graphModel.getId())) {//update
@@ -93,7 +102,7 @@ public class GraphModelController {
             graphModel.setId(localItem.getId());
             graphModel.setCreateTime(localItem.getCreateTime());
 
-            localItem = graphModelService.save(localItem);
+            localItem = graphModelService.save(graphModel);
 
         } else {//add
             localItem = graphModelService.save(graphModel);

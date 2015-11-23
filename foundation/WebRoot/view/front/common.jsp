@@ -4,10 +4,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://foundation/filepath" prefix="fd" %>
 <c:set var="appPath" value="${pageContext.request.contextPath}"/>
+<c:set var="pathSplit" value="/"/>
 <%
     request.setAttribute("appName", Config.APP_NAME);
     if (session != null) {
         request.setAttribute("sessionUser", session.getAttribute(Config.SESSION_KEY_USER));
     }
+    request.setAttribute("appName", Config.APP_NAME);
+    request.setAttribute("dirUpload", Config.FILE_UPLOAD_DIR_NAME);
+
+    request.setAttribute("dirRoom", Config.FILE_PATH_ROOM);
+    request.setAttribute("dirRoomModel", Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_MODEL);
+    request.setAttribute("dirRoomCatePic", Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_CATE_PIC);
+
+    request.setAttribute("dirFurniture", Config.FILE_PATH_FURNITURE);
+    request.setAttribute("dirFurnitureModel", Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_MODEL);
+    request.setAttribute("dirFurnitureCatePic", Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_CATE_PIC);
 %>
+<c:set var="appName" value="${appName}"/>
+<c:set var="dirUpload" value="${dirUpload}"/>
+
+<c:set var="dirRoom" value="${dirRoom}"/>
+<c:set var="dirRoomModel" value="${dirRoomModel}"/>
+<c:set var="dirRoomCatePic" value="${dirRoomCatePic}"/>
+
+<c:set var="dirFurniture" value="${dirFurniture}"/>
+<c:set var="dirFurnitureModel" value="${dirFurnitureModel}"/>
+<c:set var="dirFurnitureCatePic" value="${dirFurnitureCatePic}"/>

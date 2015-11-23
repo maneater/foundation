@@ -87,15 +87,9 @@ public class RoomController {
             if (localItem == null) {
                 return Result.result(0, "id:" + graphRoom.getId() + " can not found!", null);
             }
+            graphRoom.setCreateTime(localItem.getCreateTime());
 
-
-            localItem.setCategoryId(graphRoom.getCategoryId());
-            localItem.setCategoryName(graphRoom.getCategoryName());
-            localItem.setInfo(graphRoom.getInfo());
-            localItem.setModelPath(graphRoom.getModelPath());
-            localItem.setPicUrl(graphRoom.getPicUrl());
-            localItem.setEnable(graphRoom.isEnable());
-            localItem = graphRoomService.save(localItem);
+            localItem = graphRoomService.save(graphRoom);
 
         } else {//add
             localItem = graphRoomService.save(graphRoom);
@@ -166,12 +160,9 @@ public class RoomController {
             if (localItem == null) {
                 return Result.result(0, "id:" + category.getId() + " can not found!", null);
             }
-            //copy field
-            localItem.setName(category.getName());
-            localItem.setInfo(category.getInfo());
-            localItem.setPicUrl(category.getPicUrl());
-            localItem.setEnable(category.isEnable());
-            localItem = graphRoomCategoryService.save(localItem);
+            category.setCreateTime(localItem.getCreateTime());
+
+            localItem = graphRoomCategoryService.save(category);
 
         } else {//add
             localItem = graphRoomCategoryService.save(category);

@@ -80,9 +80,12 @@ public class BaseEntity {
 
     @PreUpdate
     public void preUpdate() {
-        this.lastUpdateTime = new java.util.Date(System.currentTimeMillis());
+        long nowTime = System.currentTimeMillis();
+        this.lastUpdateTime = new java.util.Date(nowTime);
+        if (this.createTime == null) {
+            this.createTime = new java.util.Date(nowTime);
+        }
     }
-
 
     public Long getId() {
         return id;

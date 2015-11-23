@@ -48,13 +48,13 @@ public class ZipPropertiesUtil {
         return PROPERTIES_TPL;
     }
 
-    public static String createZipProper(GraphModel graphModel) {
-        return loadTpl().replace("{numId}", forString(graphModel.getId()))
+    public static String createZipProper(GraphModel graphModel, int index) {
+        return loadTpl().replace("{numId}", forString(index))
                 .replace("{name}", forString(graphModel.getName()))
                 .replace("{sequenceName}", forString(graphModel.getSequenceName()))
                 .replace("{tags}", forString(graphModel.getTags()))
                 .replace("{creationDate}", forString(""))
-                .replace("{category}", forString(graphModel.getCategory()))
+                .replace("{category}", forString(graphModel.getCategoryName()))
                 .replace("{icon}", forString(graphModel.getIcon()))
                 .replace("{iconDigest}", forString(graphModel.getIconDigest()))
                 .replace("{model}", forString(graphModel.getModel()))
@@ -65,6 +65,7 @@ public class ZipPropertiesUtil {
                 .replace("{height}", forString(graphModel.getHeight()))
                 .replace("{movable}", forString(graphModel.isMovable()))
                 .replace("{doorOrWindow}", forString(graphModel.isDoorOrWindow()))
+                .replace("{dropOnTopElevation}", forString(graphModel.getDropOnTopElevation()))
                 .replace("{creator}", forString(""));
 
     }

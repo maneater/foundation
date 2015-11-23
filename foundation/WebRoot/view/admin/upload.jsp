@@ -17,7 +17,7 @@
 <div class="container-fluid" style="padding-top: 0px;">
     <form id="uploadForm" class="form-horizontal" style="padding: 10px;" enctype="multipart/form-data">
         <div class="input-group">
-            <input type="file" class="form-control" name="file">
+            <input accept="image/jpeg,image/png,.zip,.jar,.sh3d" type="file" class="form-control" name="file">
               <span class="input-group-btn">
                 <button id="btnUpload" class="btn btn-default" type="button">upload</button>
               </span>
@@ -40,7 +40,12 @@
                     <img src="${appPath}/view/resourse/img/icon_zip.png" alt="${item.filePath}"
                          style="width: 100px;height: 100px;">
                 </c:if>
-                <c:if test="${!(item.zip||item.dir||item.img)}">
+                <c:if test="${item.sh3d}">
+                    <img src="${appPath}/view/resourse/img/icon_sh3d.png" alt="${item.filePath}"
+                         style="width: 100px;height: 100px;">
+                </c:if>
+
+                <c:if test="${!(item.zip||item.dir||item.img||item.sh3d)}">
                     <img src="${appPath}/view/resourse/img/icon_unknown.png" alt="${item.filePath}"
                          style="width: 100px;height: 100px;">
                 </c:if>
@@ -50,7 +55,7 @@
                 <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
 
                     <c:choose>
-                        <c:when test="${item.img || item.zip}">
+                        <c:when test="${item.img || item.zip || item.sh3d}">
                             <button type="button" class="btn btn-info" onclick="useUpload('${item.filePath}');">use
                             </button>
                         </c:when>

@@ -1,6 +1,10 @@
 package com.maneater.foundation.controller;
 
-import com.maneater.foundation.service.impl.SupplierService;
+import com.maneater.foundation.Config;
+import com.maneater.foundation.entity.GraphModel;
+import com.maneater.foundation.entity.GraphRoom;
+import com.maneater.foundation.entity.GraphSupplier;
+import com.maneater.foundation.service.impl.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,27 +21,62 @@ import java.util.Arrays;
 @Controller()
 @RequestMapping(value = "step")
 public class AssembleController {
-    @Resource
-    private SupplierService supplierService;
 
+    @Resource
+    private GraphRoomService graphRoomService;
+
+    @Resource
+    private GraphRoomCategoryService graphRoomCategoryService;
+
+
+    @Resource
+    private GraphSupplierService graphSupplierService;
+
+    @Resource
+    private GraphModelService graphModelService;
+
+    @Resource
+    private GraphModelCategoryService graphModelCategoryService;
+
+    //show room category
     @RequestMapping(value = "step1", method = RequestMethod.GET)
-    public String listSupplier(Model model) {
-        model.addAttribute("itemList", supplierService.listAllSupplier());
+    public String listRoomCategory(Model model) {
+//        model.addAttribute("supplierList", supplierService.listAllSupplierByEnable(true));
+        model.addAttribute("roomCategoryList", graphRoomCategoryService.listAllByEnable(true));
+//        model.addAttribute("rooList", graphRoomService.listAllByEnable(true));
         return "/front/step1";
     }
 
+    // show root list
     @RequestMapping(value = "step2", method = RequestMethod.GET)
-    public String listModelBySupplier(Model model, @RequestParam long supplierId) {
-        model.addAttribute("itemList", supplierService.listGraphModelBySupplier(supplierId));
+    public String listRoomByCategory(Model model, @RequestParam long roomCategoryId) {
+        model.addAttribute("rooList", graphRoomService.listByCategoryId(roomCategoryId));
         return "/front/step2";
     }
 
-    @RequestMapping(value = "step3", method = RequestMethod.POST)
-    public String prepareAppletZipProperties(HttpSession session, Model model, @RequestParam Long[] modelIds) {
-        String realPath = session.getServletContext().getRealPath("/");
+    //show furniture \ catelog \ supplier
+    @RequestMapping(value = "step3", method = RequestMethod.GET)
+    public String listFurnitureAndCategory(Model model, @RequestParam long roomId) {
+        model.addAttribute("furinitureCategoryList", graphModelCategoryService.listAll());
+        model.addAttribute("furinitureSupplierList", graphSupplierService.listAll());
+        model.addAttribute("roomId", roomId);
+        model.addAttribute("furinitureList", graphModelService.listAll());
+        return "/front/step3";
+    }
+
+
+    // show
+    @RequestMapping(value = "step4", method = RequestMethod.POST)
+    public String prepareAppletZipProperties(Model model, @RequestParam Long[] modelIds, @RequestParam(required = false) Long roomId) {
         System.out.println(Arrays.toString(modelIds));
-        String zipProPath = supplierService.createAppletZip(realPath, modelIds);
+        String zipProPath = graphSupplierService.createAppletZip(Config.REAL_PATH, modelIds);
         model.addAttribute("propertiesPath", zipProPath);
-        return "/3d/step3";
+        if (roomId != null) {
+            GraphRoom graphRoom = graphRoomService.findById(roomId);
+            if (graphRoom != null) {
+                model.addAttribute("sh3dFilePath", graphRoom.getModelPath());
+            }
+        }
+        return "/front/3d/step3";
     }
 }

@@ -10,6 +10,10 @@ import javax.persistence.Table;
 /**
  * Created by Administrator on 2015/11/18 0018.
  */
+
+/**
+ * 家具
+ */
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Table(name = "t_graph_model")
@@ -32,12 +36,15 @@ public class GraphModel extends BaseEntity {
     doorOrWindow#466=false
     creator#466=Kator Legaz*/
 
+    @Column(nullable = false)
+    private Long categoryId;
+    @Column(nullable = false)
+    private String categoryName;
+
     @Column(unique = true, nullable = false)
     private String sequenceName;
     @Column(nullable = false)
     private String tags;
-    @Column(nullable = false)
-    private String category;
     @Column(nullable = false)
     private String icon;
     @Column(nullable = false)
@@ -57,11 +64,20 @@ public class GraphModel extends BaseEntity {
 
     /*@Transient表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性*/
 
-    private long supplierId;
-    private long categoryId;
-    private String categoryName;
+    private Long supplierId;
+    private String supplierName;
+
+
     private String qyt;
     private String code;
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
 
     public String getCategoryName() {
         return categoryName;
@@ -87,12 +103,8 @@ public class GraphModel extends BaseEntity {
         this.qyt = qyt;
     }
 
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
-    }
-
-    public void setCategoryId(long categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getSequenceName() {
@@ -111,20 +123,16 @@ public class GraphModel extends BaseEntity {
         this.sequenceName = sequenceName;
     }
 
-    public long getSupplierId() {
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(long supplierId) {
+    public void setSupplierId(Long supplierId) {
         this.supplierId = supplierId;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public Double getDepth() {

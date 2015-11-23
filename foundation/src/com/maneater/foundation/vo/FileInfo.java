@@ -63,7 +63,7 @@ public class FileInfo {
     }
 
     public enum FileType {
-        img, zip, txt, unknown, folder;
+        img, zip, txt, unknown, folder, sh3d;
 
         public static FileType convert(File file) {
             String fileNameUpper = file.getName().toUpperCase();
@@ -76,6 +76,8 @@ public class FileInfo {
                 fileType = FileType.txt;
             } else if (file.isDirectory()) {
                 fileType = FileType.folder;
+            } else if (fileNameUpper.endsWith(".SH3D")) {
+                fileType = FileType.sh3d;
             }
             return fileType;
         }
@@ -87,6 +89,10 @@ public class FileInfo {
 
     public boolean isZip() {
         return FileType.zip == this.fileType;
+    }
+
+    public boolean isSh3d() {
+        return FileType.sh3d == this.fileType;
     }
 
     public static FileInfo convert(String parentPath, File file) {

@@ -3,7 +3,8 @@ package com.maneater.foundation.service.impl;
 import com.maneater.foundation.entity.GraphModel;
 import com.maneater.foundation.entity.GraphSupplier;
 import com.maneater.foundation.repository.GraphModelRepository;
-import com.maneater.foundation.repository.SupplierRepository;
+import com.maneater.foundation.repository.GraphModelSupplierRepository;
+import com.maneater.foundation.repository.GraphRoomRepository;
 import com.maneater.foundation.uitl.FileUtil;
 import com.maneater.foundation.uitl.ZipPropertiesUtil;
 import org.springframework.stereotype.Service;
@@ -14,42 +15,43 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/11/18 0018.
+ * Created by Administrator on 2015/11/19 0019.
  */
 @Service
-public class SupplierService {
+public class GraphSupplierService {
     @Resource
-    private SupplierRepository supplierRepository;
+    private GraphModelSupplierRepository graphModelSupplierRepository;
+
     @Resource
     private GraphModelRepository graphModelRepository;
 
-
-    public List<GraphSupplier> listAllSupplier() {
-        return supplierRepository.findAll();
+    public List<GraphSupplier> listAll() {
+        return graphModelSupplierRepository.findAll();
     }
 
-    public GraphSupplier findSupplierById(Long id) {
-        return supplierRepository.findOne(id);
+    public GraphSupplier findById(Long id) {
+        return graphModelSupplierRepository.findOne(id);
     }
 
-    public GraphSupplier createSupplier(GraphSupplier graphSupplier) {
-        return supplierRepository.saveAndFlush(graphSupplier);
+    public GraphSupplier save(GraphSupplier supplier) {
+        if (supplier.getId() != null) {//update
+            GraphSupplier dbItem = graphModelSupplierRepository.findOne(supplier.getId());
+            boolean needSync = dbItem != null && !dbItem.getName().equals(supplier.getName());
+            supplier = graphModelSupplierRepository.saveAndFlush(supplier);
+            if (supplier != null && needSync) {
+                //categoryName change
+                graphModelRepository.syncSupplierName(supplier.getId(), supplier.getName());
+
+            }
+        } else {//create
+            supplier = graphModelSupplierRepository.saveAndFlush(supplier);
+        }
+        return supplier;
     }
 
-    public GraphSupplier updateSupplier(GraphSupplier graphSupplier) {
-        return supplierRepository.saveAndFlush(graphSupplier);
+    public boolean changeEnable(Long id, boolean value) {
+        return graphModelSupplierRepository.setEnableStatus(id, value) != null;
     }
-
-    public boolean changeEnableStatus(Long supplierId, boolean value) {
-        return supplierRepository.setEnableStatus(supplierId, value) != null;
-    }
-
-    /***************/
-
-    public List<GraphModel> listGraphModelBySupplier(long supplierId) {
-        return graphModelRepository.findBySupplierId(supplierId);
-    }
-
 
     public String createAppletZip(String baseDirPath, Long[] modelIds) {
 
@@ -67,8 +69,9 @@ public class SupplierService {
 
             if (!CollectionUtils.isEmpty(modelList)) {
                 StringBuilder properContent = new StringBuilder();
+                int index = 0;
                 for (GraphModel graphModel : modelList) {
-                    properContent.append(ZipPropertiesUtil.createZipProper(graphModel));
+                    properContent.append(ZipPropertiesUtil.createZipProper(graphModel, ++index));
                     properContent.append("\r\n");
                 }
                 boolean result = FileUtil.zipStringToFile(properContent.toString(), "PluginFurnitureCatalog.properties", filePath);
@@ -91,4 +94,9 @@ public class SupplierService {
     private String checkPropertiesFile(String propertiesFileName) {
         return null;
     }
+
+    public List<GraphSupplier> listAllSupplierByEnable(boolean enable) {
+        return graphModelSupplierRepository.findByEnable(enable);
+    }
+
 }

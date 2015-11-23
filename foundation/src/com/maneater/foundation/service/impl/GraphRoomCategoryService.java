@@ -51,4 +51,7 @@ public class GraphRoomCategoryService {
     }
 
 
+    public List<GraphRoomCategory> listAllByEnable(boolean enable) {
+        return graphRoomCategoryRepository.findByEnable(enable);
+    }
 }

@@ -25,4 +25,5 @@ public interface GraphRoomRepository extends BaseRepository<GraphRoom> {
     @Modifying(clearAutomatically = true)
     @Query(value = "update GraphRoom room set room.categoryName=:name where room.categoryId=:id")
     public Integer syncCategoryName(@Param("id") Long categoryId, @Param("name") String categoryName);
+
 }

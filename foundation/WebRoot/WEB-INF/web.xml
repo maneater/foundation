@@ -19,6 +19,13 @@
         <param-value>/WEB-INF/log4j.properties</param-value>
     </context-param>
 
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://foundation/filepath</taglib-uri>
+            <taglib-location>/WEB-INF/filepath.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
     <listener>
         <listener-class>com.maneater.foundation.listener.StartUpListener</listener-class>
     </listener>

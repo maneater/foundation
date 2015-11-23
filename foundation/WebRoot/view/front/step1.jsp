@@ -6,20 +6,22 @@
     <title></title>
 </head>
 <body>
-
+room category
 <table style="border: solid red 1px;">
-    <tr >
+    <tr>
         <th>#id</th>
         <th>name</th>
         <th>info</th>
+        <th>pic</th>
         <th>check</th>
     </tr>
-    <c:forEach items="${itemList}" var="item">
+    <c:forEach items="${roomCategoryList}" var="item">
         <tr>
-            <th>${item.id}</th>
-            <th>${item.name}</th>
-            <th>${item.info}</th>
-            <th><a href="${appPath}/step/step2?supplierId=${item.id}">Next</a></th>
+            <td>${item.id}</td>
+            <td>${item.name}</td>
+            <td>${item.info}</td>
+            <td><img src="<fd:path basePath="${appPath}/${dirUpload}" path="${item.picUrl}"></fd:path>" alt=""/></td>
+            <td><a href="${appPath}/step/step2?roomCategoryId=${item.id}">Next</a></td>
         </tr>
     </c:forEach>
 </table>

@@ -24,8 +24,12 @@ public interface GraphModelRepository extends BaseRepository<GraphModel> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update GraphModel model set model.category=:name where model.categoryId=:id")
+    @Query(value = "update GraphModel model set model.categoryName=:name where model.categoryId=:id")
     public Integer syncCategoryName(@Param("id") Long categoryId, @Param("name") String categoryName);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update GraphModel model set model.supplierName=:name where model.supplierId=:id")
+    public Integer syncSupplierName(@Param("id") Long id, @Param("name") String name);
 
 }
