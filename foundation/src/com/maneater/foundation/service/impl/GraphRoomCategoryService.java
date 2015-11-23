@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/19 0019.
+ * 房间类型
  */
 @Service
 public class GraphRoomCategoryService {

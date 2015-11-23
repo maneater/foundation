@@ -57,6 +57,8 @@ public class GraphModelController {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
         model.addAttribute("isAdd", true);
         model.addAttribute("categoryList", graphModelCategoryService.listAll());
+        List<GraphSupplier> supplierList = graphSupplierService.listAll();
+        model.addAttribute("supplierList", supplierList);
         return "/admin/furniture_show";
     }
 

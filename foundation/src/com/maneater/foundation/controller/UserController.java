@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Administrator on 2015/11/16 0016.
+ *  Demo
  */
 @Controller("customerController")
 @RequestMapping("user")
