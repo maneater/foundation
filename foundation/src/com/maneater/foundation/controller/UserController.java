@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Administrator on 2015/11/16 0016.
- *  Demo
+ * Demo
  */
 @Controller("customerController")
 @RequestMapping("user")
@@ -27,8 +27,12 @@ public class UserController {
 
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String login() {
-        return "/front/login";
+    public String login(HttpServletRequest req) {
+        if (SysUtil.checkUserLogin(req)) {
+            return "redirect:/front/room/index";
+        } else {
+            return "/front/login/login";
+        }
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -40,30 +44,32 @@ public class UserController {
             return "redirect:/index";
         } else {
             model.addAttribute("result", Result.result(0, "login or password error!", null));
-            return "/front/login";
+            return "/front/login/login";
         }
     }
 
     @RequestMapping(value = "register", method = RequestMethod.GET)
-    public String register() {
-        return "/front/register";
+    public String register(HttpServletRequest request) {
+        if (SysUtil.checkUserLogin(request)) {
+            return "redirect:/front/room/index";
+        } else {
+            return "/front/login/sign_up";
+        }
     }
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String register(Model model, @ModelAttribute User userInfo) {
-        //TODO check input;
-
         if (userService.checkReigser(userInfo.getEmail())) {
             model.addAttribute("result", Result.result(0, "the name have be registed", null));
-            return "/front/register";
+            return "/front/login/sign_up";
         } else {
             if (userService.save(userInfo)) {
                 model.addAttribute("result", Result.result(0, "success,please login", null));
-                return "/front/login";
+                return "/front/login/login";
             } else {
                 model.addAttribute("result", Result.result(1, "failed,try again later", null));
-                return "/front/register";
+                return "/front/login/sign_up";
             }
         }
     }

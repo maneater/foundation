@@ -14,6 +14,8 @@ public class User extends BaseEntity {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private String companyName;
     private String phone;
     private String address;
     public String getPhone() {
@@ -67,5 +69,12 @@ public class User extends BaseEntity {
         this.headPicUrl = headPicUrl;
     }
 
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
 }

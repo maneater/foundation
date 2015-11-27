@@ -1,0 +1,252 @@
+body {
+	background: url(../images/bg_image2.jpg) no-repeat;
+	font-family: "Aparajita";
+	font-size: 18px;
+	color: #fff;
+}
+
+td,th {
+	color: #000000;
+}
+
+.contentDiv {
+	text-align: left;
+	margin-left: 100px;
+	margin-top: 50px;
+}
+
+.mainHeadDiv {
+	width: 100%;
+}
+
+.mainHeadDiv .loginTitleDiv {
+
+}
+
+.loginTitleDiv span {
+	margin: 0;
+	text-align: center;
+	font: 72px/1 "Aparajita";
+	color: #fff;
+	text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mainHeadDiv .topNavDiv {
+	position: relative;
+}
+
+.topNavDiv ul {
+	margin: 30px 0;
+	padding: 0px;
+	list-style: none;
+}
+
+.topNavDiv ul li {
+	width: 150px;
+	font-size: 24px;
+	text-align: center;
+	display: inline-block;
+	color: #e2be7b;
+}
+
+.topNavDiv ul li span {
+	display: block;
+	width: 42px;
+	height: 42px;
+	padding: 0px;
+	margin: 0px 0px 10px 0px;
+	line-height: 50px;
+	margin: 0px auto;
+	color: #e2be7b;
+	background: #FFFFFF;
+	border-radius: 50%; /* 所有角都使用半径为5px的圆角，此属性为CSS3标准属性 */ 
+	-moz-border-radius: 50%; /* Mozilla浏览器的私有属性 */ 
+	-webkit-border-radius: 50%; /* Webkit浏览器的私有属性 */ 
+}
+
+.topNavDiv ul li a {
+	text-decoration: none;
+	color: #e2be7b;
+}
+
+.topNavDiv ul li.current, .topNavDiv ul li.current a {
+	color: #FFFFFF;
+	font-weight: 600;
+}
+
+.topNavDiv ul li.current span {
+	background: #000000;
+	color: #FFFFFF;
+	border: 2px solid #b4b4b4; 
+}
+
+.topNavDiv .topNavLine {
+	height: 2px;
+	width: 800px;
+	margin: 0px;
+	padding: 0px;
+	top: 27px;
+	z-index: -1;
+	position: absolute;
+	background: #aca496;
+}
+
+.mainBodyDiv {
+	margin-top: 70px;
+}
+
+.mainBodyDiv .bodyNavDiv {
+	width: 1000px;
+}
+
+.bodyNavDiv ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	background-color: #FFFFFF;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */
+  	background-color: rgba(255,255,255,0.4); /* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */
+}
+
+.bodyNavDiv ul li {
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+}
+
+.bodyNavDiv ul li a {
+	color: #FFFFFF;
+	height: 70px;
+	display: block;
+	line-height: 75px;
+	font-size: 26px;
+	padding-left: 40px;
+	padding-right: 40px;
+	margin: 0px;
+}
+
+.bodyNavDiv ul li a:hover {
+	color: #000000;
+	background-color: #ad8e52;
+}
+
+.bodyNavDiv ul li.current a {
+	color: #000000;
+	background-color: #ad8e52;
+}
+
+.mainBodyDiv .bodyContentDiv {
+	margin-top: 50px;
+}
+
+.bodyContentDiv .leftMenu {
+	float: left;
+	width: 280px;
+	background-color: #FFFFFF;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */
+  	background-color: rgba(255,255,255,0.35); 
+}
+
+.leftMenu ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+} 
+
+.leftMenu ul li a {
+	color: #FFFFFF;
+	height: 80px;
+	display: block;
+	line-height: 85px;
+	font-size: 26px;
+	padding-left: 10px;
+	margin: 0px;
+	text-align: left;
+}
+
+.leftMenu ul li a:hover {
+	color: #000000;
+	background-color: #ad8e52;
+}
+
+.leftMenu ul li.current a {
+	color: #000000;
+	background: url("../images/icon/icon_arrow.png") right no-repeat;
+	background-color: #ad8e52;
+}
+
+.bodyContentDiv .rightContent {
+	float: left;
+	margin-left: 50px;
+}
+
+.rightContent .loginDiv {
+	font-size: 24px;
+	margin: 70px 0px 0px 100px;
+}
+
+.loginDiv p label {
+	width: 150px;
+	display: inline-block;
+}
+
+.loginDiv input[type='text'], .loginDiv input[type='password'] {
+	width: 260px;
+}
+
+.loginDiv input[type='submit'] {
+	width: 150px;
+}
+
+.mainFootDiv {
+	height: 20px;
+	width: 100%;
+}
+
+.imageListDiv {
+	
+}
+
+.imageListDiv ul {
+	list-style: none;
+	width: 700px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.imageListDiv li {
+	margin: 0px 10px 10px 10px;
+	display: inline-block;
+}
+
+.imageListDiv li img {
+	width: 300px;
+}
+
+.imageContentDiv {
+	width: 700px;
+}
+
+.imageContentDiv img {
+	width: 600px;
+}
+
+.imageContentDiv p label {
+	margin-right: 30px;
+	display: inline-block;
+}
+
+.imageContentDiv input[type='text'] {
+	width: 180px;
+}
+
+.imageContentDiv input[type='submit'] {
+	width: 120px;
+	margin-left: 98px;
+}
+
+.contentListDiv {
+	
+}
+
+.contentListDiv ul {
+	
+}

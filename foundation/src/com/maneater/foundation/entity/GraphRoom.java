@@ -18,6 +18,7 @@ public class GraphRoom extends BaseEntity {
     private Long categoryId;
     private String categoryName;
     private String modelPath;
+    private Integer roomsNumber;
 
     public String getModelPath() {
         return modelPath;
@@ -50,5 +51,13 @@ public class GraphRoom extends BaseEntity {
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
     }
+
+	public Integer getRoomsNumber() {
+		return roomsNumber;
+	}
+
+	public void setRoomsNumber(Integer roomsNumber) {
+		this.roomsNumber = roomsNumber;
+	}
 
 }

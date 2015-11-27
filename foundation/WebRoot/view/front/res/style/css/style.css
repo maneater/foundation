@@ -1,0 +1,89 @@
+a {text-decoration: none;}
+
+label {
+	font-size: 24px;
+}
+
+input[type='text'], input[type='password'], textarea {
+	border: none;
+	font-size: 15px;
+	padding: 8px;
+	overflow: hidden;
+	color: #fff;
+	background-color: rgba(255,255,255,0.4); 
+}
+
+input[type='submit'],input[type='button'] {
+	border: none;
+	font-size: 22px;
+	padding: 2px 4px 2px 4px;
+	font-family: "Aparajita";
+	color: #FFFFFF;
+	cursor: pointer;
+	border: 2px solid #efefef;
+	background-color: rgba(255,255,255,0.4); 
+}
+
+.mt20 {margin-top: 20px;}
+.mt15 {margin-top: 15px;}
+.mt10 {margin-top: 10px;}
+
+.ml10 {margin-left: 10px;}
+
+.ml30 {margin-left: 30px;}
+
+.ml50 {margin-left: 50px;}
+
+.mr10 {margin-right: 10px;}
+.mr15 {margin-right: 15px;}
+
+.pl30 {padding-left: 30px;}
+.pl10 {padding-left: 10px;}
+.pr10 {padding-right: 10px;}
+.pr30 {padding-right: 30px;}
+
+.pt15 {padding-top: 15px;}
+.pt20 {padding-top: 20px;}
+
+.pb15 {padding-bottom: 15px;}
+
+.auto {margin-left: auto; margin-right: auto;}
+
+.fr {float: right;}
+.fl {float: left;}
+
+.txtr {text-align: right}
+.txtl {text-align: left}
+
+.clearfix:after {
+	content: "\200B";
+	display: block;
+	height: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.rel {
+	position: relative;
+}
+
+.abs {
+	position: absolute;
+}
+
+.dn {display: none;}
+
+.grid-12 {
+	width: 100%;
+	display: inline;
+	float: left;
+	position: relative;
+}
+
+.ell {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}

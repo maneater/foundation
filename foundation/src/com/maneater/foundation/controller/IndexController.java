@@ -14,6 +14,6 @@ public class IndexController {
 
     @RequestMapping(value = "index")
     public String index(ModelMap modelMap) {
-        return "/front/index";
+        return "redirect:/user/login";
     }
 }
