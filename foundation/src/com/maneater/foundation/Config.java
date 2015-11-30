@@ -3,7 +3,7 @@ package com.maneater.foundation;
 
 public class Config {
 
-    public static String APP_NAME = "foundation";
+    public static String APP_NAME = "\"MG Virtual Room\" Admin Panel";
     public static int PAGE_NUM = 1;
     public static final String PAGE_SIZE = "20";
     public static String SUCCESS = "处理成功";
