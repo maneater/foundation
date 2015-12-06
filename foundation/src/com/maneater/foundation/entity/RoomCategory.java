@@ -2,16 +2,17 @@ package com.maneater.foundation.entity;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Created by Administrator on 2015/11/18 0018.
+ * Created by Administrator on 2015/11/19 0019.
  */
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-@Table(name = "t_graph_supplier")
-public class GraphSupplier extends BaseEntity {
+@Table(name = "t_room_category")
+public class RoomCategory extends BaseEntity {
     private String picUrl;
 
     public String getPicUrl() {
@@ -21,5 +22,4 @@ public class GraphSupplier extends BaseEntity {
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
     }
-
 }

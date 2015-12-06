@@ -12,8 +12,8 @@ import javax.persistence.Table;
  */
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-@Table(name = "t_graph_room")
-public class GraphRoom extends BaseEntity {
+@Table(name = "t_room")
+public class Room extends BaseEntity {
     private String picUrl;
     private Long categoryId;
     private String categoryName;

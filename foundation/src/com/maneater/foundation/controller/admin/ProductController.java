@@ -15,22 +15,19 @@ import java.util.List;
 
 @Controller
 @RequestMapping("admin/furniture")
-public class GraphModelController {
+public class ProductController {
     private final static Logger logger = Logger.getLogger(UserController.class.getName());
 
     @Resource
-    private GraphModelService graphModelService;
+    private ProductService productService;
 
     @Resource
-    private GraphModelCategoryService graphModelCategoryService;
-
-    @Resource
-    private GraphSupplierService graphSupplierService;
+    private ProductCategoryService productCategoryService;
 
     @RequestMapping({"", "index"})
     public String listFurnitures(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
-        List<GraphModel> roomList = graphModelService.listAll();
+        List<Product> roomList = productService.listAll();
         model.addAttribute("itemList", roomList);
         return "/admin/furniture";
     }
@@ -38,17 +35,14 @@ public class GraphModelController {
     @RequestMapping(value = {"show"}, method = RequestMethod.GET)
     public String show(Model model, @RequestParam(required = false) Long id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
-        List<GraphModelCategory> categoryList = graphModelCategoryService.listAll();
-        List<GraphSupplier> supplierList = graphSupplierService.listAll();
-
-        GraphModel graphModel = graphModelService.findById(id);
-        if (graphModel == null) {
+        List<ProductCategory> categoryList = productCategoryService.listAll();
+        Product product = productService.findById(id);
+        if (product == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
         model.addAttribute("isAdd", false);
-        model.addAttribute("graphModel", graphModel);
+        model.addAttribute("graphModel", product);
         model.addAttribute("categoryList", categoryList);
-        model.addAttribute("supplierList", supplierList);
         return "/admin/furniture_show";
     }
 
@@ -56,16 +50,14 @@ public class GraphModelController {
     public String add(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
         model.addAttribute("isAdd", true);
-        model.addAttribute("categoryList", graphModelCategoryService.listAll());
-        List<GraphSupplier> supplierList = graphSupplierService.listAll();
-        model.addAttribute("supplierList", supplierList);
+        model.addAttribute("categoryList", productCategoryService.listAll());
         return "/admin/furniture_show";
     }
 
     @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
     @ResponseBody
     public Result enable(@RequestParam Long id, @RequestParam boolean enable) {
-        boolean result = graphModelService.changeEnabel(id, enable);
+        boolean result = productService.changeEnabel(id, enable);
         if (result) {
             return Result.result(1, "success", null);
         } else {
@@ -75,39 +67,31 @@ public class GraphModelController {
 
     @RequestMapping(value = {"save"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result save(@RequestBody GraphModel graphModel) {
-        GraphModel localItem = null;
+    public Result save(@RequestBody Product product) {
+        Product localItem = null;
 
-        GraphModelCategory category = graphModelCategoryService.findById(graphModel.getCategoryId());
+        ProductCategory category = productCategoryService.findById(product.getCategoryId());
         if (category == null) {
             return Result.result(0, "error category", null);
         }
 
-        GraphSupplier supplier = graphSupplierService.findById(graphModel.getSupplierId());
-        if (supplier == null) {
-            return Result.result(0, "error supplier", null);
-        }
 
+        product.setCategoryId(category.getId());
+        product.setCategoryName(category.getName());
 
-        graphModel.setCategoryId(category.getId());
-        graphModel.setCategoryName(category.getName());
-        graphModel.setSupplierId(supplier.getId());
-        graphModel.setSupplierName(supplier.getName());
-
-
-        if (!StringUtils.isEmpty(graphModel.getId())) {//update
-            localItem = graphModelService.findById(graphModel.getId());
+        if (!StringUtils.isEmpty(product.getId())) {//update
+            localItem = productService.findById(product.getId());
             if (localItem == null) {
-                return Result.result(0, "id:" + graphModel.getId() + " can not found!", null);
+                return Result.result(0, "id:" + product.getId() + " can not found!", null);
             }
 
-            graphModel.setId(localItem.getId());
-            graphModel.setCreateTime(localItem.getCreateTime());
+            product.setId(localItem.getId());
+            product.setCreateTime(localItem.getCreateTime());
 
-            localItem = graphModelService.save(graphModel);
+            localItem = productService.save(product);
 
         } else {//add
-            localItem = graphModelService.save(graphModel);
+            localItem = productService.save(product);
         }
 
         if (localItem != null) {
@@ -127,7 +111,7 @@ public class GraphModelController {
     @RequestMapping(value = {"cate"}, method = RequestMethod.GET)
     public String listCategorys(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furnitureCate");
-        List<GraphModelCategory> roomList = graphModelCategoryService.listAll();
+        List<ProductCategory> roomList = productCategoryService.listAll();
         model.addAttribute("itemList", roomList);
         return "/admin/furniture_catelist";
     }
@@ -136,7 +120,7 @@ public class GraphModelController {
     public String showCategory(Model model, @RequestParam(required = false) Long id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furnitureCate");
         model.addAttribute("isAdd", false);
-        GraphModelCategory graphRoomCategory = graphModelCategoryService.findById(id);
+        ProductCategory graphRoomCategory = productCategoryService.findById(id);
         if (graphRoomCategory == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
@@ -155,7 +139,7 @@ public class GraphModelController {
     @RequestMapping(value = {"cateenable"}, method = RequestMethod.POST)
     @ResponseBody
     public Result changeCategoryEnable(@RequestParam Long id, @RequestParam boolean enable) {
-        boolean result = graphModelCategoryService.changeEnable(id, enable);
+        boolean result = productCategoryService.changeEnable(id, enable);
         if (result) {
             return Result.result(1, "success", null);
         } else {
@@ -165,10 +149,10 @@ public class GraphModelController {
 
     @RequestMapping(value = {"catesave"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result saveCategory(@RequestBody GraphModelCategory category) {
-        GraphModelCategory localItem = null;
+    public Result saveCategory(@RequestBody ProductCategory category) {
+        ProductCategory localItem = null;
         if (!StringUtils.isEmpty(category.getId())) {//update
-            localItem = graphModelCategoryService.findById(category.getId());
+            localItem = productCategoryService.findById(category.getId());
             if (localItem == null) {
                 return Result.result(0, "id:" + category.getId() + " can not found!", null);
             }
@@ -176,10 +160,10 @@ public class GraphModelController {
             category.setId(localItem.getId());
             category.setCreateTime(localItem.getCreateTime());
 
-            localItem = graphModelCategoryService.save(category);
+            localItem = productCategoryService.save(category);
 
         } else {//add
-            localItem = graphModelCategoryService.save(category);
+            localItem = productCategoryService.save(category);
         }
 
         if (localItem != null) {

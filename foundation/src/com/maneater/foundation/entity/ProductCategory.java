@@ -11,8 +11,8 @@ import javax.persistence.Table;
  */
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-@Table(name = "t_graph_model_category")
-public class GraphModelCategory extends BaseEntity {
+@Table(name = "t_product_category")
+public class ProductCategory extends BaseEntity {
     private String picUrl;
 
     public String getPicUrl() {

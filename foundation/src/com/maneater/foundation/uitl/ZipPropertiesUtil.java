@@ -1,6 +1,6 @@
 package com.maneater.foundation.uitl;
 
-import com.maneater.foundation.entity.GraphModel;
+import com.maneater.foundation.entity.Product;
 import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
@@ -48,27 +48,27 @@ public class ZipPropertiesUtil {
         return PROPERTIES_TPL;
     }
 
-    public static String createZipProper(GraphModel graphModel, int index) {
-        return loadTpl().replace("{numId}", forString(index))
-                .replace("{name}", forString(graphModel.getName()))
-                .replace("{sequenceName}", forString(graphModel.getSequenceName()))
-                .replace("{tags}", forString(graphModel.getTags()))
-                .replace("{creationDate}", forString(""))
-                .replace("{category}", forString(graphModel.getCategoryName()))
-                .replace("{icon}", forString(graphModel.getIcon()))
-                .replace("{iconDigest}", forString(graphModel.getIconDigest()))
-                .replace("{model}", forString(graphModel.getModel()))
-                .replace("{modelDigest}", forString(graphModel.getModelDigest()))
-                .replace("{multiPartModel}", forString(graphModel.isMultiPartModel()))
-                .replace("{width}", forString(graphModel.getWidth()))
-                .replace("{depth}", forString(graphModel.getDepth()))
-                .replace("{height}", forString(graphModel.getHeight()))
-                .replace("{movable}", forString(graphModel.isMovable()))
-                .replace("{doorOrWindow}", forString(graphModel.isDoorOrWindow()))
-                .replace("{dropOnTopElevation}", forString(graphModel.getDropOnTopElevation()))
-                .replace("{creator}", forString(""));
-
-    }
+//    public static String createZipProper(Product product, int index) {
+//        return loadTpl().replace("{numId}", forString(index))
+//                .replace("{name}", forString(product.getName()))
+//                .replace("{sequenceName}", forString(product.getSequenceName()))
+//                .replace("{tags}", forString(product.getTags()))
+//                .replace("{creationDate}", forString(""))
+//                .replace("{category}", forString(product.getCategoryName()))
+//                .replace("{icon}", forString(product.getIcon()))
+//                .replace("{iconDigest}", forString(product.getIconDigest()))
+//                .replace("{model}", forString(product.getModel()))
+//                .replace("{modelDigest}", forString(product.getModelDigest()))
+//                .replace("{multiPartModel}", forString(product.isMultiPartModel()))
+//                .replace("{width}", forString(product.getWidth()))
+//                .replace("{depth}", forString(product.getDepth()))
+//                .replace("{height}", forString(product.getHeight()))
+//                .replace("{movable}", forString(product.isMovable()))
+//                .replace("{doorOrWindow}", forString(product.isDoorOrWindow()))
+//                .replace("{dropOnTopElevation}", forString(product.getDropOnTopElevation()))
+//                .replace("{creator}", forString(""));
+//
+//    }
 
     public static String forString(Object object) {
         return object != null ? String.valueOf(object) : "";

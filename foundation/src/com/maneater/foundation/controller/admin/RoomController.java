@@ -1,10 +1,10 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.GraphRoom;
-import com.maneater.foundation.entity.GraphRoomCategory;
-import com.maneater.foundation.service.impl.GraphRoomCategoryService;
-import com.maneater.foundation.service.impl.GraphRoomService;
+import com.maneater.foundation.entity.Room;
+import com.maneater.foundation.entity.RoomCategory;
+import com.maneater.foundation.service.impl.RoomCategoryService;
+import com.maneater.foundation.service.impl.RoomService;
 import com.maneater.foundation.vo.Result;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -23,14 +23,14 @@ import java.util.List;
 public class RoomController {
     private final static Logger logger = Logger.getLogger(UserController.class.getName());
     @Resource
-    private GraphRoomService graphRoomService;
+    private RoomService roomService;
     @Resource
-    private GraphRoomCategoryService graphRoomCategoryService;
+    private RoomCategoryService roomCategoryService;
 
     @RequestMapping({"", "index"})
     public String listRooms(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "room");
-        List<GraphRoom> roomList = graphRoomService.lisAll();
+        List<Room> roomList = roomService.lisAll();
         model.addAttribute("itemList", roomList);
         return "/admin/rooms";
     }
@@ -38,13 +38,13 @@ public class RoomController {
     @RequestMapping(value = {"show"}, method = RequestMethod.GET)
     public String showRoom(Model model, @RequestParam(required = false) Long id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "room");
-        List<GraphRoomCategory> categoryList = graphRoomCategoryService.listAll();
-        GraphRoom graphRoom = graphRoomService.findById(id);
-        if (graphRoom == null) {
+        List<RoomCategory> categoryList = roomCategoryService.listAll();
+        Room room = roomService.findById(id);
+        if (room == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
         model.addAttribute("isAdd", false);
-        model.addAttribute("graphRoom", graphRoom);
+        model.addAttribute("graphRoom", room);
         model.addAttribute("categoryList", categoryList);
         return "/admin/rooms_show";
     }
@@ -53,14 +53,14 @@ public class RoomController {
     public String addRoom(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "room");
         model.addAttribute("isAdd", true);
-        model.addAttribute("categoryList", graphRoomCategoryService.listAll());
+        model.addAttribute("categoryList", roomCategoryService.listAll());
         return "/admin/rooms_show";
     }
 
     @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
     @ResponseBody
     public Result enableRoom(@RequestParam Long id, @RequestParam boolean enable) {
-        boolean result = graphRoomService.changeEnabel(id, enable);
+        boolean result = roomService.changeEnabel(id, enable);
         if (result) {
             return Result.result(1, "success", null);
         } else {
@@ -70,29 +70,29 @@ public class RoomController {
 
     @RequestMapping(value = {"save"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result saveRoom(@RequestBody GraphRoom graphRoom) {
-        logger.info("saveRoom->" + graphRoom.toString());
-        GraphRoom localItem = null;
+    public Result saveRoom(@RequestBody Room room) {
+        logger.info("saveRoom->" + room.toString());
+        Room localItem = null;
 
-        GraphRoomCategory graphRoomCategory = graphRoomCategoryService.findById(graphRoom.getCategoryId());
-        if (graphRoomCategory == null) {
+        RoomCategory roomCategory = roomCategoryService.findById(room.getCategoryId());
+        if (roomCategory == null) {
             return Result.result(0, "error category", null);
         }
-        graphRoom.setCategoryId(graphRoomCategory.getId());
-        graphRoom.setCategoryName(graphRoomCategory.getName());
+        room.setCategoryId(roomCategory.getId());
+        room.setCategoryName(roomCategory.getName());
 
 
-        if (!StringUtils.isEmpty(graphRoom.getId())) {//update
-            localItem = graphRoomService.findById(graphRoom.getId());
+        if (!StringUtils.isEmpty(room.getId())) {//update
+            localItem = roomService.findById(room.getId());
             if (localItem == null) {
-                return Result.result(0, "id:" + graphRoom.getId() + " can not found!", null);
+                return Result.result(0, "id:" + room.getId() + " can not found!", null);
             }
-            graphRoom.setCreateTime(localItem.getCreateTime());
+            room.setCreateTime(localItem.getCreateTime());
 
-            localItem = graphRoomService.save(graphRoom);
+            localItem = roomService.save(room);
 
         } else {//add
-            localItem = graphRoomService.save(graphRoom);
+            localItem = roomService.save(room);
         }
 
         if (localItem != null) {
@@ -112,7 +112,7 @@ public class RoomController {
     @RequestMapping(value = {"cate"}, method = RequestMethod.GET)
     public String listCategorys(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "roomcate");
-        List<GraphRoomCategory> roomList = graphRoomCategoryService.listAll();
+        List<RoomCategory> roomList = roomCategoryService.listAll();
         model.addAttribute("itemList", roomList);
         return "/admin/rooms_catelist";
     }
@@ -121,11 +121,11 @@ public class RoomController {
     public String showCategory(Model model, @RequestParam(required = false) Long id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "roomcate");
         model.addAttribute("isAdd", false);
-        GraphRoomCategory graphRoomCategory = graphRoomCategoryService.findById(id);
-        if (graphRoomCategory == null) {
+        RoomCategory roomCategory = roomCategoryService.findById(id);
+        if (roomCategory == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
-        model.addAttribute("item", graphRoomCategory);
+        model.addAttribute("item", roomCategory);
         return "/admin/rooms_cateshow";
     }
 
@@ -141,7 +141,7 @@ public class RoomController {
     @ResponseBody
     public Result changeCategoryEnable(@RequestParam Long id, @RequestParam boolean enable) {
         logger.info("changeCategoryEnable");
-        boolean result = graphRoomCategoryService.changeEnable(id, enable);
+        boolean result = roomCategoryService.changeEnable(id, enable);
         if (result) {
             return Result.result(1, "success", null);
         } else {
@@ -151,21 +151,21 @@ public class RoomController {
 
     @RequestMapping(value = {"catesave"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result saveCategory(@RequestBody GraphRoomCategory category) {
+    public Result saveCategory(@RequestBody RoomCategory category) {
         logger.info("saveCategory->" + category.toString());
-        GraphRoomCategory localItem = null;
+        RoomCategory localItem = null;
         boolean success = false;
         if (!StringUtils.isEmpty(category.getId())) {//update
-            localItem = graphRoomCategoryService.findById(category.getId());
+            localItem = roomCategoryService.findById(category.getId());
             if (localItem == null) {
                 return Result.result(0, "id:" + category.getId() + " can not found!", null);
             }
             category.setCreateTime(localItem.getCreateTime());
 
-            localItem = graphRoomCategoryService.save(category);
+            localItem = roomCategoryService.save(category);
 
         } else {//add
-            localItem = graphRoomCategoryService.save(category);
+            localItem = roomCategoryService.save(category);
         }
 
         if (localItem != null) {

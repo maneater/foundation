@@ -17,11 +17,10 @@
     </ul>
 
     <ul class="nav nav-sidebar">
-        <li class="${act eq 'supplier' ? "active":""}"><a href="${appPath}/admin/supplier/index">Supplier</a></li>
         <li class="${act eq 'furniture' ? "active":""}"><a href="${appPath}/admin/furniture/index">Furniture</a></li>
         <li class="${act eq 'furnitureCate' ? "active":""}"><a href="${appPath}/admin/furniture/cate">Furniture Category</a></li>
+        <li class="${act eq 'property' ? "active":""}"><a href="${appPath}/admin/property/index">Furniture Property</a></li>
     </ul>
-
 
     <ul class="nav nav-sidebar">
         <li><a href="">Exit</a></li>

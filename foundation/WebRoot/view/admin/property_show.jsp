@@ -27,7 +27,7 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h3 class="page-header">${isAdd?"Add Supplier":"Supplier Information"}</h3>
+            <h3 class="page-header">${isAdd?"Add Property":"Property Information"}</h3>
 
             <form class="form-horizontal" id="itemForm">
 
@@ -82,6 +82,15 @@
                         <label class="radio-inline">
                             <input type="radio" name="enable" value="false" ${item.enable?"":"checked"}>disable
                         </label>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-sm-12 ">
+                    <label for="defaultOptions" class="control-label  col-sm-2">DefaultOptions</label>
+
+                    <div class="col-sm-9">
+                        <textarea type="text" class="form-control" id="defaultOptions" name="defaultOptions">${item.defaultOptions}</textarea>
                     </div>
                 </div>
 

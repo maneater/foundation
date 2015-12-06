@@ -1,0 +1,55 @@
+package com.maneater.foundation.service.impl;
+
+import com.maneater.foundation.entity.RoomCategory;
+import com.maneater.foundation.repository.RoomCategoryRepository;
+import com.maneater.foundation.repository.RoomRepository;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2015/11/19 0019.
+ * 房间类型
+ */
+@Service
+public class RoomCategoryService {
+    @Resource
+    private RoomCategoryRepository roomCategoryRepository;
+
+    @Resource
+    RoomRepository roomRepository;
+
+    public List<RoomCategory> listAll() {
+        return roomCategoryRepository.findAll();
+    }
+
+    public RoomCategory findById(Long id) {
+        return roomCategoryRepository.findOne(id);
+    }
+
+    public RoomCategory save(RoomCategory category) {
+        if (category.getId() != null) {//update
+            RoomCategory dbCategory = roomCategoryRepository.findOne(category.getId());
+            boolean needSync = dbCategory != null && !dbCategory.getName().equals(category.getName());
+            category = roomCategoryRepository.saveAndFlush(category);
+            if (category != null && needSync) {
+                //categoryName change
+                roomRepository.syncCategoryName(category.getId(), category.getName());
+
+            }
+        } else {//create
+            category = roomCategoryRepository.saveAndFlush(category);
+        }
+        return category;
+    }
+
+    public boolean changeEnable(Long id, boolean value) {
+        return roomCategoryRepository.setEnableStatus(id, value) != null;
+    }
+
+
+    public List<RoomCategory> listAllByEnable(boolean enable) {
+        return roomCategoryRepository.findByEnable(enable);
+    }
+}

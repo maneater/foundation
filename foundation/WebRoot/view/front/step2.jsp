@@ -1,5 +1,5 @@
 <%@ page import="com.maneater.foundation.uitl.ZipPropertiesUtil" %>
-<%@ page import="com.maneater.foundation.entity.GraphModel" %>
+<%@ page import="com.maneater.foundation.entity.Product" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@include file="common.jsp" %>

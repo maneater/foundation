@@ -10,10 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.GraphModel;
-import com.maneater.foundation.entity.GraphModelCategory;
-import com.maneater.foundation.service.impl.GraphModelCategoryService;
-import com.maneater.foundation.service.impl.GraphModelService;
+import com.maneater.foundation.entity.Product;
+import com.maneater.foundation.entity.ProductCategory;
+import com.maneater.foundation.service.impl.ProductCategoryService;
+import com.maneater.foundation.service.impl.ProductService;
 
 @Controller
 @RequestMapping("front/furniture")
@@ -23,22 +23,22 @@ public class FrontFurnitureController {
 	.getLogger(FrontFurnitureController.class.getName());
 
     @Resource
-    private GraphModelService graphModelService;
+    private ProductService productService;
     @Resource
-    private GraphModelCategoryService graphModelCategoryService;
+    private ProductCategoryService productCategoryService;
 	
     @RequestMapping({"", "index"})
     public String listFurnitures(Long categoryId, Model model) {
-        List<GraphModel> roomList = null;
+        List<Product> roomList = null;
         if(categoryId == null || categoryId < 1) {
-        	roomList = graphModelService.listAll();
+        	roomList = productService.listAll();
         	model.addAttribute("categoryId", -1);
         } else {
-        	roomList = graphModelService.listByCategoryId(categoryId);
+        	roomList = productService.listByCategoryId(categoryId);
         	model.addAttribute("categoryId", categoryId);
         }
         
-        List<GraphModelCategory> categories = graphModelCategoryService.listAll();
+        List<ProductCategory> categories = productCategoryService.listAll();
         model.addAttribute("categories", categories);
         model.addAttribute("itemList", roomList);
         
@@ -48,12 +48,12 @@ public class FrontFurnitureController {
     @RequestMapping({"", "detail"})
     public String detail(Long id, Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "room");
-        GraphModel bean = graphModelService.findById(id);
+        Product bean = productService.findById(id);
         if(bean == null) {
         	return "";
         }
         Long categoryId = bean.getCategoryId();
-        List<GraphModelCategory> categories = graphModelCategoryService.listAll();
+        List<ProductCategory> categories = productCategoryService.listAll();
 
         model.addAttribute("bean", bean);
         model.addAttribute("categoryId", categoryId);

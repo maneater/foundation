@@ -1,9 +1,6 @@
 package com.maneater.foundation.entity;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 import javax.persistence.*;
-import java.sql.Date;
 
 @MappedSuperclass
 public class BaseEntity {

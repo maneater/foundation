@@ -14,11 +14,11 @@ import java.util.List;
 @Service
 public class AdminService implements IAdminService {
     @Resource
-    private AdminRepository adminDao;
+    private AdminRepository adminRepository;
 
     @Override
     public Admin findByNameAndPass(String name, String password) {
-        return adminDao.findByNameAndPassword(name, password);
+        return adminRepository.findByNameAndPassword(name, password);
     }
 
     @Override
