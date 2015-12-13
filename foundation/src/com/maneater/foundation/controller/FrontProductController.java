@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("front/product")
-public class ProductController {
+public class FrontProductController {
 
     @Resource
     private ProductService productService;
