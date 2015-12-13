@@ -1,6 +1,7 @@
 package com.maneater.foundation.nosql.entity;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/11/18 0018.
  */
-
+@Document
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Product extends BaseEntity {
 
