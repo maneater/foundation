@@ -4,7 +4,6 @@ import com.maneater.foundation.nosql.entity.OrderInfo;
 import com.maneater.foundation.nosql.entity.OrderItem;
 import com.maneater.foundation.nosql.entity.Product;
 import com.maneater.foundation.nosql.repository.OrderRepository;
-import com.maneater.foundation.nosql.repository.ProductRepository;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Service;
 

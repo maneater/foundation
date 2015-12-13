@@ -25,9 +25,6 @@ import java.util.List;
 public class ProductController {
 
     @Resource
-    private UserService userService;
-
-    @Resource
     private ProductService productService;
     @Resource
     private ProductCategoryService productCategoryService;

@@ -18,6 +18,4 @@ public interface IUserService {
     boolean save(User user);
 
     boolean checkReigser(String email);
-
-    boolean addProduct(String productCode, int qty);
 }
