@@ -59,7 +59,7 @@ public class OrderService {
 
     public OrderInfo getNoCommitOrder(String userId) {
         List<OrderInfo> orderList = orderRepository.findByStatus(userId, 0);
-        OrderInfo orderInfo = orderList != null ? orderList.get(0) : null;
+        OrderInfo orderInfo = orderList != null && orderList.size() > 0 ? orderList.get(0) : null;
         return orderInfo;
     }
 
