@@ -3,10 +3,8 @@ package com.maneater.foundation.nosql.entity;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import javax.persistence.Entity;
 import java.util.List;
 
-@Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class OrderInfo extends BaseEntity {
     private List<OrderItem> orderItemList = null;
