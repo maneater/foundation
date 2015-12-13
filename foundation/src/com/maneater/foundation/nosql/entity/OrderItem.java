@@ -1,7 +1,5 @@
 package com.maneater.foundation.nosql.entity;
 
-import org.springframework.data.annotation.Transient;
-
 public class OrderItem {
     private String productCode;
     private int qyt;
@@ -32,7 +30,6 @@ public class OrderItem {
         this.price = price;
     }
 
-    @Transient
     private Product product = null;
 
     public Product getProduct() {

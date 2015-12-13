@@ -1,7 +1,6 @@
 package com.maneater.foundation.nosql.repository;
 
 import com.maneater.foundation.nosql.entity.BaseEntity;
-import com.maneater.foundation.nosql.entity.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

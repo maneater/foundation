@@ -2,12 +2,8 @@ package com.maneater.foundation.nosql.repository;
 
 
 import com.maneater.foundation.nosql.entity.OrderInfo;
-import com.maneater.foundation.nosql.entity.Product;
-import com.maneater.foundation.nosql.entity.ProductCategory;
-import com.mongodb.WriteResult;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

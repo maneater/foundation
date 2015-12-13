@@ -69,7 +69,7 @@
         /> -->
 
     <!-- Spring Data Jpa配置 -->
-    <jpa:repositories base-package="com.maneater.foundation"
+    <jpa:repositories base-package="com.maneater.foundation.repository"
                       transaction-manager-ref="transactionManager"
                       entity-manager-factory-ref="entityManagerFactory"/>
 
