@@ -65,11 +65,13 @@ public class OrderService {
     }
 
     public OrderInfo loadOrderItemData(OrderInfo orderInfo) {
-        List<OrderItem> orderItemList = orderInfo.getOrderItemList();
-        if (orderItemList != null) {
-            for (OrderItem orderItem : orderItemList) {
-                String productCode = orderItem.getProductCode();
-                orderItem.setProduct(productService.findByCode(productCode));
+        if (orderInfo != null) {
+            List<OrderItem> orderItemList = orderInfo.getOrderItemList();
+            if (orderItemList != null) {
+                for (OrderItem orderItem : orderItemList) {
+                    String productCode = orderItem.getProductCode();
+                    orderItem.setProduct(productService.findByCode(productCode));
+                }
             }
         }
         return orderInfo;
