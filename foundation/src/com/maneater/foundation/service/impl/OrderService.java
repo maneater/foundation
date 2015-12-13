@@ -54,6 +54,7 @@ public class OrderService {
         orderItem.setQyt(qty);
         orderItem.setPrice(price);
         orderItem.setProductCode(productCode);
+        orderInfo.setUserId(userId);
         orderRepository.save(orderInfo);
     }
 
