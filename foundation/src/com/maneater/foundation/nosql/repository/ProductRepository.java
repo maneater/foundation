@@ -22,7 +22,7 @@ public class ProductRepository extends BaseRepository<Product, String> {
     }
 
     public Product findByCode(String productCode) {
-        List<Product> productList = mongoTemplate.find(Query.query(new Criteria().orOperator(Criteria.where("productCode").is(productCode), Criteria.where("propertyProductList").elemMatch(Criteria.where("productCode").is(productCode)))), Product.class);
-        return productList != null ? productList.get(0) : null;
+        List<Product> productList = mongoTemplate.find(Query.query(new Criteria().orOperator(Criteria.where("code").is(productCode), Criteria.where("propertyProductList").elemMatch(Criteria.where("productCode").is(productCode)))), Product.class);
+        return productList != null && productList.size() > 0 ? productList.get(0) : null;
     }
 }
