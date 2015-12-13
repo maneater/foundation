@@ -66,7 +66,7 @@
 //        String zipProPath = graphSupplierService.createAppletZip(Config.REAL_PATH, modelIds);
 //        model.addAttribute("propertiesPath", zipProPath);
 //        if (roomId != null) {
-//            Room room = graphRoomService.findById(roomId);
+//            Room room = graphRoomService.findOne(roomId);
 //            if (room != null) {
 //                model.addAttribute("sh3dFilePath", room.getModelPath());
 //            }

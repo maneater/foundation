@@ -21,4 +21,24 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>toJs</name>
+        <tag-class>com.maneater.foundation.tag.ToJsValue</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>argName</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>argObj</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Object</type>
+            <deferred-value>
+                <type>java.lang.Object</type>
+            </deferred-value>
+        </attribute>
+    </tag>
 </taglib>

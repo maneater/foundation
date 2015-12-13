@@ -35,8 +35,10 @@
             <h1 class="page-header">Furniture List</h1>
 
 
-            <a href="${appPath}/admin/furniture/add">Add</a>
-
+            <c:forEach var="category" items="${categoryList}">
+                <a href="${appPath}/admin/furniture/add?cateId=${category.id}">Add&nbsp;${category.name}</a>
+                &nbsp;&nbsp;&nbsp;
+            </c:forEach>
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead>
@@ -45,7 +47,6 @@
                         <th>Name</th>
                         <th>Category</th>
                         <th>Picture</th>
-                        <th>Model</th>
                         <th>Act</th>
                         <th>LastUpdate</th>
                     </tr>
@@ -56,9 +57,8 @@
                             <td>${item.id}</td>
                             <td>${item.name}</td>
                             <td>${item.categoryName}</td>
-                            <td><img src="${appPath}/${dirUpload}/${item.icon}" alt="" style="width: 60px;height:60px;"
+                            <td><img src="${appPath}/${dirUpload}/${item.thumbnailPicture}" alt="" style="width: 60px;height:60px;"
                                      class="img-rounded"/></td>
-                            <td>${item.model}</td>
                             <td>
                                 <a href="${appPath}/admin/furniture/show?id=${item.id}"
                                    class="btn btn-default btn-xs" target="_self">查看</a>

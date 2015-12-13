@@ -27,7 +27,12 @@
         <%@include file="leftmenu.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h3 class="page-header">${isAdd?"Add Funiture":"Funiture Information"}</h3>
+            <h3 class="page-header">
+                <c:choose>
+                    <c:when test="${isAdd}">Add&nbsp;[${category.name}]&nbsp;Furniture</c:when>
+                    <c:otherwise>Furniture Information</c:otherwise>
+                </c:choose>
+            </h3>
 
             <form class="form-horizontal" id="itemForm">
 
@@ -44,20 +49,20 @@
                     </div>
                 </div>
                 <div class="form-group col-sm-6 ">
-                    <label for="sequenceName" class="control-label  col-sm-4">SequenceName</label>
+                    <label for="code" class="control-label  col-sm-4">Product Code</label>
 
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="sequenceName" value="${item.sequenceName}"
-                               name="sequenceName">
+                        <input type="text" class="form-control" id="code" value="${item.code}"
+                               name="code">
                     </div>
                 </div>
 
                 <div class="form-group col-sm-6 ">
-                    <label for="tags" class="control-label  col-sm-4">tags</label>
+                    <label for="price" class="control-label  col-sm-4">Price</label>
 
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="tags" value="${item.tags}"
-                               name="tags">
+                        <input type="text" class="form-control" id="price" value="${item.price}"
+                               name="price">
                     </div>
                 </div>
 
@@ -65,25 +70,22 @@
                     <label for="categoryId" class="control-label col-sm-4">category</label>
 
                     <div class="col-sm-8">
-
-                        <select class="form-control" name="categoryId" id="categoryId">
-                            <c:forEach var="category" items="${categoryList}">
-                                <option value="${category.id}" ${item.categoryId == category.id?"selected":""} >${category.name}</option>
-                            </c:forEach>
-                        </select>
-
+                        <input type="hidden" class="form-control" id="categoryId" value="${category.id}"
+                               name="categoryId">
+                        <input disabled type="text" class="form-control" id="categoryName" value="${category.name}">
                     </div>
                 </div>
 
                 <div class="form-group col-sm-6 ">
-                    <label for="icon" class="control-label col-sm-4">icon</label>
+                    <label for="thumbnailPicture" class="control-label col-sm-4">thumbnail</label>
 
                     <div class="col-sm-8">
                         <div class="input-group">
-                            <input required type="text" class="form-control" id="icon" value="${item.icon}"
-                                   name="icon">
+                            <input required type="text" class="form-control" id="thumbnailPicture"
+                                   value="${item.thumbnailPicture}"
+                                   name="thumbnailPicture">
                             <span class="input-group-btn">
-                                <button id="btnChoosePicture" type="button" class="btn btn-primary">select
+                                <button id="btnChooseThumbnailPicture" type="button" class="btn btn-primary">select
                                 </button>
                             </span>
                         </div>
@@ -91,23 +93,14 @@
                 </div>
 
                 <div class="form-group col-sm-6 ">
-                    <label for="iconDigest" class="control-label col-sm-4">iconDigest</label>
-
-                    <div class="col-sm-8">
-                        <input required type="text" class="form-control" id="iconDigest" value="${item.iconDigest}"
-                               name="iconDigest">
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-6 ">
-                    <label for="model" class="control-label col-sm-4">model</label>
+                    <label for="detailPicture" class="control-label col-sm-4">detailPicture</label>
 
                     <div class="col-sm-8">
                         <div class="input-group">
-                            <input id="itemModelPath" type="text" class="form-control" name="model"
-                                   value="${item.model}">
+                            <input id="detailPicture" type="text" class="form-control" name="detailPicture"
+                                   value="${item.detailPicture}">
                         <span class="input-group-btn">
-                            <button id="btnChooseModel" type="button" id="model"
+                            <button id="btnChooseDetailPicture" type="button"
                                     class="btn btn-primary ">select
                             </button>
                         </span>
@@ -116,11 +109,41 @@
                 </div>
 
                 <div class="form-group col-sm-6 ">
-                    <label for="modelDigest" class="control-label col-sm-4">modelDigest</label>
+                    <label for="thumbnailPicture" class="control-label  col-sm-4"> </label>
 
                     <div class="col-sm-8">
-                        <input required type="text" class="form-control" id="modelDigest" value="${item.modelDigest}"
-                               name="modelDigest">
+                        <img id="thumbnailPictureImg" src="${appPath}/${dirUpload}/${item.thumbnailPicture}" alt=""
+                             style="width: 150px;height:150px;"
+                             class="img-rounded"/>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-sm-6 ">
+                    <label for="detailPictureImg" class="control-label  col-sm-4"> </label>
+
+                    <div class="col-sm-8">
+                        <img id="detailPictureImg" src="${appPath}/${dirUpload}/${item.detailPicture}" alt=""
+                             style="width: 150px;height:150px;"
+                             class="img-rounded"/>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12 ">
+                    <label for="descBasic" class="control-label col-sm-2">descBasic</label>
+
+                    <div class="col-sm-10">
+                        <input required type="text" class="form-control" id="descBasic" value="${item.descBasic}"
+                               name="descBasic">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12 ">
+                    <label for="descDetail" class="control-label col-sm-2">descDetail</label>
+
+                    <div class="col-sm-10">
+                        <input required type="text" class="form-control" id="descDetail" value="${item.descDetail}"
+                               name="descDetail">
                     </div>
                 </div>
 
@@ -133,20 +156,6 @@
                     </div>
                 </div>
                 <div class="form-group col-sm-6">
-                    <label for="multiPartModel" class="control-label col-sm-4">multiPart</label>
-
-                    <div class="col-sm-8">
-                        <label class="radio">
-                            <input type="radio" name="multiPartModel" id="multiPartModel"
-                                   value="false" ${item.multiPartModel?"":"checked"}>false
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="multiPartModel"
-                                   value="true" ${item.multiPartModel?"checked":""}>true
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group col-sm-6">
                     <label for="height" class="control-label col-sm-4">height</label>
 
                     <div class="col-sm-8">
@@ -155,19 +164,6 @@
                     </div>
                 </div>
 
-                <div class="form-group col-sm-6">
-                    <label for="movable" class="control-label  col-sm-4">movable</label>
-
-                    <div class="col-sm-8">
-                        <label class="radio">
-                            <input type="radio" name="movable" value="false" ${item.movable?"":"checked"}>false
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="movable" id="movable"
-                                   value="true" ${item.movable||isAdd?"checked":""}>true
-                        </label>
-                    </div>
-                </div>
                 <div class="form-group col-sm-6 ">
                     <label for="depth" class="control-label col-sm-4">depth</label>
 
@@ -177,94 +173,14 @@
                     </div>
                 </div>
 
-
-                <div class="form-group col-sm-6">
-                    <label for="doorOrWindow" class="control-label  col-sm-4">door|Win</label>
+                <div class="form-group col-sm-6 ">
+                    <label for="sizeUnit" class="control-label col-sm-4">sizeUnit</label>
 
                     <div class="col-sm-8">
-                        <label class="radio">
-                            <input type="radio" name="doorOrWindow" value="false" ${item.doorOrWindow?"":"checked"}>false
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="doorOrWindow" id="doorOrWindow"
-                                   value="true" ${item.doorOrWindow?"checked":""}>true
-                        </label>
+                        <input required type="text" class="form-control" id="sizeUnit" value="${item.sizeUnit}"
+                               name="sizeUnit">
                     </div>
                 </div>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="dropOnTopElevation" class="control-label  col-sm-2">dropOnTopElevation</label>
-
-                    <div class="col-sm-9">
-                        <input type="number" class="form-control" id="dropOnTopElevation"
-                               value="${item.dropOnTopElevation}"
-                               name="dropOnTopElevation">
-                    </div>
-                </div>
-
-                <!--use for 3d properties-->
-
-                <HR style="border:1px solid #646975;" width="95%">
-
-                <c:if test="${!isAdd}">
-                    <div class="form-group col-sm-12 ">
-                        <label for="createTime" class="control-label  col-sm-2">CreateTime</label>
-
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="createTime" value="${item.createTime}"
-                                   disabled>
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-12 ">
-                        <label for="lastUpdate" class="control-label  col-sm-2">LastUpdate</label>
-
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="lastUpdate" value="${item.lastUpdateTime}"
-                                   disabled>
-                        </div>
-                    </div>
-                </c:if>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="itemImg" class="control-label  col-sm-2">Icon ReV</label>
-
-                    <div class="col-sm-9">
-                        <img id="itemImg" src="${appPath}/${dirUpload}/${item.icon}" alt=""
-                             style="width: 150px;height:150px;"
-                             class="img-rounded"/>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="supplierId" class="control-label  col-sm-2">Supplier</label>
-
-                    <div class="col-sm-9">
-                        <select class="form-control" name="supplierId" id="supplierId">
-                            <c:forEach var="supplier" items="${supplierList}">
-                                <option value="${supplier.id}" ${item.supplierId == supplier.id?"selected":""} >${supplier.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="qyt" class="control-label  col-sm-2">QYT</label>
-
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="qyt" value="${item.qyt}"
-                               name="qyt">
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="code" class="control-label  col-sm-2">Code</label>
-
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="code" value="${item.code}"
-                               name="code">
-                    </div>
-                </div>
-
                 <div class="form-group col-sm-12 ">
                     <label for="info" class="control-label  col-sm-2">Info</label>
 
@@ -288,6 +204,99 @@
                     </div>
                 </div>
 
+                <c:if test="${!isAdd}">
+                    <div class="form-group col-sm-12 ">
+                        <label for="createTime" class="control-label  col-sm-2">CreateTime</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="createTime" value="${item.createTime}"
+                                   disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 ">
+                        <label for="lastUpdate" class="control-label  col-sm-2">LastUpdate</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="lastUpdate" value="${item.lastUpdateTime}"
+                                   disabled>
+                        </div>
+                    </div>
+                </c:if>
+
+                <!--use for 3d properties-->
+                <HR style="border:1px solid #646975;" width="95%">
+                <c:forEach items="${category.expandPropertyList}" var="expandProperty">
+                    <div class="form-group col-sm-12 ">
+                        <label for="${expandProperty.name}"
+                               class="control-label  col-sm-2">${expandProperty.name}</label>
+
+                        <div class="col-sm-9">
+                            <c:forEach var="option" items="${fn:split(expandProperty.defaultOptions,';')}">
+                                <button onclick="return addPropertyTR('${expandProperty.name}','${option}','${option}');">${option}</button>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </c:forEach>
+
+                <div class="col-sm-12"><h4>expand property</h4></div>
+                <div class="table col-sm-12">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Value</th>
+                            <th>Info</th>
+                            <th>PropertyPic</th>
+
+                            <th>ProductCode</th>
+                            <th>ProductPic</th>
+                            <th>ProductPrice</th>
+
+                            <th>
+                                <button onclick="return addPropertyTR();">Add</button>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody id="expandTableBody">
+                        <c:forEach items="${item.propertyProductList}" var="propertyProduct" varStatus="propertyStatus">
+                            <tr data-value="${propertyProduct.propertyName}" data-index="${propertyStatus.index}"
+                                id="property">
+                                <td><input class="form-control" type="text" name="propertyProductList[${propertyStatus.index}].propertyName" value="${propertyProduct.propertyName}" required="true"/></td>
+                                <td><input class="form-control" type="text" name="propertyProductList[${propertyStatus.index}].propertyValue" value="${propertyProduct.propertyValue}"/></td>
+                                <td><input class="form-control" type="text" name="propertyProductList[${propertyStatus.index}].propertyInfo" value="${propertyProduct.propertyInfo}"/></td>
+                                <td class="col-sm-2"><div class="input-group"><input type="text" class="form-control" value="${propertyProduct.propertyPicUrl}" name="propertyProductList[${propertyStatus.index}].propertyPicUrl"><span class="input-group-btn"><button type="button" class="btn btn-primary" onclick="return selectPicUrl(this.parentNode.parentNode.childNodes[0],'${dirFurniturePropertyPic}');">select</button></span></div></td>
+
+                                <td><input class="form-control" type="text" data-value="productCode"
+                                           name="propertyProductList[${propertyStatus.index}].productCode"
+                                           value="${propertyProduct.productCode}"/>
+                                </td>
+
+
+                                <td class="col-sm-2">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" data-value="productPicUrl"
+                                               name="propertyProductList[${propertyStatus.index}].productPicUrl"
+                                               value="${propertyProduct.productPicUrl}"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" onclick="return selectPicUrl(this.parentNode.parentNode.childNodes[1],'${dirFurniture}');">select
+                                            </button>
+                                        </span>
+                                    </div>
+                                </td>
+
+
+                                <td><input class="form-control" type="text" data-value="productPrice"
+                                           name="propertyProductList[${propertyStatus.index}].productPrice"
+                                           value="${propertyProduct.productPrice}"/>
+                                </td>
+                                <td>
+                                    <button onclick="return deletePropertyRT(this);">delete</button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="col-sm-12 ">
                     <div class="col-sm-12 col-md-4 col-md-offset-4">
@@ -343,35 +352,98 @@
 <script src="${appPath}/view/resourse/js/jquery.min.js"></script>
 <script src="${appPath}/view/resourse/js/bootstrap.min.js"></script>
 <script src="${appPath}/view/admin/js/submit.js"></script>
-
 <script>
 
+
+    <fd:toJs argName="expandProperty" argObj="${category.expandPropertyList}"></fd:toJs>;
+    <fd:toJs argName="proudctProperty" argObj="${item.propertyProductList}"></fd:toJs>;
+
+
+    <%--<tr data-value="${propertyProduct.propertyName}" data-index="${propertyStatus.index}">--%>
+    <%--<td><input class="form-control" type="text"  data-value="propertyName"  name="propertyProductList[${propertyStatus.index}].propertyName" value="${propertyProduct.propertyName}" required="true"/></td>--%>
+    <%--<td><input class="form-control" type="text"  data-value="propertyValue"  name="propertyProductList[${propertyStatus.index}].propertyValue" value="${propertyProduct.propertyValue}"/></td>--%>
+    <%--<td><input class="form-control" type="text"  data-value="propertyInfo"  name="propertyProductList[${propertyStatus.index}].propertyInfo" value="${propertyProduct.propertyInfo}"/></td>--%>
+
+    <%--<td class=\"col-sm-2\"><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value=\"${propertyProduct.propertyPicUrl}\" name=\"propertyProductList[${propertyStatus.index}].propertyPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl(this.parentNode.parentNode.childNodes[1],'${dirFurniturePropertyPic}');\">select</button></span></div></td>--%>
+
+    <%--<td><input class="form-control" type="text"  data-value="productCode"  name="propertyProductList[${propertyStatus.index}].productCode" value="${propertyProduct.productCode}"/></td>--%>
+    <%--<td><input class="form-control" type="text"  data-value="productPicUrl"  name="propertyProductList[${propertyStatus.index}].productPicUrl" value="${propertyProduct.productPicUrl}"/></td>--%>
+    <%--<td><input class="form-control" type="text"  data-value="productPrice"  name="propertyProductList[${propertyStatus.index}].productPrice" value="${propertyProduct.productPrice}"/></td>--%>
+    <%--<td><button onclick="return deletePropertyRT(this);">delete</button></td>--%>
+    <%--</tr>--%>
+
+    function addPropertyTR(name, value, info) {
+        if (!name) {
+            name = "";
+        }
+
+        if (!value) {
+            value = "";
+        }
+        if (!info) {
+            info = "";
+        }
+
+        var price = $("#price").val();
+
+        var trSize = $("#expandTableBody").children().size();
+        var tr = $(document.createElement("tr"));
+        tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"propertyName\"  name=\"propertyProductList[" + trSize + "].propertyName\" value=\"" + name + "\" required=\"true\"/></td>");
+        tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"propertyValue\"  name=\"propertyProductList[" + trSize + "].propertyValue\" value=\"" + value + "\"/></td>");
+        tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"propertyInfo\"  name=\"propertyProductList[" + trSize + "].propertyInfo\" value=\"" + info + "\"/></td>");
+        tr.append("<td class=\"col-sm-2\"><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value=\"\" name=\"propertyProductList["+trSize+"].propertyPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl(this.parentNode.parentNode.childNodes[0],'${dirFurniturePropertyPic}');\">select</button></span></div></td>");
+
+        tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"productCode\"  name=\"propertyProductList[" + trSize + "].productCode\" value=\"\"/></td>");
+//        tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"productPicUrl\"  name=\"propertyProductList[" + trSize + "].productPicUrl\" value=\"\"/></td>");
+        tr.append("<td class=\"col-sm-2\"><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value=\"\" name=\"propertyProductList["+trSize+"].productPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl(this.parentNode.parentNode.childNodes[0],'${dirFurniture}');\">select</button></span></div></td>");
+        tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"productPrice\"  name=\"propertyProductList[" + trSize + "].productPrice\" value=\"" + price + "\"/></td>");
+
+        tr.append("<td><button onclick='return deletePropertyRT(this);'>delete</button></td>");
+        $("#expandTableBody").append(tr);
+        return false;
+    }
+    function deletePropertyRT(ele) {
+        $(ele).parent().parent().remove();
+        return false;
+    }
+
     var appPath = '${appPath}';
-    var choosePicUrl = false;
+    var chooseDetail = false;
+
+    var picPathTarget=null;
+    var picShowTarget=null;
+
+    function selectPicUrl(pathTarget,filePath,showTarget){
+        console.info(pathTarget);
+
+        picPathTarget = pathTarget;
+        picShowTarget = null;
+
+        $("#chooseTitle").html("Choose Picture");
+        $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath='+filePath);
+        $("#chooseModal").modal('show');
+    }
+
 
     $().ready(function () {
 
-        $("#btnChooseModel").bind("click", function () {
-            choosePicUrl = false;
-            $("#chooseTitle").html("Choose Model File");
-            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=zip&filePath=${dirFurnitureModel}');
+        $("#btnChooseThumbnailPicture").bind("click", function () {
+            chooseDetail = false;
+            $("#chooseTitle").html("Choose ThumbnailPicture");
+            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=${dirFurnitureModel}');
             $("#chooseModal").modal('show');
-            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
-            <%--});--%>
         });
-        $("#btnChoosePicture").bind("click", function () {
-            $("#chooseTitle").html("Choose Model Picture");
-            choosePicUrl = true;
+        $("#btnChooseDetailPicture").bind("click", function () {
+            $("#chooseTitle").html("Choose DetailPicture");
+            chooseDetail = true;
             $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=${dirFurniture}');
             $("#chooseModal").modal('show');
-            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
-            <%--});--%>
         });
 
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
             var btnCancel = $("#btnCancel").button('loading');
-            submitJson("itemForm", "./save", function (result) {
+            submitParams("./save", $("#itemForm").serialize(), function (result) {
                 if (result && result.code == 1) {
                     $("#confirmModal").modal('hide');
                 }
@@ -384,12 +456,19 @@
 
     function useUpload(filePath) {
         $("#chooseModal").modal('hide');
-        if (choosePicUrl) {
-            $("#itemImg").attr("src", appPath + "/upload/" + filePath);
-            $("#icon").val(filePath);
-            $("#choosePictureModal").modal('hide');
+        if(picPathTarget != null){
+            <%--$(picPathTarget).attr("src", appPath + "/${dirUpload}/" + filePath);--%>
+            $(picPathTarget).val(filePath);
+            picPathTarget = null;
+            return ;
+        }
+
+        if (chooseDetail) {
+            $("#detailPictureImg").attr("src", appPath + "/${dirUpload}/" + filePath);
+            $("#detailPicture").val(filePath);
         } else {
-            $("#itemModelPath").val(filePath);
+            $("#thumbnailPictureImg").attr("src", appPath + "/${dirUpload}/" + filePath);
+            $("#thumbnailPicture").val(filePath);
         }
     }
 

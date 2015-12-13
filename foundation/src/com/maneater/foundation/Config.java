@@ -17,10 +17,12 @@ public class Config {
     public static String FILE_UPLOAD_REAL_DIR_PATH = "";
 
     public static String FILE_PATH_ROOM = "room";
+    @Deprecated
     public static String FILE_PATH_ROOM_MODEL = "model";
     public static String FILE_PATH_ROOM_CATE_PIC = "catepic";
 
     public static String FILE_PATH_FURNITURE = "furniture";
     public static String FILE_PATH_FURNITURE_MODEL = "model";
+    public static String FILE_PATH_FURNITURE_PROPERTY_PIC = "property";
     public static String FILE_PATH_FURNITURE_CATE_PIC = "catepic";
 }

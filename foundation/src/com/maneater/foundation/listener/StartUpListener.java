@@ -24,7 +24,7 @@ public class StartUpListener implements ServletContextListener {
         FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE);
         FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_MODEL);
         FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_CATE_PIC);
-
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_PROPERTY_PIC);
 
     }
 

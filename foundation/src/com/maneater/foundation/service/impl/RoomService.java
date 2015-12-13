@@ -34,7 +34,7 @@ public class RoomService {
     }
 
     public Room save(Room room) {
-        return roomRepository.saveAndFlush(room);
+        return roomRepository.save(room);
     }
 
     public boolean changeEnabel(Long id, boolean enable) {

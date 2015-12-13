@@ -1,8 +1,7 @@
 package com.maneater.foundation.service.impl;
 
-import com.maneater.foundation.entity.ExpandProperty;
-import com.maneater.foundation.entity.Product;
-import com.maneater.foundation.repository.ExpandPropertyRepository;
+import com.maneater.foundation.nosql.entity.ExpandProperty;
+import com.maneater.foundation.nosql.repository.BaseRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,21 +13,22 @@ import java.util.List;
 @Service
 public class ExpandPropertyService {
     @Resource
-    private ExpandPropertyRepository expandPropertyRepository;
+    private BaseRepository<ExpandProperty, String> expandPropertyRepository;
 
     public ExpandProperty save(ExpandProperty property) {
-        return expandPropertyRepository.saveAndFlush(property);
+        return expandPropertyRepository.save(property);
     }
 
     public List<ExpandProperty> listAll() {
         return expandPropertyRepository.findAll();
     }
 
-    public boolean changeEnabel(Long id, boolean enable) {
-        return expandPropertyRepository.setEnableStatus(id, enable) > 0;
+    public boolean changeEnabel(String id, boolean enable) {
+        expandPropertyRepository.setEnableStatus(id, enable);
+        return true;
     }
 
-    public ExpandProperty findById(Long id) {
+    public ExpandProperty findById(String id) {
         return expandPropertyRepository.findOne(id);
     }
 }

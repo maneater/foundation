@@ -1,7 +1,7 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.ExpandProperty;
+import com.maneater.foundation.nosql.entity.ExpandProperty;
 import com.maneater.foundation.service.impl.ExpandPropertyService;
 import com.maneater.foundation.vo.Result;
 import org.apache.log4j.Logger;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
+@Deprecated
 @Controller
 @RequestMapping("admin/property")
 public class PropertyController {
@@ -31,7 +32,7 @@ public class PropertyController {
 
     //
     @RequestMapping(value = {"show"}, method = RequestMethod.GET)
-    public String show(Model model, @RequestParam(required = false) Long id) {
+    public String show(Model model, @RequestParam(required = false) String id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "property");
         ExpandProperty item = expandPropertyService.findById(id);
         if (item == null) {
@@ -51,7 +52,7 @@ public class PropertyController {
 
     @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result enable(@RequestParam Long id, @RequestParam boolean enable) {
+    public Result enable(@RequestParam String id, @RequestParam boolean enable) {
         boolean result = expandPropertyService.changeEnabel(id, enable);
         if (result) {
             return Result.result(1, "success", null);
@@ -107,7 +108,7 @@ public class PropertyController {
 //    public String showCategory(Model model, @RequestParam(required = false) Long id) {
 //        model.addAttribute(Config.ADMIN_ACT_NAME, "furnitureCate");
 //        model.addAttribute("isAdd", false);
-//        ProductCategory graphRoomCategory = productCategoryService.findById(id);
+//        ProductCategory graphRoomCategory = productCategoryService.findOne(id);
 //        if (graphRoomCategory == null) {
 //            model.addAttribute("rs", Result.result(0, "can not find ", null));
 //        }
@@ -139,7 +140,7 @@ public class PropertyController {
 //    public Result saveCategory(@RequestBody ProductCategory category) {
 //        ProductCategory localItem = null;
 //        if (!StringUtils.isEmpty(category.getId())) {//update
-//            localItem = productCategoryService.findById(category.getId());
+//            localItem = productCategoryService.findOne(category.getId());
 //            if (localItem == null) {
 //                return Result.result(0, "id:" + category.getId() + " can not found!", null);
 //            }

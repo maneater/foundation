@@ -1,7 +1,8 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.*;
+import com.maneater.foundation.nosql.entity.Product;
+import com.maneater.foundation.nosql.entity.ProductCategory;
 import com.maneater.foundation.service.impl.*;
 import com.maneater.foundation.vo.Result;
 import org.apache.log4j.Logger;
@@ -29,35 +30,35 @@ public class ProductController {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
         List<Product> roomList = productService.listAll();
         model.addAttribute("itemList", roomList);
+        model.addAttribute("categoryList", productCategoryService.listAll());
         return "/admin/furniture";
     }
 
     @RequestMapping(value = {"show"}, method = RequestMethod.GET)
-    public String show(Model model, @RequestParam(required = false) Long id) {
+    public String show(Model model, @RequestParam(required = false) String id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
-        List<ProductCategory> categoryList = productCategoryService.listAll();
         Product product = productService.findById(id);
         if (product == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
         model.addAttribute("isAdd", false);
         model.addAttribute("graphModel", product);
-        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("category", productCategoryService.findById(product.getCategoryId()));
         return "/admin/furniture_show";
     }
 
     @RequestMapping(value = {"add"}, method = RequestMethod.GET)
-    public String add(Model model) {
+    public String add(Model model,@RequestParam(required = true) String cateId) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
         model.addAttribute("isAdd", true);
-        model.addAttribute("categoryList", productCategoryService.listAll());
+        model.addAttribute("category", productCategoryService.findById(cateId));
         return "/admin/furniture_show";
     }
 
     @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result enable(@RequestParam Long id, @RequestParam boolean enable) {
-        boolean result = productService.changeEnabel(id, enable);
+    public Result enable(@RequestParam String id, @RequestParam boolean enable) {
+        boolean result = productService.changeEnable(id, enable);
         if (result) {
             return Result.result(1, "success", null);
         } else {
@@ -67,7 +68,7 @@ public class ProductController {
 
     @RequestMapping(value = {"save"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result save(@RequestBody Product product) {
+    public Result save(@ModelAttribute Product product) {
         Product localItem = null;
 
         ProductCategory category = productCategoryService.findById(product.getCategoryId());
@@ -117,7 +118,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = {"cateshow"}, method = RequestMethod.GET)
-    public String showCategory(Model model, @RequestParam(required = false) Long id) {
+    public String showCategory(Model model, @RequestParam(required = false) String id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furnitureCate");
         model.addAttribute("isAdd", false);
         ProductCategory graphRoomCategory = productCategoryService.findById(id);
@@ -138,7 +139,7 @@ public class ProductController {
 
     @RequestMapping(value = {"cateenable"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result changeCategoryEnable(@RequestParam Long id, @RequestParam boolean enable) {
+    public Result changeCategoryEnable(@RequestParam String id, @RequestParam boolean enable) {
         boolean result = productCategoryService.changeEnable(id, enable);
         if (result) {
             return Result.result(1, "success", null);
@@ -149,7 +150,7 @@ public class ProductController {
 
     @RequestMapping(value = {"catesave"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result saveCategory(@RequestBody ProductCategory category) {
+    public Result saveCategory(@ModelAttribute ProductCategory category) {
         ProductCategory localItem = null;
         if (!StringUtils.isEmpty(category.getId())) {//update
             localItem = productCategoryService.findById(category.getId());

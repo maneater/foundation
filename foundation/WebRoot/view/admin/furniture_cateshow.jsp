@@ -34,28 +34,41 @@
                 <input type="hidden" name="id" value="${item.id}">
 
 
-                <div class="form-group col-sm-12 ">
-                    <label for="name" class="control-label  col-sm-2">Name</label>
+                <div class="form-group col-sm-6 ">
+                    <label for="name" class="control-label  col-sm-4">Name</label>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" id="name" value="${item.name}"
                                name="name">
                     </div>
                 </div>
 
-                <c:if test="${!isAdd}">
-                    <div class="form-group col-sm-12 ">
-                        <label for="createTime" class="control-label  col-sm-2">CreateTime</label>
+                <div class="form-group col-sm-12 ">
+                    <label for="enable" class="control-label  col-sm-2">Enable</label>
 
-                        <div class="col-sm-4">
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" name="enable" id="enable" value="true" ${item.enable?"checked":""}>enable
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="enable" value="false" ${item.enable?"":"checked"}>disable
+                        </label>
+                    </div>
+                </div>
+
+                <c:if test="${!isAdd}">
+                    <div class="form-group col-sm-6">
+                        <label for="createTime" class="control-label  col-sm-4">CreateTime</label>
+
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" id="createTime" value="${item.createTime}"
                                    disabled>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12 ">
-                        <label for="lastUpdate" class="control-label  col-sm-2">LastUpdate</label>
+                    <div class="form-group col-sm-6">
+                        <label for="lastUpdate" class="control-label  col-sm-4">LastUpdate</label>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" id="lastUpdate" value="${item.lastUpdateTime}"
                                    disabled>
                         </div>
@@ -84,20 +97,39 @@
                     </div>
                 </div>
 
-
-                <div class="form-group col-sm-12 ">
-                    <label for="enable" class="control-label  col-sm-2">Enable</label>
-
-                    <div class="col-sm-9">
-                        <label class="radio-inline">
-                            <input type="radio" name="enable" id="enable" value="true" ${item.enable?"checked":""}>enable
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="enable" value="false" ${item.enable?"":"checked"}>disable
-                        </label>
-                    </div>
+                <div class="col-sm-12"><h4>expand property</h4></div>
+                <div class="table col-sm-12">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Info</th>
+                            <th>DefaultOptions</th>
+                            <th>Enable</th>
+                        </tr>
+                        </thead>
+                        <tbody id="expandTableBody">
+                        <c:set var="propertitySize" value="${fn:length(item.expandPropertyList)}"></c:set>
+                        <c:forEach items="${item.expandPropertyList}" var="propertity" varStatus="propertyStatus">
+                            <tr>
+                                <td>${propertyStatus.index+1}<input type="hidden" name="expandPropertyList[${propertyStatus.index}].id" value="${propertity.id}"></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].name" value="${propertity.name}" required="true"/></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].info" value="${propertity.info}"/></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].defaultOptions" value="${propertity.defaultOptions}"/></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].enable" value="${propertity.enable}"/></td>
+                            </tr>
+                        </c:forEach>
+                            <tr>
+                                <td>${propertitySize+1}<input type="hidden" name="expandPropertyList[${propertitySize}].id" value=""></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].name" value=""/></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].info" value=""/></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].defaultOptions" value=""/></td>
+                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].enable" value="true"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
 
                 <div class="col-sm-12 ">
                     <div class="col-sm-12 col-md-4 col-md-offset-4">
@@ -174,7 +206,8 @@
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
             var btnCancel = $("#btnCancel").button('loading');
-            submitJson("itemForm", "./catesave", function (result) {
+
+            submitParams("./catesave",$("#itemForm").serialize(),function (result) {
                 if (result && result.code == 1) {
                     $("#confirmModal").modal('hide');
                 }
@@ -182,6 +215,15 @@
                 btnConfirm.button('reset');
                 alert(result.msg);
             });
+
+//            submitJson("itemForm", "./catesave", function (result) {
+//                if (result && result.code == 1) {
+//                    $("#confirmModal").modal('hide');
+//                }
+//                btnCancel.button('reset')
+//                btnConfirm.button('reset');
+//                alert(result.msg);
+//            });
         });
     });
 

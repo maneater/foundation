@@ -32,14 +32,14 @@ public class RoomCategoryService {
         if (category.getId() != null) {//update
             RoomCategory dbCategory = roomCategoryRepository.findOne(category.getId());
             boolean needSync = dbCategory != null && !dbCategory.getName().equals(category.getName());
-            category = roomCategoryRepository.saveAndFlush(category);
+            category = roomCategoryRepository.save(category);
             if (category != null && needSync) {
                 //categoryName change
                 roomRepository.syncCategoryName(category.getId(), category.getName());
 
             }
         } else {//create
-            category = roomCategoryRepository.saveAndFlush(category);
+            category = roomCategoryRepository.save(category);
         }
         return category;
     }

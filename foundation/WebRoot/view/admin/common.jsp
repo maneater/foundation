@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://foundation/filepath" prefix="fd" %>
 <%
     request.setAttribute("appName", Config.APP_NAME);
     request.setAttribute("dirUpload", Config.FILE_UPLOAD_DIR_NAME);
@@ -15,6 +16,7 @@
     request.setAttribute("dirFurniture", Config.FILE_PATH_FURNITURE);
     request.setAttribute("dirFurnitureModel", Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_MODEL);
     request.setAttribute("dirFurnitureCatePic", Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_CATE_PIC);
+    request.setAttribute("dirFurniturePropertyPic", Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_PROPERTY_PIC);
 %>
 <c:set var="appPath" value="${pageContext.request.contextPath}"/>
 
@@ -28,3 +30,4 @@
 <c:set var="dirFurniture" value="${dirFurniture}"/>
 <c:set var="dirFurnitureModel" value="${dirFurnitureModel}"/>
 <c:set var="dirFurnitureCatePic" value="${dirFurnitureCatePic}"/>
+<c:set var="dirFurniturePropertyPic" value="${dirFurniturePropertyPic}"/>
