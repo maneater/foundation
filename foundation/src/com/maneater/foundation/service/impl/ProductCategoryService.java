@@ -66,4 +66,7 @@ public class ProductCategoryService {
     }
 
 
+    public List<ProductCategory> listAllByEnable(boolean value) {
+        return productCategoryRepository.listAllByEnable(value);
+    }
 }

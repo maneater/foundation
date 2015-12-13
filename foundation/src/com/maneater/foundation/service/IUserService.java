@@ -2,6 +2,7 @@ package com.maneater.foundation.service;
 
 import com.maneater.foundation.entity.Admin;
 import com.maneater.foundation.entity.User;
+import com.maneater.foundation.vo.Result;
 import org.springframework.data.domain.Page;
 
 /**
@@ -17,4 +18,6 @@ public interface IUserService {
     boolean save(User user);
 
     boolean checkReigser(String email);
+
+    boolean addProduct(String productCode, int qty);
 }

@@ -1,6 +1,7 @@
 package com.maneater.foundation.nosql.repository;
 
 import com.maneater.foundation.nosql.entity.BaseEntity;
+import com.maneater.foundation.nosql.entity.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -41,6 +42,10 @@ public class BaseRepository<T extends BaseEntity, ID extends Serializable> {
     public boolean setEnableStatus(ID id, Boolean value) {
         mongoTemplate.updateFirst(Query.query(Criteria.where("_id").is(id)), Update.update("enable", value), getEntityClass());
         return true;
+    }
+
+    public List<T> listAllByEnable(boolean value) {
+        return mongoTemplate.find(Query.query(Criteria.where("enable").is(value)),getEntityClass());
     }
 
     // 获取需要操作的实体类class

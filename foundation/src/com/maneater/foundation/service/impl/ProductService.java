@@ -18,7 +18,7 @@ public class ProductService {
     @Resource
     private ProductRepository productRepository;
 
-    public List<Product> listByCategoryId(Long categoryId) {
+    public List<Product> listByCategoryId(String categoryId) {
         return productRepository.findByCategoryId(categoryId);
     }
 
@@ -49,5 +49,13 @@ public class ProductService {
                 }
             }
         }
+    }
+
+    public List<Product> listAllByEnable(boolean value) {
+        return productRepository.listAllByEnable(value);
+    }
+
+    public Product findByCode(String productCode) {
+        return productRepository.findByCode(productCode);
     }
 }

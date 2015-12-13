@@ -141,4 +141,17 @@ public class Product extends BaseEntity {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public Double getPriceByCode(String productCode) {
+        if (productCode.equals(this.code)) {
+            return this.price;
+        } else if (this.propertyProductList != null) {
+            for (PropertyProduct propertyProduct : this.propertyProductList) {
+                if (propertyProduct.equals(propertyProduct)) {
+                    return propertyProduct.getProductPrice();
+                }
+            }
+        }
+        return this.price;
+    }
 }

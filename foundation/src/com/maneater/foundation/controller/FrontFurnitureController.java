@@ -28,14 +28,13 @@ public class FrontFurnitureController {
     private ProductCategoryService productCategoryService;
 
     @RequestMapping({"", "index"})
-    public String listFurnitures(Long categoryId, Model model) {
+    public String listFurnitures(String categoryId, Model model) {
+        model.addAttribute("categoryId", categoryId);
         List<Product> roomList = null;
-        if (categoryId == null || categoryId < 1) {
+        if (categoryId == null) {
             roomList = productService.listAll();
-            model.addAttribute("categoryId", -1);
         } else {
             roomList = productService.listByCategoryId(categoryId);
-            model.addAttribute("categoryId", categoryId);
         }
 
         List<ProductCategory> categories = productCategoryService.listAll();

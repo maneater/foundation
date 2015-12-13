@@ -1,7 +1,10 @@
 package com.maneater.foundation.nosql.repository;
 
 import com.maneater.foundation.nosql.entity.Product;
-import org.springframework.data.repository.query.Param;
+import com.mongodb.WriteResult;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,12 +12,17 @@ import java.util.List;
 @Repository
 public class ProductRepository extends BaseRepository<Product, String> {
 
-    public List<Product> findByCategoryId(Long categoryId) {
-        return null;
+    public List<Product> findByCategoryId(String categoryId) {
+        return mongoTemplate.find(Query.query(Criteria.where("categoryId").is(categoryId)), Product.class);
     }
 
-    public Integer syncCategoryName(@Param("id") String categoryId, @Param("name") String categoryName) {
-        return null;
+    public void syncCategoryName(String categoryId, String categoryName) {
+        WriteResult result = mongoTemplate.updateMulti(Query.query(Criteria.where("categoryId").is(categoryId)), Update.update("categoryName", categoryName), Product.class);
+//        return result != null && result.getError() == null;
     }
 
+    public Product findByCode(String productCode) {
+        List<Product> productList = mongoTemplate.find(Query.query(new Criteria().orOperator(Criteria.where("productCode").is(productCode), Criteria.where("propertyProductList").elemMatch(Criteria.where("productCode").is(productCode)))), Product.class);
+        return productList != null ? productList.get(0) : null;
+    }
 }

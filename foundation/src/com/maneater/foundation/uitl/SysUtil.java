@@ -51,4 +51,15 @@ public class SysUtil {
             session.removeAttribute(Config.SESSION_KEY_USER);
         }
     }
+
+    public static String getLoginUserId(HttpServletRequest rq) {
+        HttpSession session = rq.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute(Config.SESSION_KEY_USER);
+            if (user != null) {
+                return String.valueOf(user.getId());
+            }
+        }
+        return "";
+    }
 }
