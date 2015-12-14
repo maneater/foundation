@@ -1,6 +1,5 @@
 package com.maneater.foundation.tag;
 
-import com.maneater.foundation.uitl.ZipPropertiesUtil;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.jsp.JspException;
