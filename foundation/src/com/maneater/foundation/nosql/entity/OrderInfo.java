@@ -5,6 +5,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+
 @Document
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class OrderInfo extends BaseEntity {
@@ -22,6 +23,16 @@ public class OrderInfo extends BaseEntity {
 
     private Double totalPrice;
 
+    //后端处理状态 0=未处理，1=已处理
+    private int dealStatus = 0;
+
+    public int getDealStatus() {
+        return dealStatus;
+    }
+
+    public void setDealStatus(int dealStatus) {
+        this.dealStatus = dealStatus;
+    }
 
     public Double getTotalPrice() {
         return totalPrice;

@@ -21,6 +21,11 @@
         <li class="${act eq 'furnitureCate' ? "active":""}"><a href="${appPath}/admin/furniture/cate">Furniture Category</a></li>
     </ul>
 
+
+    <ul class="nav nav-sidebar">
+        <li class="${act eq 'order' ? "active":""}"><a href="${appPath}/admin/order/">Order List</a></li>
+    </ul>
+
     <ul class="nav nav-sidebar">
         <li><a href="">Exit</a></li>
     </ul>

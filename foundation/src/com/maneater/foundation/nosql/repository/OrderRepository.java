@@ -15,8 +15,8 @@ public class OrderRepository extends BaseRepository<OrderInfo, String> {
         return mongoTemplate.find(Query.query(Criteria.where("status").is(status).and("userId").is(userId)), OrderInfo.class);
     }
 
-    public List<OrderInfo> findByStatus(int status) {
-        return mongoTemplate.find(Query.query(Criteria.where("status").is(status)), OrderInfo.class);
+    public List<OrderInfo> findByUserId(String userId) {
+        return mongoTemplate.find(Query.query(Criteria.where("userId").is(userId)), OrderInfo.class);
     }
 
 }

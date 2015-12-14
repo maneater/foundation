@@ -37,6 +37,7 @@ public class Product extends BaseEntity {
 
     private Double price;
 
+    //属性产品，对应与产品详情里的
     private List<PropertyProduct> propertyProductList = null;
 
     public List<PropertyProduct> getPropertyProductList() {

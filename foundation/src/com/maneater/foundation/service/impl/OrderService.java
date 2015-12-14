@@ -17,6 +17,8 @@ import java.util.List;
 @Service
 public class OrderService {
 
+    private final static Object lock = new Object();
+
     @Resource
     private OrderRepository orderRepository = null;
 
@@ -25,43 +27,49 @@ public class OrderService {
 
 
     public void addProduct(String userId, String productCode, int qty) {
-        Product product = productService.findByCode(productCode);
-        Double price = product.getPriceByCode(productCode);
+        synchronized (lock) {
+            Product product = productService.findByCode(productCode);
+            Double price = product.getPriceByCode(productCode);
 
-        OrderInfo orderInfo = getNoCommitOrder(userId);
-        if (orderInfo == null) {
-            orderInfo = new OrderInfo();
-        }
-
-        List<OrderItem> orderItemList = orderInfo.getOrderItemList();
-        if (orderItemList == null) {
-            orderItemList = new ArrayList<OrderItem>();
-        }
-        orderInfo.setOrderItemList(orderItemList);
-
-        OrderItem orderItem = null;
-        for (OrderItem savedItem : orderItemList) {
-            if (savedItem.getProductCode().equals(productCode)) {
-                orderItem = savedItem;
-                break;
+            OrderInfo orderInfo = getNoCommitOrder(userId);
+            if (orderInfo == null) {
+                orderInfo = new OrderInfo();
             }
-        }
 
-        if (orderItem == null) {
-            orderItem = new OrderItem();
-            orderItemList.add(orderItem);
+            List<OrderItem> orderItemList = orderInfo.getOrderItemList();
+            if (orderItemList == null) {
+                orderItemList = new ArrayList<OrderItem>();
+            }
+            orderInfo.setOrderItemList(orderItemList);
+
+            OrderItem orderItem = null;
+            for (OrderItem savedItem : orderItemList) {
+                if (savedItem.getProductCode().equals(productCode)) {
+                    orderItem = savedItem;
+                    break;
+                }
+            }
+
+            if (orderItem == null) {
+                orderItem = new OrderItem();
+                orderItemList.add(orderItem);
+            }
+            orderItem.setQyt(qty);
+            orderItem.setPrice(price);
+            orderItem.setProductCode(productCode);
+            orderInfo.setUserId(userId);
+            orderRepository.save(orderInfo);
         }
-        orderItem.setQyt(qty);
-        orderItem.setPrice(price);
-        orderItem.setProductCode(productCode);
-        orderInfo.setUserId(userId);
-        orderRepository.save(orderInfo);
     }
 
     public OrderInfo getNoCommitOrder(String userId) {
         List<OrderInfo> orderList = orderRepository.findByStatus(userId, 0);
         OrderInfo orderInfo = orderList != null && orderList.size() > 0 ? orderList.get(0) : null;
         return orderInfo;
+    }
+
+    public List<OrderInfo> getOrderByUserId(String userId) {
+        return orderRepository.findByUserId(userId);
     }
 
     public OrderInfo loadOrderItemData(OrderInfo orderInfo) {
@@ -83,6 +91,7 @@ public class OrderService {
             orderInfo.setName(name);
             orderInfo.setDesignation(designation);
             orderInfo.setCompany(company);
+            orderInfo.setStatus(1);
             orderInfo.setCompanyAddress(companyAddress);
             orderInfo.setDeliveryAddress(deliveryAddress);
             orderInfo.setContactNumber(contactNumber);
@@ -91,5 +100,13 @@ public class OrderService {
             return Result.result(1, "success", null);
         }
         return Result.result(0, "no such order", null);
+    }
+
+    public List<OrderInfo> listAll() {
+        return orderRepository.findAll();
+    }
+
+    public OrderInfo getDetailById(String orderId) {
+        return loadOrderItemData(orderRepository.findOne(orderId));
     }
 }
