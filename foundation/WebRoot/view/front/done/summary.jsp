@@ -103,8 +103,8 @@
 								<c:forEach var="item" items="${order.orderItemList}">
 								<tr>
 									<td>1</td>
-									<td width="120" style="border-right: none;">Bed</td>
-									<td width="80" style="border-left: none;"><img src="../res/style/images/test/catalog2.jpg" style="width: 60px;" /></td>
+									<td width="120" style="border-right: none;">${item.product.name}</td>
+									<td width="80" style="border-left: none;"><img src="${appPath}/${dirUpload}/${item.product.thumbnailPicture}" style="width: 60px;" /></td>
 									<td>${item.productCode }</td>
 									<td>${item.qyt }</td>
 									<td align="center"><input id="summary_check1" res="${item.price }" type="checkbox" checked="checked" /></td>

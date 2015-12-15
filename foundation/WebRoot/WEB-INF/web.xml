@@ -70,6 +70,12 @@
         <url-pattern>/front/furniture/*</url-pattern>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/product/order/*</url-pattern>
+    </filter-mapping>
+
+
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
