@@ -107,7 +107,7 @@
 									<td width="80" style="border-left: none;"><img src="${appPath}/${dirUpload}/${item.product.thumbnailPicture}" style="width: 60px;" /></td>
 									<td>${item.productCode }</td>
 									<td>${item.qyt }</td>
-									<td align="center"><input id="summary_check1" res="${item.price }" type="checkbox" checked="checked" /></td>
+									<td align="center"><input id="summary_check1" res="${item.price }" name="checkedItems" type="checkbox" checked="checked" /></td>
 									<td>$${item.price }</td>
 								</tr>
 								</c:forEach>
@@ -117,35 +117,36 @@
 									<th id="grandTotalTh">$${order.totalPrice }</th>
 								</tfoot>
 							</table>
+								<input type="hidden" name="orderId" value="${order.id}"/>
 							<div class="summaryDescDiv">
 								<h2>Contact Information (Compulsary to complete this section)</h2>
 								<p>
 									<label>Name</label>
-									<input type="text" />
+									<input type="text" name="name"/>
 								</p>
 								<p>
 									<label>Designation</label>
-									<input type="text" />
+									<input type="text" name="designation" />
 								</p>
 								<p>
 									<label>Company</label>
-									<input type="text" />
+									<input type="text" name="company"/>
 								</p>
 								<p>
 									<label>Company Address</label>
-									<input type="text" />
+									<input type="text" name="companyAddress"/>
 								</p>
 								<p>
 									<label>Delivery Address</label>
-									<input type="text" />
+									<input type="text" name="deliveryAddress"/>
 								</p>
 								<p>
 									<label>Contact Number</label>
-									<input type="text" />
+									<input type="text" name="contactNumber"/>
 								</p>
 								<p>
 									<label>Email</label>
-									<input type="text" />
+									<input type="text" name="email"/>
 								</p>
 								<span>Terms and Conditions</span>
 								<div class="summaryProtocolTxt">

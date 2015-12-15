@@ -85,9 +85,9 @@ public class OrderService {
         return orderInfo;
     }
 
-    public Result submitOrder(String loginUserId, String orderId, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
+    public Result submitOrder(String loginUserId, String orderId, String[] checkedItemId, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
         OrderInfo orderInfo = orderRepository.findOne(orderId);
-        if (orderInfo.getUserId() != null && orderInfo.getUserId().equals(loginUserId)) {
+        if (orderInfo != null && orderInfo.getUserId() != null && orderInfo.getUserId().equals(loginUserId)) {
             orderInfo.setName(name);
             orderInfo.setDesignation(designation);
             orderInfo.setCompany(company);
