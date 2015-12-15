@@ -104,7 +104,7 @@ td,th {
 	margin: 0px;
 	padding: 0px;
 	background-color: #FFFFFF;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */
-  	background-color: rgba(255,255,255,0.4); /* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */
+  	background-color: rgba(0,0,0,0.4); /* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */
 }
 
 .bodyNavDiv ul li {
@@ -140,7 +140,7 @@ td,th {
 
 .bodyContentDiv .leftMenu {
 	float: left;
-	width: 280px;
+	width: 200px;
 	background-color: #FFFFFF;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */
   	background-color: rgba(255,255,255,0.35); 
 }
@@ -160,6 +160,7 @@ td,th {
 	padding-left: 10px;
 	margin: 0px;
 	text-align: left;
+	border-bottom: 1px solid #666;
 }
 
 .leftMenu ul li a:hover {
@@ -173,27 +174,60 @@ td,th {
 	background-color: #ad8e52;
 }
 
+.bodyContentDiv .signUpBottomDiv {
+	width: 1000px;
+	height: 120px;
+	font-size: 24px;
+	margin: 10px 0px 0px 0px;
+	background-color: #FFFFFF;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */
+  	background-color: rgba(255,255,255,0.55); 
+  	padding: 20px 20px 20px 20px;
+  	border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    float: left;
+    color: #000000;
+}
+
+.bodyContentDiv .signUpBottomDiv h2 {
+	margin: 10px 0px 10px 0px;
+	line-height: 20px;
+}
+
 .bodyContentDiv .rightContent {
 	float: left;
 	margin-left: 50px;
 }
 
 .rightContent .loginDiv {
+	width: 550px;
+	height: 240px;
 	font-size: 24px;
-	margin: 70px 0px 0px 100px;
+	margin: 10px 0px 0px 20px;
+	background-color: #FFFFFF;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */
+  	background-color: rgba(255,255,255,0.35); 
+  	padding: 20px 20px 20px 20px;
+  	border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
 }
 
 .loginDiv p label {
 	width: 150px;
 	display: inline-block;
+	color: #000000;
 }
 
 .loginDiv input[type='text'], .loginDiv input[type='password'] {
-	width: 260px;
+	width: 269px;
+	margin-bottom: 15px;
+	background-color: #666;
 }
 
 .loginDiv input[type='submit'] {
 	width: 150px;
+	background-color: #666;
+	margin-top: 20px;
 }
 
 .mainFootDiv {
@@ -236,11 +270,266 @@ td,th {
 
 .imageContentDiv input[type='text'] {
 	width: 180px;
+	background-color: #e6e6e6;
 }
 
 .imageContentDiv input[type='submit'] {
 	width: 120px;
 	margin-left: 98px;
+	background-color: #e6e6e6;
+	color: #000000;
+}
+
+/** 家具页面样式 **/
+.furnitureListDiv {
+	background-color: rgba(0,0,0,0.35); 
+	width: 810px;
+	height: 580px;
+	overflow-y: auto;
+}
+
+.furnitureListDiv .item {
+	padding: 25px 10px 10px 10px;
+    height: 110px;
+    border-bottom: 1px solid #999999;
+    position: relative;
+}
+
+.furnitureListDiv .item:hover {
+	background-color: #ad8e52;
+}
+
+.furnitureListDiv .item .content {
+	display: inline-block;
+	padding-top: 0px;
+	margin-top: 0px;
+	vertical-align: top;
+}
+
+.furnitureListDiv .item .content h2 {
+	margin: 0px;
+	padding: 0px;
+}
+
+.furnitureListDiv .item .content label {
+	display: block;
+	font-size: 22px;
+}
+
+.furnitureListDiv .item .hr {
+	width: 245px;
+    height: 40px;
+    top: 30px;
+    left: 52%;
+    margin-left: 10px;
+    margin-right: 20px;
+    display: inline-block;
+    border-bottom: 2px dashed #FFFFFF;
+    line-height: 100px;
+    vertical-align: top;
+    position: absolute;
+}
+
+.furnitureListDiv .item .moreRight {
+	display: inline-block;
+	float: right;
+}
+
+.furnitureListDiv .item .moreRight span {
+	background: url("../images/icon/icon_arrow_small.png") left 5px no-repeat;
+    background-size: 16px;
+    padding-left: 14px;
+}
+
+.furnitureListDiv .item .moreRight a {
+	width: 100%;
+	color: #FFFFFF;
+	text-align: right;
+	display: inline-block;
+}
+
+.furnitureDetailDiv {
+/*	height: 480px;*/
+	width: auto;
+	color: #000000;
+}
+
+.furnitureDetailDiv .detailContent {
+	background-color: rgba(242,150, 20, 0.6); 
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+	width: 750px;
+/*	height: 480px;*/
+	float: left;
+}
+
+.furnitureDetailDiv .detailContent .detailItemDiv {
+	position: relative;
+}
+
+.furnitureDetailDiv .detailContent ul {
+	margin: 0px;
+	padding: 0px 0px 0px 17px;
+}
+
+.furnitureDetailDiv .detailContent .detailLeft {
+	float: left;
+	width: 420px;
+	margin-right: 20px;
+}
+
+.furnitureDetailDiv .detailContent .detailFormat {
+	background: #efddb8;
+	float: right;
+	width: auto;
+	margin-top: 20px;
+	padding: 0px 10px 0px 10px;
+/*	height: 100px;*/
+}
+
+.furnitureDetailDiv .detailContent .detailFormat p {
+	line-height: 20px;
+}
+
+.furnitureDetailDiv .detailContent .detailFormat label {
+	width: 105px;
+    display: inline-block;
+}
+
+.furnitureDetailDiv .detailContent .detailFormat input[type='number'] {
+	width: 40px;
+}
+
+.detailLeft .detailFormat .formatList {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.detailLeft .detailFormat h2 {
+	margin: 20px 0px 0px 5px;
+	line-height: 20px;
+}
+
+.detailLeft .detailFormat .formatList li {
+	display: inline-block;
+	list-style: none;
+	margin-left: 5px;
+	width: 60px;
+}
+
+.detailLeft .detailFormat .formatList label {
+	width: 100%;
+	vertical-align: middle;
+	margin-bottom: 5px;
+}
+
+.detailLeft .detailFormat .formatList span {
+	font-size: 15px;
+	line-height: 15px;
+	display: block;
+}
+
+.detailLeft .detailFormat .formatList li img {
+	width: 60px;
+	height: 60px;
+	display: block;
+	margin-top: 10px;
+	background-color: #265A88;	
+}
+
+.furnitureDetailDiv .detailContent .contentRight {
+	display: inline-block;
+	padding-top: 0px;
+	margin-top: 0px;
+	vertical-align: top;
+	width: 300px;
+	height: 100%;
+}
+
+.furnitureDetailDiv .detailContent .detailController {
+    bottom: 15px;
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+}
+
+.furnitureDetailDiv .detailContent .detailController input[type='button'],
+.furnitureDetailDiv .detailContent .detailController input[type='submit'] 
+{
+	width: 120px;
+	color: #000000;
+}
+
+.furnitureDetailDiv .btnDetailPrev {
+	background: url(../images/icon/icon_btn_prev.png) 0px 50% no-repeat;
+	width: 48px;
+	height: 480px;
+	cursor: pointer;
+	display: inline-block;
+	margin: 0px 10px 0px 10px;
+	padding: 0px;
+	float: left;
+}
+
+.furnitureDetailDiv .btnDetailNext {
+	background: url(../images/icon/icon_btn_prev.png) 0px 50% no-repeat;
+	width: 48px;
+	height: 480px;
+	display: inline-block;
+	margin: 0px 10px 0px 10px;
+	padding: 0px;
+	cursor: pointer;
+	-webkit-transform:rotate(180deg);
+    -moz-transform:rotate(180deg);
+   	-ms-transform:rotate(180deg);
+   	-o-transform:rotate(180deg);
+   	transform:rotate(180deg);
+   	float: left;
+}
+
+/* summary页面  */
+.summarySumbitDiv {
+	width: 800px;
+	height: 500px;
+	overflow-y: auto;
+}
+
+.summarySumbitDiv .summaryDescDiv {
+	padding: 10px;
+	color: #000000;
+}
+
+.summarySumbitDiv .summaryDescDiv label {
+	font-size: 18px;
+	font-weight: normal;
+	width: 140px;
+}
+
+.summarySumbitDiv .summaryDescDiv input[type="text"] {
+	width: 500px;
+}
+
+.summarySumbitDiv input[type="button"],
+.summarySumbitDiv input[type="submit"]
+{
+	color: #000000;
+}
+
+.summarySumbitDiv .summaryDescDiv span {
+	display: inline-block;
+	width: 100%;
+	font-size: 24px;
+	padding-left: 10px;
+	height: 40px;
+	line-height: 40px;
+	background-color: rgba(0, 0, 0, 0.35);
+	color: #FFFFFF;
+}
+
+.summarySumbitDiv .summaryDescDiv .summaryProtocolTxt {
+	padding: 10px 10px 10px 10px;
 }
 
 .contentListDiv {

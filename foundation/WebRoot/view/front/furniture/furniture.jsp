@@ -30,13 +30,13 @@
 				<!-- 内容区域的导航条 -->
 				<div class="bodyNavDiv">
 					<ul>
-						<li class="current">
+						<li>
 							<a href="javascript:void(0);">Home</a>
 						</li>
 						<li>
 							<a href="javascript:void(0);">New Arrival</a>
 						</li>
-						<li>
+						<li class="current">
 							<a href="javascript:void(0);">Catalog</a>
 						</li>
 						<li>
@@ -48,9 +48,6 @@
 				<div class="bodyContentDiv">
 					<div class="leftMenu">
 						<ul>
-							<li <c:if test="${categoryId==-1}"> class="current" </c:if> >
-								<a href="${appPath}/front/furniture/index">Chairs</a>
-							</li>
 							<c:forEach var="item" items="${categories}">
 							<li <c:if test="${item.id==categoryId}"> class="current" </c:if> >
 								<a href="${appPath}/front/furniture/index?categoryId=${item.id}">${item.name }</a>
@@ -59,16 +56,26 @@
 						</ul>
 					</div>
 					<div class="rightContent">
-						<div class="imageListDiv ml30">
-							<ul>
+						<div class="furnitureListDiv">
+							<form>
 								<c:forEach var="item" items="${itemList}">
-								<li>
-									<a href="${appPath}/front/furniture/detail?id=${item.id}" res_id="${item.id}" title="${item.name}">
-									<img src="${appPath}/${dirUpload}/${item.icon}" />
-									</a>
-								</li>
+								<div class="item" res_id="${item.id}" title="${item.name}">
+									<img src="${appPath}/${dirUpload}/${item.thumbnailPicture}" style="margin: 0px 20px 0px 20px; width: 120px;" />
+									<div class="content clearfix">
+										<h2>${item.code }</h2>
+										<label>${item.name }</label>
+										<span>${item.info }</span>
+										<span class="hr fr"></span>
+									</div>
+									<div class="moreRight">
+										<h2>US$${item.price }</h2>
+										<a href="${appPath}/front/furniture/detail?id=${item.id}" res_id="${item.id}">
+											<span>See More</span>
+										</a>
+									</div>
+								</div>
 								</c:forEach>
-							</ul>
+							</form>
 						</div>
 					</div>
 				</div>

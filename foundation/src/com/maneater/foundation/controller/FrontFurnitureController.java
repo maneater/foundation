@@ -29,15 +29,16 @@ public class FrontFurnitureController {
 
     @RequestMapping({"", "index"})
     public String listFurnitures(String categoryId, Model model) {
-        model.addAttribute("categoryId", categoryId);
+        List<ProductCategory> categories = productCategoryService.listAll();
         List<Product> roomList = null;
         if (categoryId == null) {
-            roomList = productService.listAll();
-        } else {
-            roomList = productService.listByCategoryId(categoryId);
+        	if(categories != null && categories.size() > 0) {
+        		categoryId = categories.get(0).getId();
+        	}
         }
+        roomList = productService.listByCategoryId(categoryId);
 
-        List<ProductCategory> categories = productCategoryService.listAll();
+        model.addAttribute("categoryId", categoryId);
         model.addAttribute("categories", categories);
         model.addAttribute("itemList", roomList);
 
@@ -52,11 +53,13 @@ public class FrontFurnitureController {
             return "";
         }
         String categoryId = bean.getCategoryId();
+        String categoryName = bean.getCategoryName();
         List<ProductCategory> categories = productCategoryService.listAll();
 
         model.addAttribute("bean", bean);
         model.addAttribute("categoryId", categoryId);
+        model.addAttribute("categoryName", categoryName);
         model.addAttribute("categories", categories);
-        return "/front/furniture/detail";
+        return "/front/furniture/furniture_detail";
     }
 }

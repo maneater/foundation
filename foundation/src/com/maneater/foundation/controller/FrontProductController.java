@@ -90,7 +90,7 @@ public class FrontProductController {
     public String order(HttpServletRequest req, Model model) {
         OrderInfo orderInfo = orderService.loadOrderItemData(orderService.getNoCommitOrder(SysUtil.getLoginUserId(req)));
         model.addAttribute("order", orderInfo);
-        return "/front/order";
+        return "/front/done/summary";
     }
 
     //订单提交
@@ -98,7 +98,7 @@ public class FrontProductController {
     public String orderSubmit(HttpServletRequest req, Model model, String orderId, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
         Result result = orderService.submitOrder(SysUtil.getLoginUserId(req), orderId, name, designation, company, companyAddress, deliveryAddress, contactNumber, email);
         model.addAttribute("result", model);
-        return "/front/orderxx";
+        return "/front/done/orderxx";
     }
 
 }

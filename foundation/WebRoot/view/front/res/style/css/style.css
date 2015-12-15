@@ -9,7 +9,6 @@ input[type='text'], input[type='password'], textarea {
 	font-size: 15px;
 	padding: 8px;
 	overflow: hidden;
-	color: #fff;
 	background-color: rgba(255,255,255,0.4); 
 }
 
@@ -63,6 +62,8 @@ input[type='submit'],input[type='button'] {
 	overflow: hidden;
 	visibility: hidden;
 }
+
+.box:after{content:"\0020"; display: block; height:0; clear:both;}
 
 .rel {
 	position: relative;

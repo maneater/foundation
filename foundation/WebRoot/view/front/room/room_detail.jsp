@@ -61,7 +61,7 @@
 					</div>
 					<div class="rightContent">
 						<div class="imageContentDiv ml30">
-							<form>
+							<form action="${appPath}/front/furniture/index">
 							<img src="${appPath}/upload/${bean.picUrl}" title="${bean.name}" />
 							<p class="mt10">
 								<label>Number pf Rooms:</label>

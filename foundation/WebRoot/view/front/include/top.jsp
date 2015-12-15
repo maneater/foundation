@@ -13,7 +13,7 @@
 				</c:when>
 				<c:otherwise>
 					<li>
-						<a href="${appPath}/user/login"> <span>1</span> Login</a>
+						<a href="javascript:void(0);"> <span>1</span> Login</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
@@ -27,7 +27,7 @@
 				</c:when>
 				<c:otherwise>
 					<li>
-						<a href="${appPath}/front/room/index"> <span>2</span> Room</a>
+						<a href="javascript:void(0);"> <span>2</span> Room</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
@@ -40,7 +40,7 @@
 				</c:when>
 				<c:otherwise>
 					<li>
-						<a href="${appPath}/front/furniture/index"> <span>3</span> Furniture</a>
+						<a href="javascript:void(0);"> <span>3</span> Furniture</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
@@ -53,7 +53,7 @@
 				</c:when>
 				<c:otherwise>
 					<li>
-						<a href="${appPath}/front/room/index"> <span>4</span> View</a>
+						<a href="javascript:void(0);"> <span>4</span> View</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
@@ -66,7 +66,7 @@
 				</c:when>
 				<c:otherwise>
 					<li>
-						<a href="${appPath}/front/room/index"> <span>5</span> Done!</a>
+						<a href="javascript:void(0);"> <span>5</span> Done!</a>
 					</li>
 				</c:otherwise>
 			</c:choose>

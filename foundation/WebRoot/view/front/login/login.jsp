@@ -13,7 +13,11 @@
 		<meta name="author" content="yifan" />
 		
 		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- 引入 Bootstrap -->
+		<link href="${appPath}/view/front/res/plugin/css/bootstrap.css"
+			rel="stylesheet">
 		<%@include file="../include/head.jsp" %>
+		<script src="${appPath}/view/front/res/plugin/js/bootstrap.min.js"></script>
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	</head>
@@ -65,7 +69,7 @@
 							<c:if test="${!empty result}">
 						        ${result.msg}
 						    </c:if>
-							<form action="${appPath}/user/login" method="post">
+							<form action="${appPath}/user/login" method="post" style="width: 80%; margin-top: 30px; margin-right: 30px; float: right;">
 								<p>
 									<label>User Name:</label>
 									<input type="text" name="userName" id="userName" placeholder="Email Address" />
