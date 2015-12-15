@@ -1,8 +1,10 @@
 package com.maneater.foundation.nosql.entity;
 
 
+import com.maneater.foundation.entity.User;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +13,15 @@ import java.util.List;
 public class OrderInfo extends BaseEntity {
     private List<OrderItem> orderItemList = null;
     private String userId;
+    private User user;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     //0=未提交；
     private int status = 0;
 

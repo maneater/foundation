@@ -7,8 +7,9 @@
         http://www.springframework.org/schema/data/mongo     
         http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
-    <mongo:mongo id="mongo" host="127.0.0.1" port="27017"/>
-    <mongo:db-factory id="mongoDbFactory" dbname="foundation" mongo-ref="mongo" />
+    <!--<mongo:mongo id="mongo" host="127.0.0.1" port="27017"/>-->
+    <mongo:mongo id="mongo" host="42.121.119.21" port="27017"/>
+    <mongo:db-factory id="mongoDbFactory" dbname="foundation" mongo-ref="mongo"/>
     <!-- mongodb的主要操作对象，所有对mongodb的增删改查的操作都是通过它完成 -->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />

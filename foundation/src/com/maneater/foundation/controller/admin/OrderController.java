@@ -21,14 +21,14 @@ public class OrderController {
     public String list(Model model) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "order");
         List<OrderInfo> orderInfoList = orderService.listAll();
-        model.addAttribute("orderList", orderInfoList);
+        model.addAttribute("orderList", orderService.attachUserInfo(orderInfoList));
         return "/admin/orders";
     }
 
     @RequestMapping("show")
     public String show(Model model, String orderId) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "order");
-        model.addAttribute("order", orderService.getDetailById(orderId));
+        model.addAttribute("order", orderService.attachUserInfo(orderService.getDetailById(orderId)));
         return "/admin/orderdetail";
     }
 

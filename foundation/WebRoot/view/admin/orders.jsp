@@ -39,6 +39,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>User Login</th>
                         <th>company</th>
                         <th>contactNumber</th>
                         <th>email</th>
@@ -48,9 +49,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="order" items="${orderList}">
+                    <c:forEach var="order" items="${orderList}" varStatus="eachStatus">
                         <tr>
-                            <td>${order.id}</td>
+                            <td>${eachStatus.index+1}</td>
+                            <td>${order.user.name}</td>
                             <td>${order.company}</td>
                             <td>${order.contactNumber}</td>
                             <td>${order.email}</td>
