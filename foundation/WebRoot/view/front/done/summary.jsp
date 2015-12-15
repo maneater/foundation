@@ -100,9 +100,9 @@
 									<th width="150">Sub Total</th>
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
-								<c:forEach var="item" items="${order.orderItemList}">
+								<c:forEach var="item" items="${order.orderItemList}" varStatus="status">
 								<tr>
-									<td>1</td>
+									<td>${status.index+1}</td>
 									<td width="120" style="border-right: none;">${item.product.name}</td>
 									<td width="80" style="border-left: none;"><img src="${appPath}/${dirUpload}/${item.product.thumbnailPicture}" style="width: 60px;" /></td>
 									<td>${item.productCode }</td>
