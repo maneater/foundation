@@ -44,11 +44,9 @@
                         <th>email</th>
                         <th>deliveryAddress</th>
                         <th>CreateDate</th>
-                        <th>Act</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="order" items="${orderList}">
                         <tr>
                             <td>${order.id}</td>
                             <td>${order.company}</td>
@@ -56,11 +54,7 @@
                             <td>${order.email}</td>
                             <td>${order.deliveryAddress}</td>
                             <td>${order.createTime}</td>
-                            <td><a href="${appPath}/admin/order/show?orderId=${order.id}"
-                                   class="btn btn-default btn-xs" target="_self">detail</a>
-                            </td>
                         </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
                 <c:if test="${empty orderList}">

@@ -52,14 +52,13 @@
                     <c:forEach var="order" items="${orderList}" varStatus="eachStatus">
                         <tr>
                             <td>${eachStatus.index+1}</td>
-                            <td>${order.user.name}</td>
+                            <td><a target="_blank" href="${appPath}/admin/users/show?id=${order.userId}">${order.user.name}</a></td>
                             <td>${order.company}</td>
                             <td>${order.contactNumber}</td>
                             <td>${order.email}</td>
                             <td>${order.deliveryAddress}</td>
                             <td>${order.createTime}</td>
-                            <td><a href="${appPath}/admin/order/show?orderId=${order.id}"
-                                   class="btn btn-default btn-xs" target="_self">detail</a>
+                            <td><a href="${appPath}/admin/order/show?orderId=${order.id}" class="btn btn-default btn-xs" target="_blank">detail</a>
                             </td>
                         </tr>
                     </c:forEach>
