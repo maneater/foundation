@@ -6,6 +6,7 @@ import com.maneater.foundation.nosql.entity.Product;
 import com.maneater.foundation.nosql.repository.OrderRepository;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -85,9 +86,26 @@ public class OrderService {
         return orderInfo;
     }
 
-    public Result submitOrder(String loginUserId, String orderId, String[] checkedItemId, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
+    public Result submitOrder(String loginUserId, String orderId, String[] checkedProductCode, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
         OrderInfo orderInfo = orderRepository.findOne(orderId);
         if (orderInfo != null && orderInfo.getUserId() != null && orderInfo.getUserId().equals(loginUserId)) {
+            List<OrderItem> orderItemList = orderInfo.getOrderItemList();
+            if (orderItemList != null) {
+                for (int i = 0; i < orderItemList.size(); i++) {
+                    if (!contains(orderItemList.get(i), checkedProductCode)) {
+                        //remove
+                        orderItemList.remove(i);
+                        i--;
+                        continue;
+                    }
+                }
+            }
+
+            orderInfo.setOrderItemList(orderItemList);
+            if (CollectionUtils.isEmpty(orderItemList)) {
+                //TODO  ?
+            }
+
             orderInfo.setName(name);
             orderInfo.setDesignation(designation);
             orderInfo.setCompany(company);
@@ -100,6 +118,17 @@ public class OrderService {
             return Result.result(1, "success", null);
         }
         return Result.result(0, "no such order", null);
+    }
+
+    private boolean contains(OrderItem orderItem, String[] checkedItemCode) {
+        if (checkedItemCode != null) {
+            for (String itemId : checkedItemCode) {
+                if (itemId != null && itemId.equals(orderItem.getProductCode())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public List<OrderInfo> listAll() {
