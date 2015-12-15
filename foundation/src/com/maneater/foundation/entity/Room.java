@@ -17,6 +17,7 @@ public class Room extends BaseEntity {
     private String picUrl;
     private Long categoryId;
     private String categoryName;
+    @Deprecated
     private String modelPath;
     private Integer roomsNumber;
 

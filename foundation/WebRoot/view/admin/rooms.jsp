@@ -45,7 +45,6 @@
                         <th>Name</th>
                         <th>Category</th>
                         <th>Picture</th>
-                        <th>Model</th>
                         <th>Act</th>
                         <th>LastUpdate</th>
                     </tr>
@@ -58,7 +57,6 @@
                             <td>${item.categoryName}</td>
                             <td><img src="${appPath}/${dirUpload}/${item.picUrl}" alt="" style="width: 60px;height:60px;"
                                      class="img-rounded"/></td>
-                            <td>${item.modelPath}</td>
                             <td>
                                 <a href="${appPath}/admin/room/show?id=${item.id}"
                                    class="btn btn-default btn-xs" target="_self">查看</a>
