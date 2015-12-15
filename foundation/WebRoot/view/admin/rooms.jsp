@@ -59,7 +59,7 @@
                                      class="img-rounded"/></td>
                             <td>
                                 <a href="${appPath}/admin/room/show?id=${item.id}"
-                                   class="btn btn-default btn-xs" target="_self">查看</a>
+                                   class="btn btn-default btn-xs" target="_self">detail</a>
                                 <button onclick="changeEnable(this);" value="${item.enable}"
                                         data-id="${item.id}"
                                         class="btn ${item.enable?"btn-info":"btn-warning"} btn-xs "
