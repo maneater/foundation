@@ -35,9 +35,15 @@ public class ProductController {
     }
 
     @RequestMapping(value = {"show"}, method = RequestMethod.GET)
-    public String show(Model model, @RequestParam(required = false) String id) {
+    public String show(Model model, @RequestParam(required = false) String id, @RequestParam(required = false) String code) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
-        Product product = productService.findById(id);
+        Product product = null;
+        if (!StringUtils.isEmpty(id)) {
+            product = productService.findById(id);
+        } else if (!StringUtils.isEmpty(code)) {
+            product = productService.findByCode(code);
+        }
+
         if (product == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
@@ -48,7 +54,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = {"add"}, method = RequestMethod.GET)
-    public String add(Model model,@RequestParam(required = true) String cateId) {
+    public String add(Model model, @RequestParam(required = true) String cateId) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "furniture");
         model.addAttribute("isAdd", true);
         model.addAttribute("category", productCategoryService.findById(cateId));

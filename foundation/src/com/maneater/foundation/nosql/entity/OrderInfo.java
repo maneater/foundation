@@ -32,7 +32,7 @@ public class OrderInfo extends BaseEntity {
     private String contactNumber;
     private String email;
 
-    private Double totalPrice;
+    private Double totalPrice =0d;
 
     //后端处理状态 0=未处理，1=已处理
     private int dealStatus = 0;

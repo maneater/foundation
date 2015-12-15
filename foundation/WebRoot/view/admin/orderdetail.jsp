@@ -35,31 +35,35 @@
             <h1 class="page-header">Order Detail</h1>
 
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table id="summaryTable"
+                       class="table table-striped table-bordered bootstrap-datatable datatable responsive dataTable">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>company</th>
-                        <th>contactNumber</th>
-                        <th>email</th>
-                        <th>deliveryAddress</th>
-                        <th>CreateDate</th>
-                    </tr>
+                    <th width="80">No.</th>
+                    <th width="200" colspan="2">Product</th>
+                    <th width="120">Code</th>
+                    <th width="150">Qty/Stock</th>
+                    <th width="150">Sub Total</th>
                     </thead>
-                    <tbody>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    <c:forEach var="item" items="${order.orderItemList}" varStatus="status">
                         <tr>
-                            <td>${order.id}</td>
-                            <td>${order.company}</td>
-                            <td>${order.contactNumber}</td>
-                            <td>${order.email}</td>
-                            <td>${order.deliveryAddress}</td>
-                            <td>${order.createTime}</td>
+                            <td>${status.index+1}</td>
+                            <td style="border-right: none;"><a target="_blank" href="${appPath}/admin/furniture/show?code=${item.productCode}">${item.product.name}</a></td>
+                            <td style="border-left: none;"><img
+                                    src="${appPath}/${dirUpload}/${item.product.thumbnailPicture}"
+                                    style="width: 60px;"/></td>
+                            <td>${item.productCode}</td>
+                            <td>${item.qyt}</td>
+                            <td>$${item.price}</td>
+                            <c:set target="${order.totalPrice}" value="${item.price+order.totalPrice}"></c:set>
                         </tr>
+                    </c:forEach>
                     </tbody>
+                    <tfoot>
+                    <th style="text-align: right;" colspan="5">Grand Total</th>
+                    <th id="grandTotalTh">$${order.totalPrice }</th>
+                    </tfoot>
                 </table>
-                <c:if test="${empty orderList}">
-                    <p>No Orders</p>
-                </c:if>
             </div>
         </div>
     </div>
