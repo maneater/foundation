@@ -45,6 +45,7 @@
                     <th width="150">Sub Total</th>
                     </thead>
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    <c:set target="${order}" property="totalPrice" value="0"></c:set>
                     <c:forEach var="item" items="${order.orderItemList}" varStatus="status">
                         <tr>
                             <td>${status.index+1}</td>
@@ -55,13 +56,13 @@
                             <td>${item.productCode}</td>
                             <td>${item.qyt}</td>
                             <td>$${item.price}</td>
-                            <c:set target="${order.totalPrice}" value="${item.price+order.totalPrice}"></c:set>
+                            <c:set target="${order}" property="totalPrice" value="${item.price+order.totalPrice}"></c:set>
                         </tr>
                     </c:forEach>
                     </tbody>
                     <tfoot>
                     <th style="text-align: right;" colspan="5">Grand Total</th>
-                    <th id="grandTotalTh">$${order.totalPrice }</th>
+                    <th id="grandTotalTh">$${order.totalPrice}</th>
                     </tfoot>
                 </table>
             </div>

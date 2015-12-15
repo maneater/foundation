@@ -40,11 +40,13 @@
                     <tr>
                         <th>#</th>
                         <th>User Login</th>
+                        <th>Status</th>
                         <th>company</th>
                         <th>contactNumber</th>
                         <th>email</th>
                         <th>deliveryAddress</th>
-                        <th>CreateDate</th>
+                        <th>Create</th>
+                        <th>Update</th>
                         <th>Act</th>
                     </tr>
                     </thead>
@@ -53,11 +55,13 @@
                         <tr>
                             <td>${eachStatus.index+1}</td>
                             <td><a target="_blank" href="${appPath}/admin/users/show?id=${order.userId}">${order.user.name}</a></td>
+                            <td>${order.status == 0 ?"processing":"complete"}</td>
                             <td>${order.company}</td>
                             <td>${order.contactNumber}</td>
                             <td>${order.email}</td>
                             <td>${order.deliveryAddress}</td>
-                            <td>${order.createTime}</td>
+                            <td><fmt:formatDate value="${order.createTime}" type="both"></fmt:formatDate></td>
+                            <td><fmt:formatDate value="${order.lastUpdateTime}" type="both"></fmt:formatDate></td>
                             <td><a href="${appPath}/admin/order/show?orderId=${order.id}" class="btn btn-default btn-xs" target="_blank">detail</a>
                             </td>
                         </tr>
