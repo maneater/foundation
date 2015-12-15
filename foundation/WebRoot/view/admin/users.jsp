@@ -87,6 +87,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="${appPath}/view/resourse/js/jquery.min.js"></script>
 <script src="${appPath}/view/resourse/js/bootstrap.min.js"></script>
+<script src="${appPath}/view/admin/js/submit.js"></script>
 <script>
 
 
@@ -97,7 +98,7 @@
         console.info(value);
         invokeBtn.attr("disabled", true);
         invokeBtn.text("loading...");
-        submitParams("./cateenable", "id=" + id + "&enable=" + value, function (result) {
+        submitParams("./enable", "id=" + id + "&enable=" + value, function (result) {
             if (result && result.code == 1) {
                 invokeBtn.val(value);
                 invokeBtn.button("complete");

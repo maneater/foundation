@@ -18,4 +18,6 @@ public interface IUserService {
     boolean save(User user);
 
     boolean checkReigser(String email);
+
+    boolean changeEnable(String id, boolean enable);
 }

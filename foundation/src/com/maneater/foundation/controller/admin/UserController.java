@@ -10,10 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -44,6 +41,17 @@ public class UserController {
         model.addAttribute("pagePagination", pageUtil.getHtml());
 
         return "/admin/users";
+    }
+
+    @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
+    @ResponseBody
+    public Result enable(@RequestParam String id, @RequestParam boolean enable) {
+        boolean result = userService.changeEnable(id, enable);
+        if (result) {
+            return Result.result(1, "success", null);
+        } else {
+            return Result.result(0, "failed", null);
+        }
     }
 
     @RequestMapping("show")

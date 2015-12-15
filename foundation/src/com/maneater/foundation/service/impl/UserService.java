@@ -42,5 +42,10 @@ public class UserService implements IUserService {
         return (userDao.findByEmail(email) != null);
     }
 
+    @Override
+    public boolean changeEnable(String id, boolean enable) {
+        return userDao.setEnableStatus(Long.valueOf(id),enable)>0;
+    }
+
 
 }
