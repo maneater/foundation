@@ -66,7 +66,7 @@
                                 </button>
                             </td>
                             <td>
-                                    ${item.lastUpdateTime}
+                                <fmt:formatDate value="${item.lastUpdateTime}" type="both"></fmt:formatDate>
                             </td>
                         </tr>
                     </c:forEach>

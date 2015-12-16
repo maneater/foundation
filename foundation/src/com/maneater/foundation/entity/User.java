@@ -18,6 +18,7 @@ public class User extends BaseEntity {
     private String companyName;
     private String phone;
     private String address;
+
     public String getPhone() {
         return phone;
     }
@@ -35,7 +36,7 @@ public class User extends BaseEntity {
     }
 
     private String source;
-    private String headPicUrl = "http://chuantupian.com/8/uploads/2015/11/180824_8.jpg";
+    private String headPicUrl;
 
     public String getPassword() {
         return password;
@@ -69,12 +70,12 @@ public class User extends BaseEntity {
         this.headPicUrl = headPicUrl;
     }
 
-	public String getCompanyName() {
-		return companyName;
-	}
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
 }

@@ -95,7 +95,7 @@ public class FrontProductController {
 
     //订单提交
     @RequestMapping("orderSubmit")
-    public String orderSubmit(HttpServletRequest req, Model model, String orderId, String[] checkedItems, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
+    public String orderSubmit(HttpServletRequest req, Model model, String orderId, String[] checkedItems, String[] checkedItemsQyt,String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
         Result result = orderService.submitOrder(SysUtil.getLoginUserId(req), orderId, checkedItems, name, designation, company, companyAddress, deliveryAddress, contactNumber, email);
         model.addAttribute("result", model);
         return "/front/done/orderxx";

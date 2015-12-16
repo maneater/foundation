@@ -154,19 +154,24 @@
 										<div class="detailLeft">
 											<img src="${appPath}/${dirUpload}/${bean.detailPicture}" style="width: 100%;" />
 											<div id="productDetailFormat" class="detailFormat clearfix">
-												<c:if test="${categoryName=='Chairs'}">
+												<%--<c:if test="${categoryName=='Chairs'}">--%>
 													<!-- charis属性 -->
 													<h2>${item.name}</h2>
 													<ul class="formatList clearfix">
 														<c:forEach items="${bean.propertyProductList}" var="productItem">
 														<li id="productItem${productItem.productCode }" res="${productItem.productPrice }">
 															<label>
-															<img src="${appPath}/${dirUpload}/${productItem.productPicUrl}" />
+                                                                <!-- 如果有 propertyPicUrl ，则展示 -->
+                                                            <c:if test="${!(empty productItem.propertyPicUrl)}">
+                                                                <img src="${appPath}/${dirUpload}/${productItem.propertyPicUrl}" />
+                                                            </c:if>
 															<div class="fl">
-																<span class="formatItemTit">${productItem.propertyName }</span>
-																<span>${productItem.propertyInfo }</span>
+                                                                <!--使用propertyValue 做为属性值展示-->
+																<span class="formatItemTit">${productItem.propertyValue}</span>
+																<%--<span>${productItem.propertyValue}</span>--%>
 															</div>
-															<input name="formatItemProductCode" res="${productItem.productCode }" <c:if test="${productItem.propertyValue==1}"> checked="checked"</c:if> type="radio" class="fr mt10" />
+                                                                <!-- 提交产品CODE 和 数量 -->
+															<input name="formatItemProductCode" res="${productItem.productCode}"type="radio" class="fr mt10" />
 															</label>
 														</li>
 														</c:forEach>
@@ -177,29 +182,29 @@
 														</label>
 														<input type="number" />
 													</div>
-												</c:if>
-												<c:if test="${categoryName=='Bed'}">
-													<ul class="formatList clearfix" style="margin-top: 10px;" id="bedFormatListUl">
-														<c:forEach items="${bean.propertyProductList}" var="productItem">
-															<li style="width: 120px;">
-																<label>${productItem.propertyName } <input checked="checked" res_name="${productItem.propertyName }" type="radio" name="formatItemProductCode" res="${productItem.productCode }" /></label>
-																<label>Qty <input type="number" id="formatNumber${productItem.propertyName }" /></label>
-															</li>
-														</c:forEach>
-													</ul>
-												</c:if>
-												<c:if test="${categoryName=='TV'}">
-												<!-- TV -->
-													<ul class="formatList clearfix" style="margin-top: 10px;">
-														<c:forEach items="${bean.propertyProductList}" var="productItem">
-														<li id="productItem${productItem.productCode }" res="${productItem.productPrice }" style="width: 100px;">
-															<label>${productItem.propertyName }	<input type="radio" name="formatItemProductCode" res="${productItem.productCode }" />
-															</label>
-														</li>
-														</c:forEach>
-													</ul>
-													<label class="pb15">Qty <input type="number" /></label>
-												</c:if>
+												<%--</c:if>--%>
+												<%--<c:if test="${categoryName=='Bed'}">--%>
+													<%--<ul class="formatList clearfix" style="margin-top: 10px;" id="bedFormatListUl">--%>
+														<%--<c:forEach items="${bean.propertyProductList}" var="productItem">--%>
+															<%--<li style="width: 120px;">--%>
+																<%--<label>${productItem.propertyName } <input checked="checked" res_name="${productItem.propertyName }" type="radio" name="formatItemProductCode" res="${productItem.productCode }" /></label>--%>
+																<%--<label>Qty <input type="number" id="formatNumber${productItem.propertyName }" /></label>--%>
+															<%--</li>--%>
+														<%--</c:forEach>--%>
+													<%--</ul>--%>
+												<%--</c:if>--%>
+												<%--<c:if test="${categoryName=='TV'}">--%>
+												<%--<!-- TV -->--%>
+													<%--<ul class="formatList clearfix" style="margin-top: 10px;">--%>
+														<%--<c:forEach items="${bean.propertyProductList}" var="productItem">--%>
+														<%--<li id="productItem${productItem.productCode }" res="${productItem.productPrice }" style="width: 100px;">--%>
+															<%--<label>${productItem.propertyName }	<input type="radio" name="formatItemProductCode" res="${productItem.productCode }" />--%>
+															<%--</label>--%>
+														<%--</li>--%>
+														<%--</c:forEach>--%>
+													<%--</ul>--%>
+													<%--<label class="pb15">Qty <input type="number" /></label>--%>
+												<%--</c:if>--%>
 											</div>
 										</div>
 										<!-- right -->

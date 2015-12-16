@@ -106,27 +106,34 @@
                             <th>Name</th>
                             <th>Info</th>
                             <th>DefaultOptions</th>
-                            <th>Enable</th>
+                            <%--<th>Enable</th>--%>
                         </tr>
                         </thead>
                         <tbody id="expandTableBody">
-                        <c:set var="propertitySize" value="${fn:length(item.expandPropertyList)}"></c:set>
-                        <c:forEach items="${item.expandPropertyList}" var="propertity" varStatus="propertyStatus">
-                            <tr>
-                                <td>${propertyStatus.index+1}<input type="hidden" name="expandPropertyList[${propertyStatus.index}].id" value="${propertity.id}"></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].name" value="${propertity.name}" required="true"/></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].info" value="${propertity.info}"/></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].defaultOptions" value="${propertity.defaultOptions}"/></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].enable" value="${propertity.enable}"/></td>
-                            </tr>
-                        </c:forEach>
-                            <tr>
-                                <td>${propertitySize+1}<input type="hidden" name="expandPropertyList[${propertitySize}].id" value=""></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].name" value=""/></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].info" value=""/></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].defaultOptions" value=""/></td>
-                                <td><input class="form-control" type="text" name="expandPropertyList[${propertitySize}].enable" value="true"/></td>
-                            </tr>
+
+                        <c:choose>
+                            <c:when test="${!(empty item.expandPropertyList)}">
+                                <!---目前控制只能有一个附加属性-->
+                                <c:forEach items="${item.expandPropertyList}" var="propertity" varStatus="propertyStatus" begin="0" end="0">
+                                    <tr>
+                                        <td>${propertyStatus.index+1}<input type="hidden" name="expandPropertyList[${propertyStatus.index}].id" value="${propertity.id}"></td>
+                                        <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].name" value="${propertity.name}" required="true"/></td>
+                                        <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].info" value="${propertity.info}"/></td>
+                                        <td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].defaultOptions" value="${propertity.defaultOptions}"/></td>
+                                        <%--<td><input class="form-control" type="text" name="expandPropertyList[${propertyStatus.index}].enable" value="${propertity.enable}"/></td>--%>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <td>1<input type="hidden" name="expandPropertyList[0].id" value=""></td>
+                                    <td><input class="form-control" type="text" name="expandPropertyList[0].name" value=""/></td>
+                                    <td><input class="form-control" type="text" name="expandPropertyList[0].info" value=""/></td>
+                                    <td><input class="form-control" type="text" name="expandPropertyList[0].defaultOptions" value=""/></td>
+                                    <%--<td><input class="form-control" type="text" name="expandPropertyList[0].enable" value="true"/></td>--%>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
                         </tbody>
                     </table>
                 </div>
