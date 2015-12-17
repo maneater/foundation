@@ -1,8 +1,8 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.Admin;
-import com.maneater.foundation.service.IAdminService;
+import com.maneater.foundation.nosql.entity.Admin;
+import com.maneater.foundation.service.impl.AdminService;
 import com.maneater.foundation.uitl.SysUtil;
 import com.maneater.foundation.vo.Result;
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ public class AdminController {
     private final static Logger logger = Logger.getLogger(AdminController.class.getName());
 
     @Resource
-    private IAdminService adminService;
+    private AdminService adminService;
 
     @RequestMapping("adminLogin")
     @ResponseBody

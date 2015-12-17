@@ -25,4 +25,6 @@ public class Config {
     public static String FILE_PATH_FURNITURE_MODEL = "model";
     public static String FILE_PATH_FURNITURE_PROPERTY_PIC = "property";
     public static String FILE_PATH_FURNITURE_CATE_PIC = "catepic";
+    public static String DEFAULT_ADMIN_NAME = "admin";
+    public static String DEFAULT_ADMIN_PASSWORD = "@dmin";
 }

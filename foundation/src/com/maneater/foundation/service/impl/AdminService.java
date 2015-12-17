@@ -1,28 +1,31 @@
 package com.maneater.foundation.service.impl;
 
-import com.maneater.foundation.entity.Admin;
-import com.maneater.foundation.repository.AdminRepository;
-import com.maneater.foundation.service.IAdminService;
+import com.maneater.foundation.Config;
+import com.maneater.foundation.nosql.entity.Admin;
+import com.maneater.foundation.nosql.repository.AdminRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * Created by Administrator on 2015/11/6 0006.
- */
 @Service
-public class AdminService implements IAdminService {
+public class AdminService {
     @Resource
     private AdminRepository adminRepository;
 
-    @Override
     public Admin findByNameAndPass(String name, String password) {
         return adminRepository.findByNameAndPassword(name, password);
     }
 
-    @Override
-    public List<Admin> listUsers(int targetPage, int pageSize) {
-        return null;
+    public void initAdmin() {
+        List<Admin> adminList = adminRepository.findAll();
+        if (CollectionUtils.isEmpty(adminList)) {
+            Admin admin = new Admin();
+            admin.setName(Config.DEFAULT_ADMIN_NAME);
+            admin.setPassword(Config.DEFAULT_ADMIN_PASSWORD);
+            admin.setInfo("create by auto ");
+            adminRepository.save(admin);
+        }
     }
 }

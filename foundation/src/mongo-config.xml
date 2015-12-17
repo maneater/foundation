@@ -19,5 +19,5 @@
     <!--&lt;!&ndash; mongodb bean的仓库目录，会自动扫描扩展了MongoRepository接口的接口进行注入 &ndash;&gt;-->
     <mongo:repositories base-package="com.maneater.foundation.nosql.repository"/>
     <!--<context:annotation-config/>-->
-
+    <bean class="com.maneater.foundation.listener.AfterStartUpListener"></bean>
 </beans>
