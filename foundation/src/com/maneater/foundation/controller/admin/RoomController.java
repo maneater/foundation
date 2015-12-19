@@ -1,8 +1,8 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.Room;
-import com.maneater.foundation.entity.RoomCategory;
+import com.maneater.foundation.nosql.entity.Room;
+import com.maneater.foundation.nosql.entity.RoomCategory;
 import com.maneater.foundation.service.impl.RoomCategoryService;
 import com.maneater.foundation.service.impl.RoomService;
 import com.maneater.foundation.vo.Result;
@@ -36,7 +36,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = {"show"}, method = RequestMethod.GET)
-    public String showRoom(Model model, @RequestParam(required = false) Long id) {
+    public String showRoom(Model model, @RequestParam(required = false) String id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "room");
         List<RoomCategory> categoryList = roomCategoryService.listAll();
         Room room = roomService.findById(id);
@@ -59,8 +59,8 @@ public class RoomController {
 
     @RequestMapping(value = {"enable"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result enableRoom(@RequestParam Long id, @RequestParam boolean enable) {
-        boolean result = roomService.changeEnabel(id, enable);
+    public Result enableRoom(@RequestParam String id, @RequestParam boolean enable) {
+        boolean result = roomService.changeEnable(id, enable);
         if (result) {
             return Result.result(1, "success", null);
         } else {
@@ -118,7 +118,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = {"cateshow"}, method = RequestMethod.GET)
-    public String showCategory(Model model, @RequestParam(required = false) Long id) {
+    public String showCategory(Model model, @RequestParam(required = false) String id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "roomcate");
         model.addAttribute("isAdd", false);
         RoomCategory roomCategory = roomCategoryService.findById(id);
@@ -139,7 +139,7 @@ public class RoomController {
 
     @RequestMapping(value = {"cateenable"}, method = RequestMethod.POST)
     @ResponseBody
-    public Result changeCategoryEnable(@RequestParam Long id, @RequestParam boolean enable) {
+    public Result changeCategoryEnable(@RequestParam String id, @RequestParam boolean enable) {
         logger.info("changeCategoryEnable");
         boolean result = roomCategoryService.changeEnable(id, enable);
         if (result) {

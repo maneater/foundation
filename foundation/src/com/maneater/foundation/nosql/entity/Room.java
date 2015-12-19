@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Room extends BaseEntity {
     private String picUrl;
-    private Long categoryId;
+    private String categoryId;
     private String categoryName;
 
     public String getCategoryName() {
@@ -18,11 +18,11 @@ public class Room extends BaseEntity {
         this.categoryName = categoryName;
     }
 
-    public Long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

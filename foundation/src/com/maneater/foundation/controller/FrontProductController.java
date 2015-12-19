@@ -1,11 +1,7 @@
 package com.maneater.foundation.controller;
 
 
-import com.maneater.foundation.entity.Room;
-import com.maneater.foundation.entity.RoomCategory;
-import com.maneater.foundation.nosql.entity.OrderInfo;
-import com.maneater.foundation.nosql.entity.Product;
-import com.maneater.foundation.nosql.entity.ProductCategory;
+import com.maneater.foundation.nosql.entity.*;
 import com.maneater.foundation.service.impl.*;
 import com.maneater.foundation.uitl.SysUtil;
 import com.maneater.foundation.vo.Result;
@@ -37,7 +33,7 @@ public class FrontProductController {
 
     @RequestMapping({"room"})
     //展示房间list
-    public String listRooms(Model model, @RequestParam(required = false) Long categoryId) {
+    public String listRooms(Model model, @RequestParam(required = false) String categoryId) {
         List<Room> roomList = null;
         List<RoomCategory> roomCategoryList = roomCategoryService.listAllByEnable(true);
         if (categoryId != null) {

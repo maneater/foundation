@@ -1,8 +1,8 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.User;
-import com.maneater.foundation.service.IUserService;
+import com.maneater.foundation.nosql.entity.User;
+import com.maneater.foundation.service.impl.UserService;
 import com.maneater.foundation.uitl.PageUtil;
 import com.maneater.foundation.vo.Result;
 import org.apache.log4j.Logger;
@@ -23,23 +23,23 @@ public class UserController {
     private final static Logger logger = Logger.getLogger(UserController.class.getName());
 
     @Resource
-    private IUserService userService = null;
+    private UserService userService = null;
 
 
     @RequestMapping("index")
     public String index(Model model, @RequestParam(defaultValue = "1") int tagetPage, @RequestParam(defaultValue = Config.PAGE_SIZE) int pageSize) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "users");
-        Page<User> userPage = userService.list(tagetPage - 1, pageSize);
-        model.addAttribute("userPage", userPage);
-        model.addAttribute("userList", userPage.getContent());
-
-        PageUtil pageUtil = new PageUtil();
-        pageUtil.setTotalSize(userPage.getTotalElements());
-        pageUtil.setCurPage(userPage.getNumber() + 1);
-        pageUtil.setPageSize(pageSize);
-        pageUtil.setUrlFormat("?pageSize={pageSize}&tagetPage={pageNum}&{otherParams}");
-        model.addAttribute("pagePagination", pageUtil.getHtml());
-
+//        Page<User> userPage = userService.list(tagetPage - 1, pageSize);
+//        model.addAttribute("userPage", userPage);
+//        model.addAttribute("userList", userPage.getContent());
+//
+//        PageUtil pageUtil = new PageUtil();
+//        pageUtil.setTotalSize(userPage.getTotalElements());
+//        pageUtil.setCurPage(userPage.getNumber() + 1);
+//        pageUtil.setPageSize(pageSize);
+//        pageUtil.setUrlFormat("?pageSize={pageSize}&tagetPage={pageNum}&{otherParams}");
+//        model.addAttribute("pagePagination", pageUtil.getHtml());
+        model.addAttribute("userList", userService.list());
         return "/admin/users";
     }
 
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @RequestMapping("show")
-    public String show(Model model, @RequestParam(required = true) int id) {
+    public String show(Model model, @RequestParam(required = true) String id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "users");
         User user = userService.findUser(id);
         model.addAttribute("item", user);

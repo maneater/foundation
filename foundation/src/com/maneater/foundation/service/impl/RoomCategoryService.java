@@ -1,8 +1,8 @@
 package com.maneater.foundation.service.impl;
 
-import com.maneater.foundation.entity.RoomCategory;
-import com.maneater.foundation.repository.RoomCategoryRepository;
-import com.maneater.foundation.repository.RoomRepository;
+import com.maneater.foundation.nosql.entity.RoomCategory;
+import com.maneater.foundation.nosql.repository.RoomCategoryRepository;
+import com.maneater.foundation.nosql.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,7 +24,7 @@ public class RoomCategoryService {
         return roomCategoryRepository.findAll();
     }
 
-    public RoomCategory findById(Long id) {
+    public RoomCategory findById(String id) {
         return roomCategoryRepository.findOne(id);
     }
 
@@ -44,8 +44,8 @@ public class RoomCategoryService {
         return category;
     }
 
-    public boolean changeEnable(Long id, boolean value) {
-        return roomCategoryRepository.setEnableStatus(id, value) != null;
+    public boolean changeEnable(String id, boolean value) {
+        return roomCategoryRepository.setEnableStatus(id, value);
     }
 
 

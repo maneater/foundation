@@ -1,7 +1,7 @@
 package com.maneater.foundation.controller;
 
-import com.maneater.foundation.entity.User;
-import com.maneater.foundation.service.IUserService;
+import com.maneater.foundation.nosql.entity.User;
+import com.maneater.foundation.service.impl.UserService;
 import com.maneater.foundation.uitl.SysUtil;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
 
     @Resource
-    private IUserService userService;
+    private UserService userService;
 
 
     @RequestMapping(value = "login", method = RequestMethod.GET)

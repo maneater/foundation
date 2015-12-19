@@ -67,29 +67,37 @@
                     <label for="picUrl" class="control-label  col-sm-2">Picture</label>
 
                     <div class="col-sm-9">
-                        <img id="itemImg" src="${appPath}/upload/${item.picUrl}" alt=""
-                             style="width: 150px;height:150px;"
-                             class="img-rounded"/>
-                        <input id="btnChoosePicture" type="button" id="picUrl"
-                               class="btn btn-sm btn-primary form-inline" value="select picture"></button>
-                        <input id="itemPicUrl" type="hidden" name="picUrl" value="${item.picUrl}">
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-12 ">
-                    <label for="itemModelPath" class="control-label  col-sm-2">Model</label>
-
-                    <div class="col-sm-9">
                         <div class="input-group">
-                            <input id="itemModelPath" type="text" class="form-control" name="modelPath"
-                                   value="${item.modelPath}">
+                            <input id="itemPicUrl" type="text" class="form-control" name="picUrl"
+                                   value="${item.picUrl}">
                         <span class="input-group-btn">
-                            <input id="btnChooseModel" type="button" id="modelPath"
-                                   class="btn btn-primary " value="select model"></button>
+                            <input id="btnChoosePicture" type="button" id="picUrl"
+                                   class="btn btn-primary " value="select picture"></button>
                         </span>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-sm-9 col-sm-offset-2">
+                    <img id="itemImg" src="${appPath}/upload/${item.picUrl}" alt=""
+                         style="width: 150px;height:150px;"
+                         class="img-rounded"/>
+                </div>
+
+                <%--<div class="form-group col-sm-12 ">--%>
+                <%--<label for="itemModelPath" class="control-label  col-sm-2">Model</label>--%>
+
+                <%--<div class="col-sm-9">--%>
+                <%--<div class="input-group">--%>
+                <%--<input id="itemModelPath" type="text" class="form-control" name="modelPath"--%>
+                <%--value="${item.modelPath}">--%>
+                <%--<span class="input-group-btn">--%>
+                <%--<input id="btnChooseModel" type="button" id="modelPath"--%>
+                <%--class="btn btn-primary " value="select model"></button>--%>
+                <%--</span>--%>
+                <%--</div>--%>
+                <%--</div>--%>
+                <%--</div>--%>
 
                 <div class="form-group col-sm-12">
                     <label for="categoryId" class="control-label  col-sm-2">Category</label>

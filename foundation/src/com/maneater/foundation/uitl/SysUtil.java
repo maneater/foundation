@@ -2,8 +2,8 @@ package com.maneater.foundation.uitl;
 
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.entity.User;
 import com.maneater.foundation.nosql.entity.Admin;
+import com.maneater.foundation.nosql.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

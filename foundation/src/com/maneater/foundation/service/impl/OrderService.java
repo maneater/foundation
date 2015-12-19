@@ -4,7 +4,6 @@ import com.maneater.foundation.nosql.entity.OrderInfo;
 import com.maneater.foundation.nosql.entity.OrderItem;
 import com.maneater.foundation.nosql.entity.Product;
 import com.maneater.foundation.nosql.repository.OrderRepository;
-import com.maneater.foundation.service.IUserService;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -21,7 +20,7 @@ public class OrderService {
 
     private final static Object lock = new Object();
     @Resource
-    private IUserService userService = null;
+    private UserService userService = null;
 
     @Resource
     private OrderRepository orderRepository = null;
@@ -149,7 +148,7 @@ public class OrderService {
 
     public OrderInfo attachUserInfo(OrderInfo orderInfo) {
         String userId = orderInfo.getUserId();
-        orderInfo.setUser(userService.findUser(Long.valueOf(userId)));
+        orderInfo.setUser(userService.findUser(userId));
         return orderInfo;
     }
 

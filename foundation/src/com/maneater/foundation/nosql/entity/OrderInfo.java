@@ -1,10 +1,8 @@
 package com.maneater.foundation.nosql.entity;
 
 
-import com.maneater.foundation.entity.User;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

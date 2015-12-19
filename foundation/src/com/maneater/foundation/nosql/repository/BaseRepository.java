@@ -44,7 +44,7 @@ public class BaseRepository<T extends BaseEntity, ID extends Serializable> {
     }
 
     public List<T> listAllByEnable(boolean value) {
-        return mongoTemplate.find(Query.query(Criteria.where("enable").is(value)),getEntityClass());
+        return mongoTemplate.find(Query.query(Criteria.where("enable").is(value)), getEntityClass());
     }
 
     // 获取需要操作的实体类class
@@ -55,5 +55,9 @@ public class BaseRepository<T extends BaseEntity, ID extends Serializable> {
 
     public List<T> findAll() {
         return mongoTemplate.findAll(getEntityClass());
+    }
+
+    public List<T> findByEnable(boolean enable) {
+        return mongoTemplate.find(Query.query(Criteria.where("enable").is(enable)), getEntityClass());
     }
 }
