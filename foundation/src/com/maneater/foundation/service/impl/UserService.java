@@ -1,50 +1,45 @@
 package com.maneater.foundation.service.impl;
 
-import com.maneater.foundation.entity.User;
-import com.maneater.foundation.repository.UserRepository;
-import com.maneater.foundation.service.IUserService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import com.maneater.foundation.nosql.entity.User;
+import com.maneater.foundation.nosql.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/6 0006.
  */
 @Service
-public class UserService implements IUserService {
+public class UserService {
     @Resource
-    private UserRepository userDao;
+    private UserRepository userRepository;
 
-    @Override
     public User findByEmailAndPassword(String email, String password) {
-        return userDao.findByEmailAndPassword(email, password);
+        return userRepository.findByEmailAndPassword(email, password);
     }
 
-    @Override
-    public Page<User> list(int targetPage, int pageSize) {
-        return userDao.findAll(new PageRequest(targetPage, pageSize));
+//    public Page<User> list(int targetPage, int pageSize) {
+//        return userRepository.findAll(new PageRequest(targetPage, pageSize));
+//    }
+    public List<User> list() {
+        return userRepository.findAll();
     }
 
-    @Override
-    public User findUser(long userId) {
-        return userDao.findOne(userId);
+    public User findUser(String userId) {
+        return userRepository.findOne(userId);
     }
 
-    @Override
     public boolean save(User user) {
-        return userDao.save(user) != null;
+        return userRepository.save(user) != null;
     }
 
-    @Override
     public boolean checkReigser(String email) {
-        return (userDao.findByEmail(email) != null);
+        return (userRepository.findByEmail(email) != null);
     }
 
-    @Override
     public boolean changeEnable(String id, boolean enable) {
-        return userDao.setEnableStatus(Long.valueOf(id),enable)>0;
+        return userRepository.setEnableStatus(id, enable);
     }
 
 
