@@ -5,11 +5,17 @@ package com.maneater.foundation.vo;
  */
 public class AddInfo {
 
-    public AddInfo() {
-    }
-
     private String productCode;
     private int qyt;
+    private int checked = 0;
+
+    public int getChecked() {
+        return checked;
+    }
+
+    public void setChecked(int checked) {
+        this.checked = checked;
+    }
 
     public int getQyt() {
         return qyt;

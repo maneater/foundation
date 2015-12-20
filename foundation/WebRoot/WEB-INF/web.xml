@@ -72,9 +72,8 @@
 
     <filter-mapping>
         <filter-name>UserFilter</filter-name>
-        <url-pattern>/product/order/*</url-pattern>
+        <url-pattern>/front/product/order/*</url-pattern>
     </filter-mapping>
-
 
     <filter>
         <filter-name>encodingFilter</filter-name>

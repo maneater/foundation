@@ -7,7 +7,6 @@ import com.maneater.foundation.nosql.repository.OrderRepository;
 import com.maneater.foundation.vo.AddInfo;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -89,26 +88,39 @@ public class OrderService {
         return orderInfo;
     }
 
-    public Result submitOrder(String loginUserId, String orderId, String[] checkedProductCode, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
+
+    public Result submitOrder(String loginUserId, String orderId, List<AddInfo> addInfoList, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
         OrderInfo orderInfo = orderRepository.findOne(orderId);
         if (orderInfo != null && orderInfo.getUserId() != null && orderInfo.getUserId().equals(loginUserId)) {
-            List<OrderItem> orderItemList = orderInfo.getOrderItemList();
-            if (orderItemList != null) {
-                for (int i = 0; i < orderItemList.size(); i++) {
-                    if (!contains(orderItemList.get(i), checkedProductCode)) {
-                        //remove
-                        orderItemList.remove(i);
-                        i--;
+
+            if (orderInfo.getStatus() != 0) {
+                return Result.result(0, String.format("order has be submitted at : %1$s", orderInfo.getLastUpdateTime()), null);
+            }
+
+            List<OrderItem> addOrderItemList = new ArrayList<OrderItem>();
+            if (addInfoList != null) {
+                for (AddInfo addInfo : addInfoList) {
+                    //忽略
+                    if (addInfo == null || addInfo.getProductCode() == null || addInfo.getChecked() == 0 || addInfo.getQyt() == 0) {
                         continue;
+                    }
+                    Product product = productService.findByCode(addInfo.getProductCode());
+                    if (product == null) {
+                        return Result.result(0, String.format("no such product code : %1$s", addInfo.getProductCode()), null);
+                    } else {
+                        OrderItem orderItem = new OrderItem();
+                        orderItem.setProductCode(addInfo.getProductCode());
+                        orderItem.setQyt(addInfo.getQyt());
+                        orderItem.setPrice(product.getPriceByCode(addInfo.getProductCode()));
+                        addOrderItemList.add(orderItem);
                     }
                 }
             }
-
-            orderInfo.setOrderItemList(orderItemList);
-            if (CollectionUtils.isEmpty(orderItemList)) {
-                //TODO  ?
+            if (addOrderItemList.size() == 0) {
+                return Result.result(0, "no product was selected by this order", null);
             }
 
+            orderInfo.setOrderItemList(addOrderItemList);
             orderInfo.setName(name);
             orderInfo.setDesignation(designation);
             orderInfo.setCompany(company);
@@ -123,16 +135,16 @@ public class OrderService {
         return Result.result(0, "no such order", null);
     }
 
-    private boolean contains(OrderItem orderItem, String[] checkedItemCode) {
-        if (checkedItemCode != null) {
-            for (String itemId : checkedItemCode) {
-                if (itemId != null && itemId.equals(orderItem.getProductCode())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    private boolean contains(OrderItem orderItem, String[] checkedItemCode) {
+//        if (checkedItemCode != null) {
+//            for (String itemId : checkedItemCode) {
+//                if (itemId != null && itemId.equals(orderItem.getProductCode())) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     public List<OrderInfo> listAll() {
         return orderRepository.findAll();
@@ -163,11 +175,11 @@ public class OrderService {
                 if (addInfo != null) {
                     Product product = productService.findByCode(addInfo.getProductCode());
                     if (product != null) {
-                        addProduct(userId, product.getCode(), addInfo.getQyt());
+                        addProduct(userId, addInfo.getProductCode(), addInfo.getQyt());
                     }
                 }
             }
         }
-        return Result.result(1, null, "success");
+        return Result.result(1, "success", null);
     }
 }

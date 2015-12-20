@@ -86,11 +86,9 @@
                 var productCode = checkBox.attr("res");
                 var qty = $("#" + productCode).val();
                 if (qty && qty > 0) {
-                    dataArray.push({"productCode": productCode, "qty": qty});
+                    dataArray.push({"productCode": productCode, "qyt": qty});
                 }
             }
-            console.info(JSON.stringify(dataArray).serializeJson());
-            return ;
             if (dataArray.length > 0) {
                 $.ajax({
                     url: "${appPath}/front/product/productBatchAdd",
