@@ -61,11 +61,11 @@
 					</div>
 					<div class="rightContent">
 						<div class="imageContentDiv ml30">
-							<form action="${appPath}/front/furniture/index">
+							<form action="${appPath}/front/room/confirm">
 							<img src="${appPath}/upload/${bean.picUrl}" title="${bean.name}" />
 							<p class="mt10">
 								<label>Number pf Rooms:</label>
-								<input type="text" value="${bean.roomsNumber}" placeholder="0" />
+								<input type="text" value="1" placeholder="0" />
 								<input type="submit" value="Confirm" />
 							</p>
 							</form>

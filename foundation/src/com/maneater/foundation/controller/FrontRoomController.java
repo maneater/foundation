@@ -3,14 +3,17 @@ package com.maneater.foundation.controller;
 import com.maneater.foundation.Config;
 import com.maneater.foundation.nosql.entity.Room;
 import com.maneater.foundation.nosql.entity.RoomCategory;
+import com.maneater.foundation.service.impl.OrderService;
 import com.maneater.foundation.service.impl.RoomCategoryService;
 import com.maneater.foundation.service.impl.RoomService;
+import com.maneater.foundation.uitl.SysUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -59,5 +62,13 @@ public class FrontRoomController {
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("categories", categories);
         return "/front/room/room_detail";
+    }
+
+    private OrderService orderService = null;
+
+    @RequestMapping("confirm")
+    public String confirmRoom(HttpServletRequest req, Model model, String roomId, int roomNum) {
+        model.addAttribute("result", orderService.confirmRoom(SysUtil.getLoginUserId(req), roomId, roomNum));
+        return "redirect:/front/furniture/index";
     }
 }

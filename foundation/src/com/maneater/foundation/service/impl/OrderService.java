@@ -3,6 +3,7 @@ package com.maneater.foundation.service.impl;
 import com.maneater.foundation.nosql.entity.OrderInfo;
 import com.maneater.foundation.nosql.entity.OrderItem;
 import com.maneater.foundation.nosql.entity.Product;
+import com.maneater.foundation.nosql.entity.Room;
 import com.maneater.foundation.nosql.repository.OrderRepository;
 import com.maneater.foundation.vo.AddInfo;
 import com.maneater.foundation.vo.Result;
@@ -180,6 +181,28 @@ public class OrderService {
                 }
             }
         }
+        return Result.result(1, "success", null);
+    }
+
+    @Resource
+    private RoomService roomService = null;
+
+    public Result confirmRoom(String loginUserId, String roomId, int roomNum) {
+
+        Room room = roomService.findById(roomId);
+        if (room == null) {
+            return Result.result(0, "no such room", null);
+        }
+
+        OrderInfo orderInfo = getNoCommitOrder(loginUserId);
+        if (orderInfo == null) {
+            orderInfo = new OrderInfo();
+            orderInfo.setUserId(loginUserId);
+        }
+
+        orderInfo.setRoomId(roomId);
+        orderInfo.setRoomNumbers(roomNum);
+        orderRepository.save(orderInfo);
         return Result.result(1, "success", null);
     }
 }
