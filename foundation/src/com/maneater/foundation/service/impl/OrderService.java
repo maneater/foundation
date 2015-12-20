@@ -4,6 +4,7 @@ import com.maneater.foundation.nosql.entity.OrderInfo;
 import com.maneater.foundation.nosql.entity.OrderItem;
 import com.maneater.foundation.nosql.entity.Product;
 import com.maneater.foundation.nosql.repository.OrderRepository;
+import com.maneater.foundation.vo.AddInfo;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -154,5 +155,19 @@ public class OrderService {
 
     public OrderInfo getDetailById(String orderId) {
         return loadOrderItemData(orderRepository.findOne(orderId));
+    }
+
+    public Result addProduct(String userId, AddInfo[] addInfos) {
+        if (addInfos != null) {
+            for (AddInfo addInfo : addInfos) {
+                if (addInfo != null) {
+                    Product product = productService.findByCode(addInfo.getProductCode());
+                    if (product != null) {
+                        addProduct(userId, product.getCode(), addInfo.getQyt());
+                    }
+                }
+            }
+        }
+        return Result.result(1, null, "success");
     }
 }

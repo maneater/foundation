@@ -4,10 +4,12 @@ package com.maneater.foundation.controller;
 import com.maneater.foundation.nosql.entity.*;
 import com.maneater.foundation.service.impl.*;
 import com.maneater.foundation.uitl.SysUtil;
+import com.maneater.foundation.vo.AddInfo;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -78,6 +80,15 @@ public class FrontProductController {
         return Result.result(1, "success", null);
     }
 
+    //批量添加产品
+    @ResponseBody
+    @RequestMapping("productBatchAdd")
+    public Result addProduct(HttpServletRequest req, @RequestBody() AddInfo[] addInfos) {
+        String userId = SysUtil.getLoginUserId(req);
+        return orderService.addProduct(userId, addInfos);
+    }
+
+
     @Resource
     private OrderService orderService = null;
 
@@ -91,7 +102,7 @@ public class FrontProductController {
 
     //订单提交
     @RequestMapping("orderSubmit")
-    public String orderSubmit(HttpServletRequest req, Model model, String orderId, String[] checkedItems, String[] checkedItemsQyt,String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
+    public String orderSubmit(HttpServletRequest req, Model model, String orderId, String[] checkedItems, String[] checkedItemsQyt, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
         Result result = orderService.submitOrder(SysUtil.getLoginUserId(req), orderId, checkedItems, name, designation, company, companyAddress, deliveryAddress, contactNumber, email);
         model.addAttribute("result", model);
         return "/front/done/orderxx";

@@ -9,6 +9,15 @@ public class Room extends BaseEntity {
     private String picUrl;
     private String categoryId;
     private String categoryName;
+    private Integer roomsNumber;
+
+    public Integer getRoomsNumber() {
+        return roomsNumber;
+    }
+
+    public void setRoomsNumber(Integer roomsNumber) {
+        this.roomsNumber = roomsNumber;
+    }
 
     public String getCategoryName() {
         return categoryName;

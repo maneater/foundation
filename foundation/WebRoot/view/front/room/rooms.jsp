@@ -48,7 +48,7 @@
 				<div class="bodyContentDiv">
 					<div class="leftMenu">
 						<ul>
-							<li <c:if test="${categoryId==-1}"> class="current" </c:if> >
+							<li <c:if test="${empty categoryId}"> class="current" </c:if> >
 								<a href="${appPath}/front/room/index">Rooms</a>
 							</li>
 							<c:forEach var="item" items="${categories}">
