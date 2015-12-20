@@ -12,6 +12,17 @@ public class OrderInfo extends BaseEntity {
     private List<OrderItem> orderItemList = null;
     private String userId;
     private User user;
+    private String roomId;
+    private int roomNumbers;
+
+    public int getRoomNumbers() {
+        return roomNumbers;
+    }
+
+    public void setRoomNumbers(int roomNumbers) {
+        this.roomNumbers = roomNumbers;
+    }
+
     public User getUser() {
         return user;
     }
@@ -22,6 +33,15 @@ public class OrderInfo extends BaseEntity {
 
     //0=未提交；
     private int status = 0;
+
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
 
     private String designation;
     private String company;
