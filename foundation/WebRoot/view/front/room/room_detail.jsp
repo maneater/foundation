@@ -65,7 +65,8 @@
 							<img src="${appPath}/upload/${bean.picUrl}" title="${bean.name}" />
 							<p class="mt10">
 								<label>Number pf Rooms:</label>
-								<input type="text" value="1" placeholder="0" />
+                                <input type="hidden" name="roomId" value="${bean.id}" />
+								<input type="text" name="roomNum" value="1" placeholder="0" />
 								<input type="submit" value="Confirm" />
 							</p>
 							</form>

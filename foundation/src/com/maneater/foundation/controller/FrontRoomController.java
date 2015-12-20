@@ -64,6 +64,7 @@ public class FrontRoomController {
         return "/front/room/room_detail";
     }
 
+    @Resource
     private OrderService orderService = null;
 
     @RequestMapping("confirm")
