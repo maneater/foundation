@@ -94,9 +94,9 @@
             if (dataArray.length > 0) {
                 $.ajax({
                     url: "${appPath}/front/product/productBatchAdd",
-                    method:"post",
+                    type:"post",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(dataArray).serializeJson(),
+                    data: JSON.stringify(dataArray),
                     "success": function (data) {
                         alert(data.msg);
                     },
