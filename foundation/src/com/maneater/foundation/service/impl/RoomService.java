@@ -1,7 +1,7 @@
 package com.maneater.foundation.service.impl;
 
 import com.maneater.foundation.nosql.entity.Room;
-import com.maneater.foundation.nosql.repository.RoomRepository;
+import com.maneater.foundation.repsitory.RoomJpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,29 +15,29 @@ import java.util.List;
 public class RoomService {
 
     @Resource
-    private RoomRepository roomRepository;
+    private RoomJpaRepository roomJpaRepository;
 
     public List<Room> listByCategoryId(String categoryId) {
-        return roomRepository.findByCategoryId(categoryId);
+        return roomJpaRepository.findByCategoryId(categoryId);
     }
 
     public Room findById(String id) {
-        return roomRepository.findOne(id);
+        return roomJpaRepository.findOne(id);
     }
 
     public List<Room> lisAll() {
-        return roomRepository.findAll();
+        return roomJpaRepository.findAll();
     }
 
     public List<Room> listAllByEnable(boolean enable) {
-        return roomRepository.findByEnable(enable);
+        return roomJpaRepository.findByEnable(enable);
     }
 
     public Room save(Room room) {
-        return roomRepository.save(room);
+        return roomJpaRepository.save(room);
     }
 
     public boolean changeEnable(String id, boolean enable) {
-        return roomRepository.setEnableStatus(id, enable);
+        return roomJpaRepository.setEnableStatus(id, enable)>0;
     }
 }

@@ -8,9 +8,11 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "int")
     protected String id;
     @Column(nullable = false)
     protected String name;
+    @Column(length = 500)
     protected String info;
     protected boolean enable = true;
     protected long orderNum;

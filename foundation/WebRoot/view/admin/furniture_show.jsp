@@ -259,6 +259,7 @@
                         </thead>
                         <tbody id="expandTableBody">
                         <c:forEach items="${item.propertyProductList}" var="propertyProduct" varStatus="propertyStatus">
+                            <input type="hidden" name="propertyProductList[${propertyStatus.index}].id" value="${propertyProduct.id}" />
                             <tr data-value="${propertyProduct.propertyName}" data-index="${propertyStatus.index}"
                                 id="property">
                                 <td><input class="form-control" type="text" name="propertyProductList[${propertyStatus.index}].propertyName" value="${propertyProduct.propertyName}" required="true"/></td>

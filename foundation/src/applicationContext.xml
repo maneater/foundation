@@ -17,6 +17,7 @@
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
-    <!--<import resource="jpa-config.xml"/>-->
-    <import resource="mongo-config.xml"/>
+    <import resource="jpa-config.xml"/>
+    <!--<import resource="mongo-config.xml"/>-->
+    <bean class="com.maneater.foundation.listener.AfterStartUpListener"></bean>
 </beans>

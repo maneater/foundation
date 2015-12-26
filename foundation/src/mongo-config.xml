@@ -7,8 +7,8 @@
         http://www.springframework.org/schema/data/mongo     
         http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
-    <!--<mongo:mongo id="mongo" host="127.0.0.1" port="27017"/>-->
-    <mongo:mongo id="mongo" host="42.121.119.21" port="27017"/>
+    <mongo:mongo id="mongo" host="127.0.0.1" port="27017"/>
+    <!--<mongo:mongo id="mongo" host="42.121.119.21" port="27017"/>-->
     <mongo:db-factory id="mongoDbFactory" dbname="foundation" mongo-ref="mongo"/>
     <!-- mongodb的主要操作对象，所有对mongodb的增删改查的操作都是通过它完成 -->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
@@ -19,5 +19,4 @@
     <!--&lt;!&ndash; mongodb bean的仓库目录，会自动扫描扩展了MongoRepository接口的接口进行注入 &ndash;&gt;-->
     <mongo:repositories base-package="com.maneater.foundation.nosql.repository"/>
     <!--<context:annotation-config/>-->
-    <bean class="com.maneater.foundation.listener.AfterStartUpListener"></bean>
 </beans>

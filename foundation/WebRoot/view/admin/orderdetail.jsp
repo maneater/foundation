@@ -56,7 +56,7 @@
                             <td>${item.productCode}</td>
                             <td>${item.qyt}</td>
                             <td>$${item.price}</td>
-                            <c:set target="${order}" property="totalPrice" value="${item.price+order.totalPrice}"></c:set>
+                            <c:set target="${order}" property="totalPrice" value="${(item.price*item.qyt)+order.totalPrice}"></c:set>
                         </tr>
                     </c:forEach>
                     </tbody>

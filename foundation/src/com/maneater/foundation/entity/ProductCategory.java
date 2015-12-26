@@ -2,9 +2,8 @@
 //
 //import org.codehaus.jackson.map.annotate.JsonSerialize;
 //
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.Table;
+//import javax.persistence.*;
+//import java.util.List;
 //
 ///**
 // * Created by Administrator on 2015/11/19 0019.
@@ -21,5 +20,16 @@
 //
 //    public void setPicUrl(String picUrl) {
 //        this.picUrl = picUrl;
+//    }
+//
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productCategory")
+//    private List<ExpandProperty> expandPropertyList = null;
+//
+//    public List<ExpandProperty> getExpandPropertyList() {
+//        return expandPropertyList;
+//    }
+//
+//    public void setExpandPropertyList(List<ExpandProperty> expandPropertyList) {
+//        this.expandPropertyList = expandPropertyList;
 //    }
 //}

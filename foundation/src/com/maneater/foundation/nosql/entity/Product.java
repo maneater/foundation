@@ -1,16 +1,19 @@
 package com.maneater.foundation.nosql.entity;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/18 0018.
  */
 @Document
+@Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Table(name = "t_product")
 public class Product extends BaseEntity {
 
     @Column(nullable = false)
@@ -18,15 +21,18 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private String categoryName;
 
-
     //基础产品code
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String code;
 
+    @Column(length = 500)
     private String thumbnailPicture;
+    @Column(length = 500)
     private String detailPicture;
 
+    @Column(length = 2000)
     private String descBasic;
+    @Column(length = 2000)
     private String descDetail;
 
     //基础size
@@ -38,6 +44,8 @@ public class Product extends BaseEntity {
     private Double price;
 
     //属性产品，对应与产品详情里的
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<PropertyProduct> propertyProductList = null;
 
     public List<PropertyProduct> getPropertyProductList() {

@@ -4,9 +4,13 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Document
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Entity
+@Table(name = "t_user")
 public class User extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String email;

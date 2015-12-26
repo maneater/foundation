@@ -2,7 +2,8 @@ package com.maneater.foundation.service.impl;
 
 import com.maneater.foundation.nosql.entity.Product;
 import com.maneater.foundation.nosql.entity.PropertyProduct;
-import com.maneater.foundation.nosql.repository.ProductRepository;
+import com.maneater.foundation.repsitory.ProductJpaRepository;
+import com.maneater.foundation.repsitory.PropertyProductJpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -16,27 +17,31 @@ import java.util.List;
 public class ProductService {
 
     @Resource
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJpaRepository;
+
+    @Resource
+    private PropertyProductJpaRepository propertyProductJpaRepository;
 
     public List<Product> listByCategoryId(String categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+        return productJpaRepository.findByCategoryId(categoryId);
     }
 
     public List<Product> listAll() {
-        return productRepository.findAll();
+        return productJpaRepository.findAll();
     }
 
     public Product findById(String id) {
-        return productRepository.findOne(id);
+        return productJpaRepository.findOne(id);
     }
 
     public boolean changeEnable(String id, boolean enable) {
-        return productRepository.setEnableStatus(id, enable);
+        return productJpaRepository.setEnableStatus(id, enable) > 0;
     }
 
     public Product save(Product product) {
         checkExpandProduct(product);
-        return productRepository.save(product);
+        propertyProductJpaRepository.deleteByProductId(product.getId());
+        return productJpaRepository.save(product);
     }
 
     private void checkExpandProduct(Product product) {
@@ -46,17 +51,21 @@ public class ProductService {
                 if (propertyProductList.get(i) == null || StringUtils.isEmpty(propertyProductList.get(i).getPropertyName()) || StringUtils.isEmpty(propertyProductList.get(i).getPropertyValue()) || StringUtils.isEmpty(propertyProductList.get(i).getProductCode()) || StringUtils.isEmpty(propertyProductList.get(i).getProductPrice())) {
                     propertyProductList.remove(i);
                     i--;
+                    continue;
                 }
+                propertyProductList.get(i).setName(propertyProductList.get(i).getPropertyName());
+                propertyProductList.get(i).setProduct(product);
             }
         }
     }
 
     public List<Product> listAllByEnable(boolean value) {
-        return productRepository.listAllByEnable(value);
+        return productJpaRepository.findByEnable(value);
     }
 
     public Product findByCode(String productCode) {
-        return productRepository.findByCode(productCode);
+        List<Product> productList = productJpaRepository.findByCode(productCode);
+        return productList != null ? productList.get(0) : null;
     }
 
 }

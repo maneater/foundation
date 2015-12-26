@@ -2,8 +2,8 @@ package com.maneater.foundation.service.impl;
 
 import com.maneater.foundation.nosql.entity.ExpandProperty;
 import com.maneater.foundation.nosql.entity.ProductCategory;
-import com.maneater.foundation.nosql.repository.ProductCategoryRepository;
-import com.maneater.foundation.nosql.repository.ProductRepository;
+import com.maneater.foundation.repsitory.ProductCategoryJpaRepository;
+import com.maneater.foundation.repsitory.ProductJpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -12,33 +12,35 @@ import java.util.List;
 
 @Service
 public class ProductCategoryService {
+    //    @Resource
+//    private ProductCategoryRepository productCategoryJpaRepository;
     @Resource
-    private ProductCategoryRepository productCategoryRepository;
+    private ProductCategoryJpaRepository productCategoryJpaRepository;
 
     @Resource
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJpaRepository;
 
     public List<ProductCategory> listAll() {
-        return productCategoryRepository.findAll();
+        return productCategoryJpaRepository.findAll();
     }
 
     public ProductCategory findById(String id) {
-        return productCategoryRepository.findOne(id);
+        return productCategoryJpaRepository.findOne(id);
     }
 
     public ProductCategory save(ProductCategory category) {
         reCheckPropertys(category);
         if (!StringUtils.isEmpty(category.getId())) {//update
-            ProductCategory dbCategory = productCategoryRepository.findOne(category.getId());
+            ProductCategory dbCategory = productCategoryJpaRepository.findOne(category.getId());
             boolean needSync = dbCategory != null && !dbCategory.getName().equals(category.getName());
-            category = productCategoryRepository.save(category);
+            category = productCategoryJpaRepository.save(category);
             if (category != null && needSync) {
                 //categoryName change
-                productRepository.syncCategoryName(category.getId(), category.getName());
+                productJpaRepository.syncCategoryName(category.getId(), category.getName());
 
             }
         } else {//create
-            category = productCategoryRepository.save(category);
+            category = productCategoryJpaRepository.save(category);
         }
         return category;
     }
@@ -57,16 +59,17 @@ public class ProductCategoryService {
                 if (StringUtils.isEmpty(expandProperty.getId())) {
                     expandProperty.setId(null);
                 }
+                expandProperty.setProductCategory(category);
             }
         }
     }
 
     public boolean changeEnable(String id, boolean value) {
-        return productCategoryRepository.setEnableStatus(id, value);
+        return productCategoryJpaRepository.setEnableStatus(id, value)>0;
     }
 
 
     public List<ProductCategory> listAllByEnable(boolean value) {
-        return productCategoryRepository.listAllByEnable(value);
+        return productCategoryJpaRepository.findByEnable(value);
     }
 }

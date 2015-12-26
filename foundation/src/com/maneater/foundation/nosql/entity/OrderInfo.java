@@ -1,16 +1,29 @@
 package com.maneater.foundation.nosql.entity;
 
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 import java.util.List;
 
-@Document
+
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Document
+@Table(name = "t_order_info")
+@Entity
 public class OrderInfo extends BaseEntity {
+
+    public OrderInfo() {
+        this.name = "defaultName";
+    }
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "orderInfo")
     private List<OrderItem> orderItemList = null;
     private String userId;
+    @Transient
     private User user;
     private String roomId;
     private int roomNumbers;
@@ -50,7 +63,7 @@ public class OrderInfo extends BaseEntity {
     private String contactNumber;
     private String email;
 
-    private Double totalPrice =0d;
+    private Double totalPrice = 0d;
 
     //后端处理状态 0=未处理，1=已处理
     private int dealStatus = 0;

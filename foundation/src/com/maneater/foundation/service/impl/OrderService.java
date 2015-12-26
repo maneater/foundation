@@ -4,7 +4,8 @@ import com.maneater.foundation.nosql.entity.OrderInfo;
 import com.maneater.foundation.nosql.entity.OrderItem;
 import com.maneater.foundation.nosql.entity.Product;
 import com.maneater.foundation.nosql.entity.Room;
-import com.maneater.foundation.nosql.repository.OrderRepository;
+import com.maneater.foundation.repsitory.OrderItemJpaRepository;
+import com.maneater.foundation.repsitory.OrderJpaRepository;
 import com.maneater.foundation.vo.AddInfo;
 import com.maneater.foundation.vo.Result;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,9 @@ public class OrderService {
     private UserService userService = null;
 
     @Resource
-    private OrderRepository orderRepository = null;
+    private OrderItemJpaRepository orderItemJpaRepository = null;
+    @Resource
+    private OrderJpaRepository orderJpaRepository = null;
 
     @Resource
     private ProductService productService = null;
@@ -58,22 +61,23 @@ public class OrderService {
                 orderItem = new OrderItem();
                 orderItemList.add(orderItem);
             }
+            orderItem.setOrderInfo(orderInfo);
             orderItem.setQyt(qty);
             orderItem.setPrice(price);
             orderItem.setProductCode(productCode);
             orderInfo.setUserId(userId);
-            orderRepository.save(orderInfo);
+            orderJpaRepository.save(orderInfo);
         }
     }
 
     public OrderInfo getNoCommitOrder(String userId) {
-        List<OrderInfo> orderList = orderRepository.findByStatus(userId, 0);
+        List<OrderInfo> orderList = orderJpaRepository.findByUserIdAndStatus(userId, 0);
         OrderInfo orderInfo = orderList != null && orderList.size() > 0 ? orderList.get(0) : null;
         return orderInfo;
     }
 
     public List<OrderInfo> getOrderByUserId(String userId) {
-        return orderRepository.findByUserId(userId);
+        return orderJpaRepository.findByUserId(userId);
     }
 
     public OrderInfo loadOrderItemData(OrderInfo orderInfo) {
@@ -91,12 +95,16 @@ public class OrderService {
 
 
     public Result submitOrder(String loginUserId, String orderId, List<AddInfo> addInfoList, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
-        OrderInfo orderInfo = orderRepository.findOne(orderId);
+        OrderInfo orderInfo = orderJpaRepository.findOne(orderId);
         if (orderInfo != null && orderInfo.getUserId() != null && orderInfo.getUserId().equals(loginUserId)) {
 
             if (orderInfo.getStatus() != 0) {
                 return Result.result(0, String.format("order has be submitted at : %1$s", orderInfo.getLastUpdateTime()), null);
             }
+
+            //drop before items
+            orderItemJpaRepository.deleteByOrderInfoId(orderInfo.getId());
+
 
             List<OrderItem> addOrderItemList = new ArrayList<OrderItem>();
             if (addInfoList != null) {
@@ -112,6 +120,7 @@ public class OrderService {
                         OrderItem orderItem = new OrderItem();
                         orderItem.setProductCode(addInfo.getProductCode());
                         orderItem.setQyt(addInfo.getQyt());
+                        orderItem.setOrderInfo(orderInfo);
                         orderItem.setPrice(product.getPriceByCode(addInfo.getProductCode()));
                         addOrderItemList.add(orderItem);
                     }
@@ -130,7 +139,7 @@ public class OrderService {
             orderInfo.setDeliveryAddress(deliveryAddress);
             orderInfo.setContactNumber(contactNumber);
             orderInfo.setEmail(email);
-            orderRepository.save(orderInfo);
+            orderJpaRepository.save(orderInfo);
             return Result.result(1, "success", null);
         }
         return Result.result(0, "no such order", null);
@@ -148,7 +157,7 @@ public class OrderService {
 //    }
 
     public List<OrderInfo> listAll() {
-        return orderRepository.findAll();
+        return orderJpaRepository.findAll();
     }
 
     public List<OrderInfo> attachUserInfo(List<OrderInfo> orderInfoList) {
@@ -167,7 +176,7 @@ public class OrderService {
     }
 
     public OrderInfo getDetailById(String orderId) {
-        return loadOrderItemData(orderRepository.findOne(orderId));
+        return loadOrderItemData(orderJpaRepository.findOne(orderId));
     }
 
     public Result addProduct(String userId, AddInfo[] addInfos) {
@@ -202,7 +211,7 @@ public class OrderService {
 
         orderInfo.setRoomId(roomId);
         orderInfo.setRoomNumbers(roomNum);
-        orderRepository.save(orderInfo);
+        orderJpaRepository.save(orderInfo);
         return Result.result(1, "success", null);
     }
 }

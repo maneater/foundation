@@ -1,7 +1,9 @@
 package com.maneater.foundation.service.impl;
 
 import com.maneater.foundation.nosql.entity.User;
-import com.maneater.foundation.nosql.repository.UserRepository;
+import com.maneater.foundation.repsitory.UserJpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,34 +15,34 @@ import java.util.List;
 @Service
 public class UserService {
     @Resource
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     public User findByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+        return userJpaRepository.findByEmailAndPassword(email, password);
     }
 
     //
-//    public Page<User> list(int targetPage, int pageSize) {
-//        return userRepository.findAll(new PageRequest(targetPage, pageSize));
-//    }
+    public Page<User> list(int targetPage, int pageSize) {
+        return userJpaRepository.findAll(new PageRequest(targetPage, pageSize));
+    }
     public List<User> list() {
-        return userRepository.findAll();
+        return userJpaRepository.findAll();
     }
 
     public User findUser(String userId) {
-        return userRepository.findOne(userId);
+        return userJpaRepository.findOne(userId);
     }
 
     public boolean save(User user) {
-        return userRepository.save(user) != null;
+        return userJpaRepository.save(user) != null;
     }
 
     public boolean checkReigser(String email) {
-        return (userRepository.findByEmail(email) != null);
+        return (userJpaRepository.findByEmail(email) != null);
     }
 
     public boolean changeEnable(String id, boolean enable) {
-        return userRepository.setEnableStatus(id, enable);
+        return userJpaRepository.setEnableStatus(id, enable)>0;
     }
 
 

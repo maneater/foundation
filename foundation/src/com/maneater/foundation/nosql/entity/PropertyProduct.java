@@ -1,16 +1,34 @@
 package com.maneater.foundation.nosql.entity;
 
-public class PropertyProduct {
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 
+@Document
+@Entity
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Table(name = "t_property_product")
+public class PropertyProduct extends BaseEntity {
+
+    @JsonBackReference
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column(nullable = false)
     private String propertyName;
+    @Column(nullable = false)
     private String propertyValue;
     private String propertyInfo;
     private String propertyPicUrl;
 
 
+    @Column(nullable = false,unique = true)
     private String productCode;
     private String productPicUrl;
+    @Column(nullable = false)
     private Double productPrice;
 
     public String getPropertyValue() {
@@ -67,5 +85,13 @@ public class PropertyProduct {
 
     public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

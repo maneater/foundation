@@ -1,84 +1,81 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
-       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-       <!--xmlns:context="http://www.springframework.org/schema/context"-->
-       <!--xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"-->
-       <!--xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"-->
-       <!--xsi:schemaLocation="-->
-		<!--http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd-->
-		<!--http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd-->
-		<!--http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd-->
-		<!--http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd-->
-		<!--http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd-->
-		<!--http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd"-->
-       <!--default-lazy-init="false">-->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd"
+       default-lazy-init="false">
 
-    <!--&lt;!&ndash; Jpa Entity Manager 配置 &ndash;&gt;-->
-    <!--<bean id="entityManagerFactory"-->
-          <!--class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--&lt;!&ndash; 设置hibernate方言 可以使用java类动态生成 &ndash;&gt;-->
-        <!--<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>-->
-        <!--<property name="packagesToScan" value="com.maneater.foundation"/>-->
-        <!--<property name="jpaProperties">-->
-            <!--<props>-->
-                <!--&lt;!&ndash; 命名规则 My_NAME->MyName &ndash;&gt;-->
-                <!--<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>-->
-                <!--&lt;!&ndash; 配置hibernate的属性 如果使用log4jdbc这个就不起作用 &ndash;&gt;-->
-                <!--<prop key="hibernate.show_sql">true</prop>-->
-                <!--<prop key="hibernate.format_sql">true</prop>-->
-                <!--&lt;!&ndash;validate 加载hibernate时，验证创建数据库表结构&ndash;&gt;-->
-                <!--&lt;!&ndash;create 每次加载hibernate，重新创建数据库表结构，这就是导致数据库表数据丢失的原因。&ndash;&gt;-->
-                <!--&lt;!&ndash;create-drop 加载hibernate时创建，退出是删除表结构&ndash;&gt;-->
-                <!--&lt;!&ndash;update 加载hibernate自动更新数据库结构&ndash;&gt;-->
-                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
-            <!--</props>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <!-- Jpa Entity Manager 配置 -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 设置hibernate方言 可以使用java类动态生成 -->
+        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+        <property name="packagesToScan" value="com.maneater.foundation"/>
+        <property name="jpaProperties">
+            <props>
+                <!-- 命名规则 My_NAME->MyName -->
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <!-- 配置hibernate的属性 如果使用log4jdbc这个就不起作用 -->
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <!--validate 加载hibernate时，验证创建数据库表结构-->
+                <!--create 每次加载hibernate，重新创建数据库表结构，这就是导致数据库表数据丢失的原因。-->
+                <!--create-drop 加载hibernate时创建，退出是删除表结构-->
+                <!--update 加载hibernate自动更新数据库结构-->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
 
-    <!--&lt;!&ndash; <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
-        <!--<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>-->
-        <!--</bean> &ndash;&gt;-->
-    <!--<bean id="hibernateJpaVendorAdapter"-->
-          <!--class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
-        <!--<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect">-->
-        <!--</property>-->
-    <!--</bean>-->
+    <!-- <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+        </bean> -->
+    <bean id="hibernateJpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect">
+        </property>
+    </bean>
 
-    <!--&lt;!&ndash; 使用配置文件加载数据库配置 &ndash;&gt;-->
-    <!--<context:property-placeholder-->
-            <!--ignore-unresolvable="true" location="classpath*:/application.properties"/>-->
-    <!--&lt;!&ndash; 数据源配置, 使用Tomcat JDBC连接池 &ndash;&gt;-->
-    <!--<bean id="dataSource"-->
-          <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-        <!--&lt;!&ndash; Connection Info &ndash;&gt;-->
-        <!--<property name="driverClassName" value="${jdbc.driver}"/>-->
-        <!--<property name="url" value="${jdbc.url}"/>-->
-        <!--<property name="username" value="${jdbc.username}"/>-->
-        <!--<property name="password" value="${jdbc.password}"/>-->
+    <!-- 使用配置文件加载数据库配置 -->
+    <context:property-placeholder
+            ignore-unresolvable="true" location="classpath*:/application.properties"/>
+    <!-- 数据源配置, 使用Tomcat JDBC连接池 -->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- Connection Info -->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
 
-        <!--&lt;!&ndash; Connection Pooling Info &ndash;&gt;-->
-        <!--&lt;!&ndash; 		<property name="maxActive" value="${jdbc.pool.maxActive}" />-->
-                <!--<property name="maxIdle" value="${jdbc.pool.maxIdle}" />-->
-                <!--<property name="minIdle" value="0" />-->
-                <!--<property name="defaultAutoCommit" value="false" /> &ndash;&gt;-->
-    <!--</bean>-->
+        <!-- Connection Pooling Info -->
+        <!-- 		<property name="maxActive" value="${jdbc.pool.maxActive}" />
+                <property name="maxIdle" value="${jdbc.pool.maxIdle}" />
+                <property name="minIdle" value="0" />
+                <property name="defaultAutoCommit" value="false" /> -->
+    </bean>
 
-    <!--&lt;!&ndash; JSR303 Validator定义 &ndash;&gt;-->
-    <!--&lt;!&ndash; <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"-->
-        <!--/> &ndash;&gt;-->
+    <!-- JSR303 Validator定义 -->
+    <!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
+        /> -->
 
-    <!--&lt;!&ndash; Spring Data Jpa配置 &ndash;&gt;-->
+    <!-- Spring Data Jpa配置 -->
 
-    <!--<jpa:repositories base-package="com.maneater.foundation.repository"-->
-                      <!--transaction-manager-ref="transactionManager"-->
-                      <!--entity-manager-factory-ref="entityManagerFactory"/>-->
+    <jpa:repositories base-package="com.maneater.foundation.repsitory"
+                      transaction-manager-ref="transactionManager"
+                      entity-manager-factory-ref="entityManagerFactory"/>
 
-    <!--&lt;!&ndash; Jpa 事务配置 &ndash;&gt;-->
-    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
-        <!--<property name="entityManagerFactory" ref="entityManagerFactory"/>-->
-    <!--</bean>-->
+    <!-- Jpa 事务配置 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
 
-    <!--&lt;!&ndash; 使用annotation定义事务  proxy-target-class="true" &ndash;&gt;-->
-    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
-<!--</beans>-->
+    <!-- 使用annotation定义事务  proxy-target-class="true" -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
