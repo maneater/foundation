@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.List;
 
 @Document
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
@@ -48,4 +50,15 @@ public class Room extends BaseEntity {
         this.picUrl = picUrl;
     }
 
+    @Transient
+    //包含所有产品分类，但是有的分类包含position 有的分类不包含position
+    private List<ProductCategory> productCategoryList = null;
+
+    public List<ProductCategory> getProductCategoryList() {
+        return productCategoryList;
+    }
+
+    public void setProductCategoryList(List<ProductCategory> productCategoryList) {
+        this.productCategoryList = productCategoryList;
+    }
 }

@@ -33,4 +33,11 @@ public class ProductCategory extends BaseEntity {
     public void setExpandPropertyList(List<ExpandProperty> expandPropertyList) {
         this.expandPropertyList = expandPropertyList;
     }
+
+    @Transient
+    private ProductCategoryPosition productCategoryPosition = null;
+
+    public void setProductCategoryPosition(ProductCategoryPosition productCategoryPosition) {
+        this.productCategoryPosition = productCategoryPosition;
+    }
 }
