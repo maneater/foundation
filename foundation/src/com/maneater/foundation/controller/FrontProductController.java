@@ -103,6 +103,7 @@ public class FrontProductController {
     }
 
     //订单提交
+    //TODO 准备位置展示数据
     @RequestMapping("orderSubmit")
     public String orderSubmit(HttpServletRequest req, Model model, String orderId, OrderForm orderForm, String name, String designation, String company, String companyAddress, String deliveryAddress, String contactNumber, String email) {
         Result result = orderService.submitOrder(SysUtil.getLoginUserId(req), orderId, orderForm.getAddInfoList(), name, designation, company, companyAddress, deliveryAddress, contactNumber, email);

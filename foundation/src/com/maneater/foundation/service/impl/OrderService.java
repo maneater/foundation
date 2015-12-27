@@ -140,7 +140,7 @@ public class OrderService {
             orderInfo.setContactNumber(contactNumber);
             orderInfo.setEmail(email);
             orderJpaRepository.save(orderInfo);
-            return Result.result(1, "success", null);
+            return Result.result(1, orderInfo.getId(), null);
         }
         return Result.result(0, "no such order", null);
     }
