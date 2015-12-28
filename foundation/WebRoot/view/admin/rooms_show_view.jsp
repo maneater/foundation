@@ -37,7 +37,8 @@
             </h1>
             <div class="form-group col-sm-12" id="controlDiv">
                 <c:forEach items="${room.productCategoryList}" var="category">
-                    <label><input value="${category.id}" type="checkbox" onchange="changeCategoryShow(this);"
+                    <label><input data-pic="${appPath}/${dirUpload}/${category.picUrl}" value="${category.id}"
+                                  type="checkbox" onchange="changeCategoryShow(this);"
                                   <c:if test="${category.productCategoryPosition!=null}">checked="true"</c:if>/>${category.name}
                     </label>
                 </c:forEach>
@@ -57,6 +58,7 @@
 <script src="${appPath}/view/admin/js/submit.js"></script>
 <script>
 
+
     var viewPosition = {roomId: "${room.id}", positions: new Array()}
 
     <fd:toJs argName="categoryList" argObj="${room.productCategoryList}"></fd:toJs>
@@ -68,6 +70,8 @@
     </c:if>
     </c:forEach>
 
+    //TODO 根据 viewPosition 进行绘制操作；
+
     function CategoryPosition() {
         this.roomId =${room.id};
         this.productCategoryId = null;
@@ -77,9 +81,10 @@
     }
 
     function changeCategoryShow(ele) {
-        //添加或删除家具
+        //添加或删除家具Demo
         var checked = ele.checked;
         var categoryId = $(ele).val();
+        var categoryPic = $(ele).attr("data-pic");
         if (checked) {
             var categoryPosition = new CategoryPosition();
             categoryPosition.productCategoryId = categoryId;
@@ -87,19 +92,22 @@
             categoryPosition.y = 11;
             categoryPosition.zIndex = 1;
             viewPosition.positions.push(categoryPosition);
+            $("#canvasDiv").append("<img id='picCategory" + categoryId + "' src='" + categoryPic + "'/>");
         } else {
-            for (var index = 0; index < viewPosition.positions; index++) {
+            $("#picCategory" + categoryId).remove();
+            for (var index = 0; index < viewPosition.positions.length; index++) {
                 if (viewPosition.positions[index].productCategoryId == categoryId) {
-                    viewPosition.positions.slice(index, 1);
-                    index--;
+                    console.info(viewPosition.positions[index]);
+                    viewPosition.positions.splice(index, 1);
+                    break;
                 }
             }
         }
-        console.info(viewPosition.positions.length);
     }
 
 
     function saveCanvas() {
+        //TODO 构造出实际的 viewPositon进行提交，每次都是全量保存，并删除之前的位置信息
         $.ajax({
             url: "${appPath}/admin/room/saveview",
             type: "post",
