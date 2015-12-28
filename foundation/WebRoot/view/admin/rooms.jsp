@@ -60,6 +60,8 @@
                             <td>
                                 <a href="${appPath}/admin/room/show?id=${item.id}"
                                    class="btn btn-default btn-xs" target="_self">detail</a>
+                                <a href="${appPath}/admin/room/showview?id=${item.id}"
+                                   class="btn btn-default btn-xs" target="_self">view eidt</a>
                                 <button onclick="changeEnable(this);" value="${item.enable}"
                                         data-id="${item.id}"
                                         class="btn ${item.enable?"btn-info":"btn-warning"} btn-xs "

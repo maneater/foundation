@@ -40,4 +40,8 @@ public class ProductCategory extends BaseEntity {
     public void setProductCategoryPosition(ProductCategoryPosition productCategoryPosition) {
         this.productCategoryPosition = productCategoryPosition;
     }
+
+    public ProductCategoryPosition getProductCategoryPosition() {
+        return productCategoryPosition;
+    }
 }
