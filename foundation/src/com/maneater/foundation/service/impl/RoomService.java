@@ -76,16 +76,16 @@ public class RoomService {
         return null;
     }
 
-    public List<ProductCategory> findPositionByRoomId(String roomId) {
-        //只出现有效的
-        List<ProductCategory> productCategoryList = productCategoryJpaRepository.findByEnable(true);
-        if (!CollectionUtils.isEmpty(productCategoryList)) {
-            for (ProductCategory productCategory : productCategoryList) {
-                productCategory.setProductCategoryPosition(productCategoryPositionRepository.findByRoomIdAndProductCategoryId(roomId, productCategory.getId()));
-            }
-        }
-        return productCategoryList;
-    }
+//    public List<ProductCategory> findPositionByRoomId(String roomId) {
+//        //只出现有效的
+//        List<ProductCategory> productCategoryList = productCategoryJpaRepository.findByEnable(true);
+//        if (!CollectionUtils.isEmpty(productCategoryList)) {
+//            for (ProductCategory productCategory : productCategoryList) {
+//                productCategory.setProductCategoryPosition(productCategoryPositionRepository.findByRoomIdAndProductCategoryId(roomId, productCategory.getId()));
+//            }
+//        }
+//        return productCategoryList;
+//    }
 
     public List<Room> lisAll() {
         return roomJpaRepository.findAll();
