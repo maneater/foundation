@@ -17,6 +17,15 @@ public class Room extends BaseEntity {
     private String categoryId;
     private String categoryName;
     private Integer roomsNumber;
+    private String effectPicUrl;
+
+    public String getEffectPicUrl() {
+        return effectPicUrl;
+    }
+
+    public void setEffectPicUrl(String effectPicUrl) {
+        this.effectPicUrl = effectPicUrl;
+    }
 
     public Integer getRoomsNumber() {
         return roomsNumber;

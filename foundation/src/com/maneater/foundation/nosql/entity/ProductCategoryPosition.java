@@ -24,11 +24,11 @@ public class ProductCategoryPosition extends BaseEntity {
     private String productCategoryId;
 
     @Column(nullable = false)
-    private int x;
+    private String x = "0";
     @Column(nullable = false)
-    private int y;
+    private String y = "0";
     @Column(nullable = false)
-    private int zIndex;
+    private String zIndex = "0";
 
     public String getRoomId() {
         return roomId;
@@ -46,27 +46,27 @@ public class ProductCategoryPosition extends BaseEntity {
         this.productCategoryId = productCategoryId;
     }
 
-    public int getX() {
+    public String getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public int getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(String y) {
         this.y = y;
     }
 
-    public int getzIndex() {
+    public String getzIndex() {
         return zIndex;
     }
 
-    public void setzIndex(int zIndex) {
+    public void setzIndex(String zIndex) {
         this.zIndex = zIndex;
     }
 }

@@ -1,9 +1,10 @@
 package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
-import com.maneater.foundation.nosql.entity.ProductCategoryPosition;
+import com.maneater.foundation.nosql.entity.ProductCategory;
 import com.maneater.foundation.nosql.entity.Room;
 import com.maneater.foundation.nosql.entity.RoomCategory;
+import com.maneater.foundation.service.impl.ProductCategoryService;
 import com.maneater.foundation.service.impl.RoomCategoryService;
 import com.maneater.foundation.service.impl.RoomService;
 import com.maneater.foundation.vo.Result;
@@ -28,6 +29,8 @@ public class RoomController {
     private RoomService roomService;
     @Resource
     private RoomCategoryService roomCategoryService;
+    @Resource
+    private ProductCategoryService productCategoryService;
 
     @RequestMapping({"", "index"})
     public String listRooms(Model model) {
@@ -51,20 +54,31 @@ public class RoomController {
         return "/admin/rooms_show";
     }
 
-    //展示坐标,room 中会包含所有的家具分类，
-    // 如果家具分类有指定位置信息，则会家具分类里则有 productCategoryPosition对象
-    @RequestMapping(value = {"showview"}, method = RequestMethod.GET)
-    public String showRoomView(Model model, @RequestParam(required = false) String id) {
+    /**
+     * 2015年12月28日新增
+     *
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = {"view_edit"}, method = RequestMethod.GET)
+    public String viewEdit(Model model, @RequestParam(required = false) String id) {
         model.addAttribute(Config.ADMIN_ACT_NAME, "room");
+        List<RoomCategory> categoryList = roomCategoryService.listAll();
         Room room = roomService.findById(id);
-        roomService.attachPositionList(room);
         if (room == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
-        model.addAttribute("room", room);
-        return "/admin/rooms_show_view";
-    }
 
+        // 获得家具类型
+        List<ProductCategory> productCategories = productCategoryService.listAll();
+
+        model.addAttribute("isAdd", false);
+        model.addAttribute("graphRoom", room);
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("productCategories", productCategories);
+        return "/admin/rooms_view_edit";
+    }
 
     //更新坐标,需要前台构造成json，指定roomId，指定位置列表
     @RequestMapping(value = {"saveview"}, method = RequestMethod.POST)
@@ -127,7 +141,6 @@ public class RoomController {
             return Result.result(0, "failed", null);
         }
     }
-
 
     /**
      * ********

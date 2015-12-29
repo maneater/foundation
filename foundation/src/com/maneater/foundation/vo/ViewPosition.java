@@ -7,6 +7,16 @@ import com.maneater.foundation.nosql.entity.ProductCategoryPosition;
  */
 public class ViewPosition {
     private String roomId;
+    private String bgPicUrl;
+
+    public String getBgPicUrl() {
+        return bgPicUrl;
+    }
+
+    public void setBgPicUrl(String bgPicUrl) {
+        this.bgPicUrl = bgPicUrl;
+    }
+
     private ProductCategoryPosition[] positions;
 
     public String getRoomId() {
