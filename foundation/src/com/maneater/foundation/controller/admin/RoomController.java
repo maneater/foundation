@@ -83,7 +83,6 @@ public class RoomController {
         //已经保存的位置信息，包含 x,y,z,已经家具分类对象
         List<ProductCategoryPosition> positionList = roomService.findPositionListByRoomId(id);
         model.addAttribute("positionList", positionList);
-        roomService.findPositionByRoomId(id);
 
         return "/admin/rooms_view_edit";
     }
