@@ -78,6 +78,11 @@ public class RoomService {
         if (room != null) {
             productCategoryPositionRepository.deleteByRoomId(viewPosition.getRoomId());
             if (viewPosition.getPositions() != null && viewPosition.getPositions().length > 0) {
+
+                //更新room效果背景图
+                room.setEffectPicUrl(viewPosition.getBgPicUrl());
+                roomJpaRepository.save(room);
+
                 for (ProductCategoryPosition position : viewPosition.getPositions()) {
                     if (!StringUtils.isEmpty(position.getProductCategoryId())) {
                         position.setRoomId(room.getId());
