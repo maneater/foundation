@@ -2,6 +2,7 @@ package com.maneater.foundation.controller.admin;
 
 import com.maneater.foundation.Config;
 import com.maneater.foundation.nosql.entity.ProductCategory;
+import com.maneater.foundation.nosql.entity.ProductCategoryPosition;
 import com.maneater.foundation.nosql.entity.Room;
 import com.maneater.foundation.nosql.entity.RoomCategory;
 import com.maneater.foundation.service.impl.ProductCategoryService;
@@ -70,13 +71,20 @@ public class RoomController {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
         }
 
-        // 获得家具类型
-        List<ProductCategory> productCategories = productCategoryService.listAll();
+        // 获得家具类型，只获取有效的
+        List<ProductCategory> productCategories = productCategoryService.listAllByEnable(true);
 
         model.addAttribute("isAdd", false);
         model.addAttribute("graphRoom", room);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productCategories", productCategories);
+        model.addAttribute("productCategories", productCategories);
+
+        //已经保存的位置信息，包含 x,y,z,已经家具分类对象
+        List<ProductCategoryPosition> positionList = roomService.findPositionListByRoomId(id);
+        model.addAttribute("positionList", positionList);
+        roomService.findPositionByRoomId(id);
+
         return "/admin/rooms_view_edit";
     }
 

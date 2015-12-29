@@ -39,9 +39,41 @@ public class RoomService {
         return roomJpaRepository.findOne(id);
     }
 
-    //后台用，查出所有可用分类，如果该分类有位置信息，则附加进去
-    public void attachPositionList(Room room) {
-        room.setProductCategoryList(findPositionByRoomId(room.getId()));
+//    //后台用，查出所有可用分类，如果该分类有位置信息，则附加进去
+//    public void attachPositionList(Room room) {
+//        room.setProductCategoryList(findPositionByRoomId(room.getId()));
+//    }
+
+    public List<ProductCategoryPosition> findPositionListByRoomId(String id) {
+        //只列举有效的类型
+        List<ProductCategory> productCategoryList = productCategoryJpaRepository.findByEnable(true);
+        List<ProductCategoryPosition> positionList = productCategoryPositionRepository.findByRoomId(id);
+        if (positionList != null) {
+            for (int i = 0; i < positionList.size(); i++) {
+                ProductCategoryPosition position = positionList.get(i);
+                ProductCategory category = getCategory(position, productCategoryList);
+                if (category != null) {
+                    position.setProductCategory(category);
+                } else {
+                    //如果该分类无效，则踢出掉
+                    positionList.remove(i);
+                    i--;
+                }
+            }
+        }
+        return positionList;
+    }
+
+    private ProductCategory getCategory(ProductCategoryPosition position, List<ProductCategory> productCategoryList) {
+        if (productCategoryList != null) {
+            for (ProductCategory category : productCategoryList) {
+                //在有效中
+                if (category.getId().equals(position.getProductCategoryId())) {
+                    return category;
+                }
+            }
+        }
+        return null;
     }
 
     public List<ProductCategory> findPositionByRoomId(String roomId) {
@@ -95,4 +127,5 @@ public class RoomService {
         }
         return Result.result(1, "success", null);
     }
+
 }

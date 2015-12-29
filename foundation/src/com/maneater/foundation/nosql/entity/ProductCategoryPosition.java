@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Document
 @Entity
@@ -29,6 +30,17 @@ public class ProductCategoryPosition extends BaseEntity {
     private String y = "0";
     @Column(nullable = false)
     private String zIndex = "0";
+
+    @Transient
+    private ProductCategory productCategory;
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
 
     public String getRoomId() {
         return roomId;
