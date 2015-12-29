@@ -51,8 +51,15 @@ public class RoomService {
         if (positionList != null) {
             for (int i = 0; i < positionList.size(); i++) {
                 ProductCategoryPosition position = positionList.get(i);
+                position.setCreateTime(null);
+                position.setName(null);
+                position.setLastUpdateTime(null);
                 ProductCategory category = getCategory(position, productCategoryList);
                 if (category != null) {
+                    category.setProductCategoryPosition(null);
+                    category.setExpandPropertyList(null);
+                    position.setCreateTime(null);
+                    position.setLastUpdateTime(null);
                     position.setProductCategory(category);
                 } else {
                     //如果该分类无效，则踢出掉

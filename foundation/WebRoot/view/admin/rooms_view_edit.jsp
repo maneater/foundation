@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@include file="common.jsp" %>
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 	<head>
@@ -85,6 +84,7 @@
 		<script src="${appPath}/view/admin/js/submit.js"></script>
 		<script src="${appPath}/view/admin/js/room_view_edit.js"></script>
 		<script type="text/javascript" charset="utf-8">
+            <fd:toJs argName="savedPositionList" argObj="${positionList}"></fd:toJs>
 			$(function(){
 				roomViewFurnitureList = new Array();
 				$("#safetyMapsIsGrid").change(function(){
