@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class OrderItem extends BaseEntity {
 
     public OrderItem() {
-        this.name="defaultName";
+        this.name = "defaultName";
     }
 
     @JsonBackReference
@@ -49,16 +49,26 @@ public class OrderItem extends BaseEntity {
         this.price = price;
     }
 
+//    @Transient
+//    private Product product = null;
     @Transient
-    private Product product = null;
+    private PropertyProduct propertyProduct = null;
 
-    public Product getProduct() {
-        return product;
+    public PropertyProduct getPropertyProduct() {
+        return propertyProduct;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setPropertyProduct(PropertyProduct propertyProduct) {
+        this.propertyProduct = propertyProduct;
     }
+
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 
     public OrderInfo getOrderInfo() {
         return orderInfo;

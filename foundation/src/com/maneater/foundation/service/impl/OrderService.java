@@ -86,7 +86,8 @@ public class OrderService {
             if (orderItemList != null) {
                 for (OrderItem orderItem : orderItemList) {
                     String productCode = orderItem.getProductCode();
-                    orderItem.setProduct(productService.findByCode(productCode));
+                    orderItem.setPropertyProduct(productService.findPropertyProductByCode(productCode));
+//                    orderItem.setProduct(productService.findByCode(productCode));
                 }
             }
         }

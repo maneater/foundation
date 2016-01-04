@@ -5,6 +5,7 @@ import com.maneater.foundation.nosql.entity.PropertyProduct;
 import com.maneater.foundation.repsitory.ProductJpaRepository;
 import com.maneater.foundation.repsitory.PropertyProductJpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -67,6 +68,30 @@ public class ProductService {
     public Product findByCode(String productCode) {
         List<Product> productList = productJpaRepository.findByCode(productCode);
         return productList != null ? productList.get(0) : null;
+    }
+
+    public PropertyProduct findPropertyProductByCode(String productCode) {
+        PropertyProduct propertyProduct = null;
+        Product product = findByCode(productCode);
+        if (product != null) {
+            if (product.getCode().equals(productCode)) {
+                propertyProduct = new PropertyProduct();
+                propertyProduct.setProductCode(productCode);
+                propertyProduct.setEffectPicUrl(product.getEffectPicUrl());
+                propertyProduct.setProduct(product);
+                propertyProduct.setProductPrice(product.getPrice());
+                propertyProduct.setPropertyPicUrl(product.getDescDetail());
+                //TODO other
+            } else if (!CollectionUtils.isEmpty(product.getPropertyProductList())) {
+                for (PropertyProduct curPor : product.getPropertyProductList()) {
+                    if (curPor.getProductCode().equals(productCode)) {
+                        return curPor;
+                    }
+                }
+
+            }
+        }
+        return propertyProduct;
     }
 
 }

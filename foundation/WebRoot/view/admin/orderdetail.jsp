@@ -49,9 +49,9 @@
                     <c:forEach var="item" items="${order.orderItemList}" varStatus="status">
                         <tr>
                             <td>${status.index+1}</td>
-                            <td style="border-right: none;"><a target="_blank" href="${appPath}/admin/furniture/show?code=${item.productCode}">${item.product.name}</a></td>
+                            <td style="border-right: none;"><a target="_blank" href="${appPath}/admin/furniture/show?code=${item.productCode}">${item.propertyProduct.product.name}</a></td>
                             <td style="border-left: none;"><img
-                                    src="${appPath}/${dirUpload}/${item.product.thumbnailPicture}"
+                                    src="${appPath}/${dirUpload}/${item.propertyProduct.product.thumbnailPicture}"
                                     style="width: 60px;"/></td>
                             <td>${item.productCode}</td>
                             <td>${item.qyt}</td>

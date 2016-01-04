@@ -103,8 +103,8 @@
 								<c:forEach var="item" items="${order.orderItemList}" varStatus="status">
 								<tr>
 									<td>${status.index+1}</td>
-									<td width="120" style="border-right: none;">${item.product.name}</td>
-									<td width="80" style="border-left: none;"><img src="${appPath}/${dirUpload}/${item.product.thumbnailPicture}" style="width: 60px;" /></td>
+									<td width="120" style="border-right: none;">${item.propertyProduct.product.name}</td>
+									<td width="80" style="border-left: none;"><img src="${appPath}/${dirUpload}/${item.propertyProduct.product.thumbnailPicture}" style="width: 60px;" /></td>
 									<td>${item.productCode}<input type="hidden" name="addInfoList[${status.index}].productCode" value="${item.productCode}"/></td>
 									<td><input type="number" name="addInfoList[${status.index}].qyt" value="${item.qyt}" placeholder="0"/></td>
 									<td align="center"><input id="summary_check1" res="${item.price }" name="addInfoList[${status.index}].checked" value="1" type="checkbox" checked="checked" /></td>
