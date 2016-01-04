@@ -25,15 +25,20 @@ public class Product extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Column(length = 500)
+    @Column(length = 2000)
     private String thumbnailPicture;
-    @Column(length = 500)
+    @Column(length = 2000)
     private String detailPicture;
 
     @Column(length = 2000)
     private String descBasic;
     @Column(length = 2000)
     private String descDetail;
+
+
+    @Column(length = 2000)
+    /***  绘图里用 */
+    private String effectPicUrl;
 
     //基础size
     private String width;
@@ -152,6 +157,19 @@ public class Product extends BaseEntity {
         this.price = price;
     }
 
+    public String getEffectPicUrl() {
+        return effectPicUrl;
+    }
+
+    public void setEffectPicUrl(String effectPicUrl) {
+        this.effectPicUrl = effectPicUrl;
+    }
+
+
+    /**
+     * @param productCode
+     * @return
+     */
     public Double getPriceByCode(String productCode) {
         if (productCode.equals(this.code)) {
             return this.price;
@@ -163,5 +181,42 @@ public class Product extends BaseEntity {
             }
         }
         return this.price;
+    }
+
+    /**
+     * 获取指定code的产品效果图，绘图里用
+     *
+     * @param productCode
+     * @return
+     */
+    public String getEffectPicUrlByCode(String productCode) {
+        String effectPicUrl = this.effectPicUrl;
+        if (!productCode.equals(this.code) && this.propertyProductList != null) {
+            for (PropertyProduct propertyProduct : this.propertyProductList) {
+                if (propertyProduct.equals(propertyProduct)) {
+                    return propertyProduct.getEffectPicUrl();
+                }
+            }
+        }
+        return effectPicUrl;
+    }
+
+
+    /**
+     * 获取指定code的产品详情图
+     *
+     * @param productCode
+     * @return
+     */
+    public String getDetailPictureByCode(String productCode) {
+        String detailPicture = this.detailPicture;
+        if (!productCode.equals(this.code) && this.propertyProductList != null) {
+            for (PropertyProduct propertyProduct : this.propertyProductList) {
+                if (propertyProduct.equals(propertyProduct)) {
+                    return propertyProduct.getProductPicUrl();
+                }
+            }
+        }
+        return detailPicture;
     }
 }
