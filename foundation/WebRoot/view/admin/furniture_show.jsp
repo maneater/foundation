@@ -85,7 +85,7 @@
                                    value="${item.thumbnailPicture}"
                                    name="thumbnailPicture">
                             <span class="input-group-btn">
-                                <button id="btnChooseThumbnailPicture" type="button" class="btn btn-primary">select
+                                <button onclick="return selectPicUrl('thumbnailPicture','${dirFurnitureThumbnail}','thumbnailPictureImg');" type="button" class="btn btn-primary">select
                                 </button>
                             </span>
                         </div>
@@ -100,7 +100,7 @@
                             <input id="detailPicture" type="text" class="form-control" name="detailPicture"
                                    value="${item.detailPicture}">
                         <span class="input-group-btn">
-                            <button id="btnChooseDetailPicture" type="button"
+                            <button onclick="return selectPicUrl('detailPicture','${dirFurnitureDetail}','detailPictureImg');" type="button"
                                     class="btn btn-primary ">select
                             </button>
                         </span>
@@ -440,36 +440,7 @@
     }
 
     var appPath = '${appPath}';
-    var chooseDetail = false;
-
-    var picPathTarget = null;
-    var picShowTarget = null;
-
-    function selectPicUrl(pathTarget, filePath, showTarget) {
-        console.info(pathTarget);
-
-        picPathTarget = pathTarget;
-        picShowTarget = showTarget;
-
-        $("#chooseTitle").html("Choose Picture");
-        $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=' + filePath);
-        $("#chooseModal").modal('show');
-    }
-
     $().ready(function () {
-
-        $("#btnChooseThumbnailPicture").bind("click", function () {
-            chooseDetail = false;
-            $("#chooseTitle").html("Choose Thumbnail");
-            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=${dirFurnitureThumbnail}');
-            $("#chooseModal").modal('show');
-        });
-        $("#btnChooseDetailPicture").bind("click", function () {
-            $("#chooseTitle").html("Choose Detail");
-            chooseDetail = true;
-            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=${dirFurnitureDetail}');
-            $("#chooseModal").modal('show');
-        });
 
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
@@ -485,22 +456,31 @@
         });
     });
 
+
+    var picPathTarget = null;
+    var picShowTarget = null;
+    function selectPicUrl(pathTargetId, filePath, showTargetId) {
+        console.info(pathTargetId);
+
+        picPathTarget = $("#" + pathTargetId);
+        picShowTarget = $("#" + showTargetId);
+
+        $("#chooseTitle").html("Choose Picture");
+        $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=' + filePath);
+        $("#chooseModal").modal('show');
+        return ;
+    }
     function useUpload(filePath) {
         $("#chooseModal").modal('hide');
         if (picPathTarget != null) {
-            <%--$(picPathTarget).attr("src", appPath + "/${dirUpload}/" + filePath);--%>
-            $(picPathTarget).val(filePath);
+            picPathTarget.val(filePath);
             picPathTarget = null;
-            return;
         }
-
-        if (chooseDetail) {
-            $("#detailPictureImg").attr("src", appPath + "/${dirUpload}/" + filePath);
-            $("#detailPicture").val(filePath);
-        } else {
-            $("#thumbnailPictureImg").attr("src", appPath + "/${dirUpload}/" + filePath);
-            $("#thumbnailPicture").val(filePath);
+        if (picShowTarget != null) {
+            picShowTarget.attr("src", appPath + "/${dirUpload}/" + filePath);
+            picShowTarget = null;
         }
+        return;
     }
 
 </script>

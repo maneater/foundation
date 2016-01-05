@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class PropertyProduct extends BaseEntity {
 
     @JsonBackReference
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id")
     private Product product;
 

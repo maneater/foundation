@@ -46,10 +46,12 @@ public class ProductController {
 
         if (product == null) {
             model.addAttribute("rs", Result.result(0, "can not find ", null));
+        } else {
+            model.addAttribute("category", productCategoryService.findById(product.getCategoryId()));
         }
+
         model.addAttribute("isAdd", false);
         model.addAttribute("graphModel", product);
-        model.addAttribute("category", productCategoryService.findById(product.getCategoryId()));
         return "/admin/furniture_show";
     }
 

@@ -40,9 +40,9 @@ public class ProductService {
     }
 
     public Product save(Product product) {
+        propertyProductJpaRepository.deleteByProductId(product.getId());
         checkExpandProduct(product);
         //全量更新，删除已有的，保存新的
-        propertyProductJpaRepository.deleteByProductId(product.getId());
         return productJpaRepository.save(product);
     }
 
