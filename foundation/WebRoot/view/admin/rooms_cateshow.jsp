@@ -62,16 +62,28 @@
                     </div>
                 </c:if>
 
-                <div class="form-group col-sm-12 ">
+                <div class="form-group col-sm-12">
                     <label for="picUrl" class="control-label  col-sm-2">Picture</label>
 
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input id="itemPicUrl" type="text" class="form-control" name="picUrl"
+                                   value="${item.picUrl}">
+                        <span class="input-group-btn">
+                            <input type="button" id="picUrl"
+                                   onclick="return selectPicUrl('itemPicUrl','${dirRoomCatePic}','itemImg');"
+                                   class="btn btn-primary " value="select picture"></button>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <label for="itemImg" class="control-label  col-sm-2"> </label>
+                    <div class="col-sm-8">
                         <img id="itemImg" src="${appPath}/${dirUpload}/${item.picUrl}" alt=""
                              style="width: 150px;height:150px;"
                              class="img-rounded"/>
-                        <input id="btnChoosePicture" type="button" id="picUrl"
-                               class="btn btn-sm btn-primary form-inline" value="change picture"></button>
-                        <input id="itemPicUrl" type="hidden" name="picUrl" value="${item.picUrl}">
                     </div>
                 </div>
 
@@ -138,7 +150,7 @@
 </div>
 <!-- /.modal -->
 
-<div class="modal fade" style="" id="choosePictureModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" style="" id="chooseModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" style="width: 80%;height: 80%;">
         <div class="modal-content" id="chooseContent" style="height: 100%;">
             <div class="modal-body" style="height: 90%;">
@@ -162,15 +174,6 @@
     var appPath = '${appPath}';
 
     $().ready(function () {
-
-        $("#btnChoosePicture").bind("click", function () {
-            $("#choosePictureModal").modal('show');
-            $("#iframe").attr("src", '${appPath}/admin/upload?filePath=${dirRoomCatePic}');
-            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
-
-            <%--});--%>
-        });
-
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
             var btnCancel = $("#btnCancel").button('loading');
@@ -185,10 +188,30 @@
         });
     });
 
+    var picPathTarget = null;
+    var picShowTarget = null;
+    function selectPicUrl(pathTargetId, filePath, showTargetId) {
+        console.info(pathTargetId);
+
+        picPathTarget = $("#" + pathTargetId);
+        picShowTarget = $("#" + showTargetId);
+
+        $("#chooseTitle").html("Choose Picture");
+        $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=' + filePath);
+        $("#chooseModal").modal('show');
+        return ;
+    }
     function useUpload(filePath) {
-        $("#itemImg").attr("src", appPath + "/upload/" + filePath);
-        $("#itemPicUrl").val(filePath);
-        $("#choosePictureModal").modal('hide');
+        $("#chooseModal").modal('hide');
+        if (picPathTarget != null) {
+            picPathTarget.val(filePath);
+            picPathTarget = null;
+        }
+        if (picShowTarget != null) {
+            picShowTarget.attr("src", appPath + "/${dirUpload}/" + filePath);
+            picShowTarget = null;
+        }
+        return;
     }
 
 </script>

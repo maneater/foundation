@@ -17,14 +17,17 @@ public class StartUpListener implements ServletContextListener {
         Config.FILE_UPLOAD_REAL_DIR_PATH = Config.REAL_PATH + Config.FILE_UPLOAD_DIR_NAME;
 
         FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM);
-        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_MODEL);
-        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_CATE_PIC);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM_EFFECT);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_ROOM_CATE_PIC);
 
 
         FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE);
-        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_MODEL);
-        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_CATE_PIC);
-        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_PROPERTY_PIC);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE_THUMBNAIL);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE_DETAIL);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE_EFFECT);
+
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE_PROPERTY_PIC);
+        FileUtil.createDir(Config.REAL_PATH, Config.FILE_UPLOAD_DIR_NAME + "/" + Config.FILE_PATH_FURNITURE_CATE_PIC);
 
     }
 

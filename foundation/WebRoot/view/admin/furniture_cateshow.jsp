@@ -83,6 +83,7 @@
                              style="width: 150px;height:150px;"
                              class="img-rounded"/>
                         <input id="btnChoosePicture" type="button" id="picUrl"
+                               onclick="return selectPicUrl('itemPicUrl','${dirFurnitureCatePic}','itemImg');"
                                class="btn btn-sm btn-primary form-inline" value="change picture"></button>
                         <input id="itemPicUrl" type="hidden" name="picUrl" value="${item.picUrl}">
                     </div>
@@ -177,7 +178,7 @@
 </div>
 <!-- /.modal -->
 
-<div class="modal fade" style="" id="choosePictureModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" style="" id="chooseModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" style="width: 80%;height: 80%;">
         <div class="modal-content" id="chooseContent" style="height: 100%;">
             <div class="modal-body" style="height: 90%;">
@@ -201,15 +202,6 @@
     var appPath = '${appPath}';
 
     $().ready(function () {
-
-        $("#btnChoosePicture").bind("click", function () {
-            $("#choosePictureModal").modal('show');
-            $("#iframe").attr("src", '${appPath}/admin/upload?filePath=${dirFurnitureCatePic}');
-            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
-
-            <%--});--%>
-        });
-
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
             var btnCancel = $("#btnCancel").button('loading');
@@ -234,12 +226,31 @@
         });
     });
 
-    function useUpload(filePath) {
-        $("#itemImg").attr("src", appPath + "/upload/" + filePath);
-        $("#itemPicUrl").val(filePath);
-        $("#choosePictureModal").modal('hide');
-    }
+    var picPathTarget = null;
+    var picShowTarget = null;
+    function selectPicUrl(pathTargetId, filePath, showTargetId) {
+        console.info(pathTargetId);
 
+        picPathTarget = $("#" + pathTargetId);
+        picShowTarget = $("#" + showTargetId);
+
+        $("#chooseTitle").html("Choose Picture");
+        $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=' + filePath);
+        $("#chooseModal").modal('show');
+        return ;
+    }
+    function useUpload(filePath) {
+        $("#chooseModal").modal('hide');
+        if (picPathTarget != null) {
+            picPathTarget.val(filePath);
+            picPathTarget = null;
+        }
+        if (picShowTarget != null) {
+            picShowTarget.attr("src", appPath + "/${dirUpload}/" + filePath);
+            picShowTarget = null;
+        }
+        return;
+    }
 </script>
 
 </body>

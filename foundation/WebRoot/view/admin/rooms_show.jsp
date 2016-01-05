@@ -63,26 +63,54 @@
                     </div>
                 </c:if>
 
-                <div class="form-group col-sm-12 ">
-                    <label for="picUrl" class="control-label  col-sm-2">Picture</label>
-
-                    <div class="col-sm-9">
+                <div class="form-group col-sm-6 ">
+                    <label for="picUrl" class="control-label  col-sm-4">Picture</label>
+                    <div class="col-sm-8">
                         <div class="input-group">
                             <input id="itemPicUrl" type="text" class="form-control" name="picUrl"
                                    value="${item.picUrl}">
                         <span class="input-group-btn">
-                            <input id="btnChoosePicture" type="button" id="picUrl"
+                            <input type="button" id="picUrl"
+                                   onclick="return selectPicUrl('itemPicUrl','${dirRoom}','itemImg');"
                                    class="btn btn-primary " value="select picture"></button>
                         </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-9 col-sm-offset-2">
-                    <img id="itemImg" src="${appPath}/upload/${item.picUrl}" alt=""
-                         style="width: 150px;height:150px;"
-                         class="img-rounded"/>
+                <div class="form-group col-sm-6 ">
+                    <label for="picUrl" class="control-label  col-sm-4">ViewPicture</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input id="itemEffectPic" type="text" class="form-control" name="effectPicUrl"
+                                   value="${item.effectPicUrl}">
+                        <span class="input-group-btn">
+                            <input type="button"
+                                   onclick="return selectPicUrl('itemEffectPic','${dirRoomEffect}','effectImg');"
+                                   class="btn btn-primary " value="select picture"></button>
+                        </span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="form-group col-sm-6 ">
+                    <label for="itemImg" class="control-label  col-sm-4"> </label>
+                    <div class="col-sm-8">
+                        <img id="itemImg" src="${appPath}/${dirUpload}/${item.picUrl}" alt=""
+                             style="width: 150px;height:150px;"
+                             class="img-rounded"/>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6 ">
+                    <label for="itemImg" class="control-label  col-sm-4"> </label>
+                    <div class="col-sm-8">
+                        <img id="effectImg" src="${appPath}/${dirUpload}/${item.effectPicUrl}" alt=""
+                             style="width: 150px;height:150px;"
+                             class="img-rounded"/>
+                    </div>
+                </div>
+
 
                 <%--<div class="form-group col-sm-12 ">--%>
                 <%--<label for="itemModelPath" class="control-label  col-sm-2">Model</label>--%>
@@ -196,26 +224,7 @@
 <script>
 
     var appPath = '${appPath}';
-    var choosePicUrl = false;
-
     $().ready(function () {
-
-        $("#btnChooseModel").bind("click", function () {
-            choosePicUrl = false;
-            $("#chooseTitle").html("Choose Model File");
-            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=sh3d&filePath=${dirRoomModel}');
-            $("#chooseModal").modal('show');
-            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
-            <%--});--%>
-        });
-        $("#btnChoosePicture").bind("click", function () {
-            $("#chooseTitle").html("Choose Model Picture");
-            choosePicUrl = true;
-            $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=${dirRoom}');
-            $("#chooseModal").modal('show');
-            <%--$("#chooseContent").load("${appPath}/admin/upload", function () {--%>
-            <%--});--%>
-        });
 
         $("#btnConfirm").bind("click", function () {
             var btnConfirm = $(this).button('loading');
@@ -231,15 +240,29 @@
         });
     });
 
+    var picPathTarget = null;
+    var picShowTarget = null;
+    function selectPicUrl(pathTargetId, filePath, showTargetId) {
+        console.info(pathTargetId);
+
+        picPathTarget = $("#" + pathTargetId);
+        picShowTarget = $("#" + showTargetId);
+
+        $("#chooseTitle").html("Choose Picture");
+        $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=' + filePath);
+        $("#chooseModal").modal('show');
+    }
     function useUpload(filePath) {
         $("#chooseModal").modal('hide');
-        if (choosePicUrl) {
-            $("#itemImg").attr("src", appPath + "/upload/" + filePath);
-            $("#itemPicUrl").val(filePath);
-            $("#choosePictureModal").modal('hide');
-        } else {
-            $("#itemModelPath").val(filePath);
+        if (picPathTarget != null) {
+            picPathTarget.val(filePath);
+            picPathTarget = null;
         }
+        if (picShowTarget != null) {
+            picShowTarget.attr("src", appPath + "/${dirUpload}/" + filePath);
+            picShowTarget = null;
+        }
+        return;
     }
 
 </script>

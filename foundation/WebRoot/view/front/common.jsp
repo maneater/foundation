@@ -5,31 +5,42 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://foundation/filepath" prefix="fd" %>
-<c:set var="appPath" value="${pageContext.request.contextPath}"/>
-<c:set var="pathSplit" value="/"/>
 <%
     request.setAttribute("appName", Config.APP_NAME);
-    if (session != null) {
-        request.setAttribute("sessionUser", session.getAttribute(Config.SESSION_KEY_USER));
-    }
-    request.setAttribute("appName", Config.APP_NAME);
+
+    //图片目录
     request.setAttribute("dirUpload", Config.FILE_UPLOAD_DIR_NAME);
 
+    //房屋主图
     request.setAttribute("dirRoom", Config.FILE_PATH_ROOM);
-    request.setAttribute("dirRoomModel", Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_MODEL);
-    request.setAttribute("dirRoomCatePic", Config.FILE_PATH_ROOM + "/" + Config.FILE_PATH_ROOM_CATE_PIC);
+    //房屋效果底图
+    request.setAttribute("dirRoomEffect", Config.FILE_PATH_ROOM_EFFECT);
+    //房屋分类图
+    request.setAttribute("dirRoomCatePic", Config.FILE_PATH_ROOM_CATE_PIC);
 
-    request.setAttribute("dirFurniture", Config.FILE_PATH_FURNITURE);
-    request.setAttribute("dirFurnitureModel", Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_MODEL);
-    request.setAttribute("dirFurnitureCatePic", Config.FILE_PATH_FURNITURE + "/" + Config.FILE_PATH_FURNITURE_CATE_PIC);
+    //分类
+    request.setAttribute("dirFurnitureCatePic", Config.FILE_PATH_FURNITURE_CATE_PIC);
+    //详情
+    request.setAttribute("dirFurnitureDetail", Config.FILE_PATH_FURNITURE_DETAIL);
+    //缩略
+    request.setAttribute("dirFurnitureThumbnail", Config.FILE_PATH_FURNITURE_THUMBNAIL);
+    //效果
+    request.setAttribute("dirFurnitureEffect", Config.FILE_PATH_FURNITURE_EFFECT);
+    //属性图
+    request.setAttribute("dirFurnitureProperty", Config.FILE_PATH_FURNITURE_PROPERTY_PIC);
 %>
+<c:set var="appPath" value="${pageContext.request.contextPath}"/>
+<c:set var="pathSplit" value="/"/>
+
 <c:set var="appName" value="${appName}"/>
 <c:set var="dirUpload" value="${dirUpload}"/>
 
 <c:set var="dirRoom" value="${dirRoom}"/>
-<c:set var="dirRoomModel" value="${dirRoomModel}"/>
+<c:set var="dirRoomEffect" value="${dirRoomCatePic}"/>
 <c:set var="dirRoomCatePic" value="${dirRoomCatePic}"/>
 
-<c:set var="dirFurniture" value="${dirFurniture}"/>
-<c:set var="dirFurnitureModel" value="${dirFurnitureModel}"/>
 <c:set var="dirFurnitureCatePic" value="${dirFurnitureCatePic}"/>
+<c:set var="dirFurnitureDetail" value="${dirFurnitureDetail}"/>
+<c:set var="dirFurnitureThumbnail" value="${dirFurnitureThumbnail}"/>
+<c:set var="dirFurnitureEffect" value="${dirFurnitureEffect}"/>
+<c:set var="dirFurnitureProperty" value="${dirFurnitureProperty}"/>

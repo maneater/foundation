@@ -17,14 +17,17 @@ public class Config {
     public static String FILE_UPLOAD_REAL_DIR_PATH = "";
 
     public static String FILE_PATH_ROOM = "room";
-    @Deprecated
-    public static String FILE_PATH_ROOM_MODEL = "model";
-    public static String FILE_PATH_ROOM_CATE_PIC = "catepic";
+    public static String FILE_PATH_ROOM_EFFECT = "room/effect";
+    public static String FILE_PATH_ROOM_CATE_PIC = "room/catepic";
 
     public static String FILE_PATH_FURNITURE = "furniture";
-    public static String FILE_PATH_FURNITURE_MODEL = "model";
-    public static String FILE_PATH_FURNITURE_PROPERTY_PIC = "property";
-    public static String FILE_PATH_FURNITURE_CATE_PIC = "catepic";
+    public static String FILE_PATH_FURNITURE_THUMBNAIL = "furniture/thumbnail";
+    public static String FILE_PATH_FURNITURE_DETAIL = "furniture/detail";
+    public static String FILE_PATH_FURNITURE_EFFECT = "furniture/effect";
+
+    public static String FILE_PATH_FURNITURE_PROPERTY_PIC = "furniture/property";
+    public static String FILE_PATH_FURNITURE_CATE_PIC = "furniture/catepic";
+
     public static String DEFAULT_ADMIN_NAME = "admin";
     public static String DEFAULT_ADMIN_PASSWORD = "@dmin";
 }
