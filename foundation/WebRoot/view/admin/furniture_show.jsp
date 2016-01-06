@@ -76,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="form-group col-sm-6 ">
+                <div class="form-group col-sm-4 ">
                     <label for="thumbnailPicture" class="control-label col-sm-4">thumbnail</label>
 
                     <div class="col-sm-8">
@@ -85,41 +85,37 @@
                                    value="${item.thumbnailPicture}"
                                    name="thumbnailPicture">
                             <span class="input-group-btn">
-                                <button onclick="return selectPicUrl('thumbnailPicture','${dirFurnitureThumbnail}','thumbnailPictureImg');" type="button" class="btn btn-primary">select
+                                <button onclick="return selectPicUrl('thumbnailPicture','${dirFurnitureThumbnail}','thumbnailPictureImg');"
+                                        type="button" class="btn btn-primary">select
                                 </button>
                             </span>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group col-sm-6 ">
-                    <label for="detailPicture" class="control-label col-sm-4">detailPicture</label>
-
-                    <div class="col-sm-8">
-                        <div class="input-group">
-                            <input id="detailPicture" type="text" class="form-control" name="detailPicture"
-                                   value="${item.detailPicture}">
-                        <span class="input-group-btn">
-                            <button onclick="return selectPicUrl('detailPicture','${dirFurnitureDetail}','detailPictureImg');" type="button"
-                                    class="btn btn-primary ">select
-                            </button>
-                        </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-6 ">
                     <label for="thumbnailPicture" class="control-label  col-sm-4"> </label>
-
                     <div class="col-sm-8">
                         <img id="thumbnailPictureImg" src="${appPath}/${dirUpload}/${item.thumbnailPicture}" alt=""
                              style="width: 150px;height:150px;"
                              class="img-rounded"/>
                     </div>
+
                 </div>
 
+                <div class="form-group col-sm-4 ">
+                    <label for="detailPicture" class="control-label col-sm-4">detailPicture</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input id="detailPicture" type="text" class="form-control" name="detailPicture"
+                                   value="${item.detailPicture}">
+                        <span class="input-group-btn">
+                            <button onclick="return selectPicUrl('detailPicture','${dirFurnitureDetail}','detailPictureImg');"
+                                    type="button"
+                                    class="btn btn-primary ">select
+                            </button>
+                        </span>
+                        </div>
+                    </div>
 
-                <div class="form-group col-sm-6 ">
                     <label for="detailPictureImg" class="control-label  col-sm-4"> </label>
 
                     <div class="col-sm-8">
@@ -127,7 +123,36 @@
                              style="width: 150px;height:150px;"
                              class="img-rounded"/>
                     </div>
+
                 </div>
+
+                <div class="form-group col-sm-4 ">
+                    <label for="effectPicUrl" class="control-label col-sm-4">viewPicture</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input id="effectPicUrl" type="text" class="form-control" name="effectPicUrl"
+                                   value="${item.effectPicUrl}">
+                        <span class="input-group-btn">
+                            <button onclick="return selectPicUrl('effectPicUrl','${dirFurnitureEffect}','effectPictureImg');"
+                                    type="button"
+                                    class="btn btn-primary ">select
+                            </button>
+                        </span>
+                        </div>
+                    </div>
+
+                    <label for="effectPictureImg" class="control-label  col-sm-4"> </label>
+
+                    <div class="col-sm-8">
+                        <img id="effectPictureImg" src="${appPath}/${dirUpload}/${item.effectPicUrl}" alt=""
+                             style="width: 150px;height:150px;"
+                             class="img-rounded"/>
+                    </div>
+                </div>
+
+
+
 
                 <div class="form-group col-sm-12 ">
                     <label for="descBasic" class="control-label col-sm-2">descBasic</label>
@@ -250,6 +275,7 @@
 
                             <th>ProductCode</th>
                             <th>ProductPic</th>
+                            <th>ProductViewPic</th>
                             <th>ProductPrice</th>
 
                             <th>
@@ -273,11 +299,12 @@
                                            name="propertyProductList[${propertyStatus.index}].propertyInfo"
                                            value="${propertyProduct.propertyInfo}"/></td>
                                 <td class="col-sm-2">
-                                    <div class="input-group"><input type="text" class="form-control"
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="propertyPicUrl${propertyStatus.index}"
                                                                     value="${propertyProduct.propertyPicUrl}"
                                                                     name="propertyProductList[${propertyStatus.index}].propertyPicUrl"><span
                                             class="input-group-btn"><button type="button" class="btn btn-primary"
-                                                                            onclick="return selectPicUrl(this.parentNode.parentNode.childNodes[0],'${dirFurnitureProperty}');">
+                                                                            onclick="return selectPicUrl('propertyPicUrl${propertyStatus.index}','${dirFurnitureProperty}');">
                                         select
                                     </button></span></div>
                                 </td>
@@ -290,12 +317,12 @@
 
                                 <td class="col-sm-2">
                                     <div class="input-group">
-                                        <input class="form-control" type="text" data-value="productPicUrl"
+                                        <input class="form-control" type="text" id="productPicUrl${propertyStatus.index}"
                                                name="propertyProductList[${propertyStatus.index}].productPicUrl"
                                                value="${propertyProduct.productPicUrl}"/>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-primary"
-                                                    onclick="return selectPicUrl(this.parentNode.parentNode.childNodes[1],'${dirFurnitureDetail}');">
+                                                    onclick="return selectPicUrl('productPicUrl${propertyStatus.index}','${dirFurnitureDetail}');">
                                                 select
                                             </button>
                                         </span>
@@ -304,12 +331,12 @@
 
                                 <td class="col-sm-2">
                                     <div class="input-group">
-                                        <input class="form-control" type="text" data-value="effectPicUrl"
+                                        <input class="form-control" type="text" id="effectPicUrl${propertyStatus.index}"
                                                name="propertyProductList[${propertyStatus.index}].effectPicUrl"
                                                value="${propertyProduct.effectPicUrl}"/>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-primary"
-                                                    onclick="return selectPicUrl(this.parentNode.parentNode.childNodes[1],'${dirFurnitureEffect}');">
+                                                    onclick="return selectPicUrl('effectPicUrl${propertyStatus.index}','${dirFurnitureEffect}');">
                                                 select
                                             </button>
                                         </span>
@@ -423,11 +450,11 @@
         tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"propertyName\"  name=\"propertyProductList[" + trSize + "].propertyName\" value=\"" + name + "\" required=\"true\"/></td>");
         tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"propertyValue\"  name=\"propertyProductList[" + trSize + "].propertyValue\" value=\"" + value + "\"/></td>");
         tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"propertyInfo\"  name=\"propertyProductList[" + trSize + "].propertyInfo\" value=\"" + info + "\"/></td>");
-        tr.append("<td class=\"col-sm-2\"><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value=\"\" name=\"propertyProductList[" + trSize + "].propertyPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl(this.parentNode.parentNode.childNodes[0],'${dirFurnitureProperty}');\">select</button></span></div></td>");
+        tr.append("<td class=\"col-sm-2\"><div class=\"input-group\"><input id=\"propertyPicUrl" + trSize + "\" type=\"text\" class=\"form-control\" value=\"\" name=\"propertyProductList[" + trSize + "].propertyPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl('propertyPicUrl" + trSize + "','${dirFurnitureProperty}');\">select</button></span></div></td>");
 
         tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"productCode\"  name=\"propertyProductList[" + trSize + "].productCode\" value=\"\"/></td>");
-//        tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"productPicUrl\"  name=\"propertyProductList[" + trSize + "].productPicUrl\" value=\"\"/></td>");
-        tr.append("<td class=\"col-sm-2\"><div class=\"input-group\"><input type=\"text\" class=\"form-control\" value=\"\" name=\"propertyProductList[" + trSize + "].productPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl(this.parentNode.parentNode.childNodes[0],'${dirFurnitureDetail}');\">select</button></span></div></td>");
+        tr.append("<td class=\"col-sm-2\"><div class=\"input-group\"><input id=\"productPicUrl" + trSize + "\" type=\"text\" class=\"form-control\" value=\"\" name=\"propertyProductList[" + trSize + "].productPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl('productPicUrl" + trSize + "','${dirFurnitureDetail}');\">select</button></span></div></td>");
+        tr.append("<td class=\"col-sm-2\"><div class=\"input-group\"><input id=\"effectPicUrl" + trSize + "\" type=\"text\" class=\"form-control\" value=\"\" name=\"propertyProductList[" + trSize + "].effectPicUrl\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"return selectPicUrl('effectPicUrl" + trSize + "','${dirFurnitureEffect}');\">select</button></span></div></td>");
         tr.append("<td><input class=\"form-control\" type=\"text\"  data-value=\"productPrice\"  name=\"propertyProductList[" + trSize + "].productPrice\" value=\"" + price + "\"/></td>");
 
         tr.append("<td><button onclick='return deletePropertyRT(this);'>delete</button></td>");
@@ -468,7 +495,7 @@
         $("#chooseTitle").html("Choose Picture");
         $("#iframe").attr("src", '${appPath}/admin/upload?fileType=img&filePath=' + filePath);
         $("#chooseModal").modal('show');
-        return ;
+        return;
     }
     function useUpload(filePath) {
         $("#chooseModal").modal('hide');
