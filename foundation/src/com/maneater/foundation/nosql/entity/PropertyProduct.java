@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class PropertyProduct extends BaseEntity {
 
     @JsonBackReference
-    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -29,7 +29,7 @@ public class PropertyProduct extends BaseEntity {
     @Column(length = 2000)
     private String effectPicUrl;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String productCode;
     //属性产品对应的详情图，与Product 里 detailPicture对等
     private String productPicUrl;
